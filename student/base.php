@@ -5,7 +5,6 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=Edge">
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-    <title>Vehicle Registeration Form</title>
     <!-- Favicon-->
     <link rel="icon" href="favicon.ico" type="image/x-icon">
 
@@ -14,31 +13,31 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" type="text/css">
 
     <!-- Bootstrap Core Css -->
-    <link href="plugins/bootstrap/css/bootstrap.css" rel="stylesheet">
+    <link href="../plugins/bootstrap/css/bootstrap.css" rel="stylesheet">
 
     <!-- Waves Effect Css -->
-    <link href="plugins/node-waves/waves.css" rel="stylesheet" />
+    <link href="../plugins/node-waves/waves.css" rel="stylesheet" />
 
     <!-- Animation Css -->
-    <link href="plugins/animate-css/animate.css" rel="stylesheet" />
+    <link href="../plugins/animate-css/animate.css" rel="stylesheet" />
 
     <!-- Morris Chart Css-->
-    <link href="plugins/morrisjs/morris.css" rel="stylesheet" />
+    <link href="../plugins/morrisjs/morris.css" rel="stylesheet" />
 
     <!-- Bootstrap Material Datetime Picker Css -->
-    <link href="plugins/bootstrap-material-datetimepicker/css/bootstrap-material-datetimepicker.css" rel="stylesheet" />
+    <link href="../plugins/bootstrap-material-datetimepicker/css/bootstrap-material-datetimepicker.css" rel="stylesheet" />
 
     <!-- Wait Me Css -->
-    <link href="plugins/waitme/waitMe.css" rel="stylesheet" />
+    <link href="../plugins/waitme/waitMe.css" rel="stylesheet" />
 
     <!-- Bootstrap Select Css -->
-    <link href="plugins/bootstrap-select/css/bootstrap-select.css" rel="stylesheet" />
+    <link href="../plugins/bootstrap-select/css/bootstrap-select.css" rel="stylesheet" />
 
     <!-- Custom Css -->
-    <link href="css/style.css" rel="stylesheet">
+    <link href="../css/style.css" rel="stylesheet">
 
     <!-- AdminBSB Themes. You can choose a theme from css/themes instead of get all themes -->
-    <link href="css/themes/all-themes.css" rel="stylesheet" />
+    <link href="../css/themes/all-themes.css" rel="stylesheet" />
 </head>
 
 <body class="theme-indigo">
@@ -85,7 +84,7 @@
             <!-- User Info -->
             <div class="user-info">
                 <div class="image">
-                    <img src="images/user.png" width="48" height="48" alt="User" />
+                    <img src="../images/user.png" width="48" height="48" alt="User" />
                 </div>
                 <div class="info-container">
                     <div class="name" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Lorem Ipsum</div>
@@ -109,30 +108,30 @@
             <div class="menu">
                 <ul class="list">
                     <li class="header">MAIN NAVIGATION</li>
-                    <li class="active">
-                        <a href="Index.html">
+                    <li>
+                        <a href="index.php">
                             <i class="material-icons">home</i>
                             <span>Home</span>
                         </a>
                     </li>
-                        <a href="vehicle_registeration.html">
+                        <a href="vehicle_registeration.php">
                             <i class="material-icons">assignment</i>
                             <span>Vehicle Registeration Form</span>
                         </a>
                     <li>
-                        <a href="Night.html">
+                        <a href="night.html">
                             <i class="material-icons">assignment</i>
                             <span>Night Out Form</span>
                         </a>
                     </li>
                     <li>
-                        <a href="Checklist.html">
+                        <a href="checklist.php">
                             <i class="material-icons">assignment</i>
                             <span>Room Amenities</span>
                         </a>
                     </li>
                     <li>
-                        <a href="Medical.html">
+                        <a href="medical.php">
                             <i class="material-icons">assignment</i>
                             <span>Medical Form</span>
                         </a>
@@ -165,128 +164,6 @@
         </aside>
         <!-- #END# Left Sidebar -->
     </section>
-    <section class="content">
-        <div class="container-fluid">
-            <div class="row clearfix">
-                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                    <div class="card">
-                        <div class="body table-responsive">
-                            <div class="header">
-                                <h2>Vehicle Registeration Form</h2>
-                            </div>
-                            <br>
-                            <form method="POST" action="#">
-                                <div class="row clearfix">
-                                    <div class="col-sm-6 col-md-6">
-                                        <div class="form-group">
-                                            <div class="form-line">
-                                                <label for="brand">Brand</label>
-                                                <input type="text" id="brand" class="form-control" placeholder="" />
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row clearfix">
-                                    <div class="col-sm-6">
-                                        <div class="form-group">
-                                            <div class="form-line">
-                                                <label for="reg_id">Registeration Number</label>
-                                                <input type="text" id="reg_id" class="form-control" placeholder="" />
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-6">
-                                        <div class="form-group">
-                                            <div class="form-line">
-                                                <label for="driving_license">Driving License Number</label>
-                                                <input type="text" id="driving_license" class="form-control" placeholder="" />
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row clearfix">
-                                        <div class="col-sm-6">
-                                            <div class="form-group">
-                                                <div class="input-group">
-                                                    <span class="input-group-addon">
-                                                        <i class="material-icons">date_range</i>
-                                                    </span>
-                                                    <div class="form-line">
-                                                        <label for="license_issue">License Issue Date</label>
-                                                        <input type="text" id="reg_id" class="datepicker form-control" placeholder="Pick a date" /> 
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-6">
-                                            <div class="form-group">
-                                                <div class="input-group">
-                                                    <span class="input-group-addon">
-                                                        <i class="material-icons">date_range</i>
-                                                    </span>
-                                                    <div class="form-line">
-                                                        <label for="license_validity">License Validity</label>
-                                                        <input type="text" id="license_validity" class="timepicker form-control" placeholder="Pick a time" />
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                </div>
-                                <div class="row clearfix">
-                                        <div class="col-sm-6">
-                                            <div class="form-group">
-                                                <div class="form-line">
-                                                    <label for="insurance_comp">Insurance Company</label>
-                                                    <input type="text" id="insurance_comp" class="form-control" placeholder="" />
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-6">
-                                            <div class="form-group">
-                                                <div class="form-line">
-                                                    <label for="insurance_policy">Insurance Policy Number</label>
-                                                    <input type="text" id="insurance_policy" class="form-control" placeholder="" />
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row clearfix">
-                                            <div class="col-sm-6">
-                                                <div class="form-group">
-                                                    <div class="input-group">
-                                                        <span class="input-group-addon">
-                                                            <i class="material-icons">date_range</i>
-                                                        </span>
-                                                        <div class="form-line">
-                                                            <label for="policy_issue">Policy Issue Date</label>
-                                                            <input type="text" id="policy_issue" class="datepicker form-control" placeholder="Pick a date" /> 
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-sm-6">
-                                                <div class="form-group">
-                                                    <div class="input-group">
-                                                        <span class="input-group-addon">
-                                                            <i class="material-icons">date_range</i>
-                                                        </span>
-                                                        <div class="form-line">
-                                                            <label for="policy_validity">License Validity</label>
-                                                            <input type="text" id="policy_validity" class="timepicker form-control" placeholder="Pick a time" />
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                    </div>
-                                    <button type="button" class="btn btn-primary m-t-15 waves-effect" style="float: right;">Submit</button>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>        
-
     <div class="modal fade" id="suggestion" tabindex="-1" role="dialog">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -377,35 +254,55 @@
         </div>
     </div>
     <!-- Jquery Core Js -->
-    <script src="plugins/jquery/jquery.min.js"></script>
+    <script src="../plugins/jquery/jquery.min.js"></script>
 
     <!-- Bootstrap Core Js -->
-    <script src="plugins/bootstrap/js/bootstrap.js"></script>
+    <script src="../plugins/bootstrap/js/bootstrap.js"></script>
 
     <!-- Select Plugin Js -->
-    <script src="plugins/bootstrap-select/js/bootstrap-select.js"></script>
+    <script src="../plugins/bootstrap-select/js/bootstrap-select.js"></script>
 
     <!-- Slimscroll Plugin Js -->
-    <script src="plugins/jquery-slimscroll/jquery.slimscroll.js"></script>
+    <script src="../plugins/jquery-slimscroll/jquery.slimscroll.js"></script>
 
     <!-- Waves Effect Plugin Js -->
-    <script src="plugins/node-waves/waves.js"></script>
+    <script src="../plugins/node-waves/waves.js"></script>
+
+    <!-- Jquery CountTo Plugin Js -->
+    <script src="../plugins/jquery-countto/jquery.countTo.js"></script>
+
+    <!-- Morris Plugin Js -->
+    <script src="../plugins/raphael/raphael.min.js"></script>
+    <script src="../plugins/morrisjs/morris.js"></script>
+
+    <!-- ChartJs -->
+    <script src="../plugins/chartjs/Chart.bundle.js"></script>
+
+    <!-- Flot Charts Plugin Js -->
+    <script src="../plugins/flot-charts/jquery.flot.js"></script>
+    <script src="../plugins/flot-charts/jquery.flot.resize.js"></script>
+    <script src="../plugins/flot-charts/jquery.flot.pie.js"></script>
+    <script src="../plugins/flot-charts/jquery.flot.categories.js"></script>
+    <script src="../plugins/flot-charts/jquery.flot.time.js"></script>
+
+    <!-- Sparkline Chart Plugin Js -->
+    <script src="../plugins/jquery-sparkline/jquery.sparkline.js"></script>
 
     <!-- Autosize Plugin Js -->
-    <script src="plugins/autosize/autosize.js"></script>
+    <script src="../plugins/autosize/autosize.js"></script>
 
     <!-- Moment Plugin Js -->
-    <script src="plugins/momentjs/moment.js"></script>
+    <script src="../plugins/momentjs/moment.js"></script>
 
     <!-- Bootstrap Material Datetime Picker Plugin Js -->
-    <script src="plugins/bootstrap-material-datetimepicker/js/bootstrap-material-datetimepicker.js"></script>
+    <script src="../plugins/bootstrap-material-datetimepicker/js/bootstrap-material-datetimepicker.js"></script>
 
     <!-- Custom Js -->
-    <script src="js/admin.js"></script>
-    <script src="js/pages/forms/basic-form-elements.js"></script>
+    <script src="../js/admin.js"></script>
+    <script src="../js/pages/forms/basic-form-elements.js"></script>
 
     <!-- Demo Js -->
-    <script src="js/demo.js"></script>
+    <script src="../js/demo.js"></script>
 </body>
 
 </html>
