@@ -114,10 +114,24 @@
                             <span>Home</span>
                         </a>
                     </li>
+                    <li>
+                        <a href="details.php">
+                            <i class="material-icons">subject</i>
+                            <span>Details</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="profile.php">
+                            <i class="material-icons">person</i>
+                            <span>My Profile</span>
+                        </a>
+                    </li>
+                    <li>
                         <a href="vehicle_registeration.php">
                             <i class="material-icons">assignment</i>
                             <span>Vehicle Registeration Form</span>
                         </a>
+                    </li>
                     <li>
                         <a href="night.html">
                             <i class="material-icons">assignment</i>
@@ -133,7 +147,7 @@
                     <li>
                         <a href="medical.php">
                             <i class="material-icons">assignment</i>
-                            <span>Medical Form</span>
+                            <span>Medical Information Form</span>
                         </a>
                     </li>
                     <li>
@@ -176,8 +190,8 @@
                             <div class="col-12">
                                 <div class="container form-group">
                                     <div class="form-line">
-                                        <label for="category">Category</label>
-                                        <select id="category">
+                                        <label for="category_suggestion">Category</label>
+                                        <select id="category_suggestion">
                                             <option value="housekeeping">Housekeeping</option>
                                             <option value="wifi">Wi-Fi</option>
                                             <option value="plumbing">Plumbing</option>
@@ -202,7 +216,7 @@
                     </form>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-link waves-effect">SAVE CHANGES</button>
+                    <button type="submit" class="btn btn-primary waves-effect">SAVE CHANGES</button>
                     <button type="button" class="btn btn-link waves-effect" data-dismiss="modal">CLOSE</button>
                 </div>
             </div>
@@ -221,8 +235,8 @@
                             <div class="col-12">
                                 <div class="container form-group">
                                     <div class="form-line">
-                                        <label for="category">Category</label>
-                                        <select id="category">
+                                        <label for="category_complaint">Category</label>
+                                        <select id="category_complaint">
                                             <option value="housekeeping">Housekeeping</option>
                                             <option value="wifi">Wi-Fi</option>
                                             <option value="plumbing">Plumbing</option>
@@ -247,7 +261,7 @@
                     </form>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-link waves-effect">SAVE CHANGES</button>
+                    <button type="submit" class="btn btn-primary waves-effect">SAVE CHANGES</button>
                     <button type="button" class="btn btn-link waves-effect" data-dismiss="modal">CLOSE</button>
                 </div>
             </div>

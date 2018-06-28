@@ -53,7 +53,7 @@
                                                     </span>
                                                     <div class="form-line">
                                                         <label for="license_issue">License Issue Date</label>
-                                                        <input type="text" id="reg_id" class="datepicker form-control" placeholder="Pick a date" /> 
+                                                        <input type="text" id="license_issue" class="datepicker form-control" placeholder="Pick a date" /> 
                                                     </div>
                                                 </div>
                                             </div>

@@ -114,6 +114,18 @@
                             <span>Home</span>
                         </a>
                     </li>
+                    <li>
+                        <a data-toggle="modal" data-target="#notice">
+                            <i class="material-icons">event_note</i>
+                            <span>Add Notices</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a data-toggle="modal" data-target="#message">
+                            <i class="material-icons">message</i>
+                            <span>Send Messages</span>
+                        </a>
+                    </li>
                 </ul>
             </div>
             <!-- #Menu -->
@@ -131,6 +143,113 @@
         <!-- #END# Left Sidebar -->
     </section>
     
+    
+    <div class="modal fade" id="notice" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="noticeLabel">Notice</h4>
+                </div>
+                <div class="modal-body">
+                    <form method="POST" action="#">
+                        <div class="row clearfix">
+                            <div class="col-6">
+                                <div class="container form-group">
+                                    <div class="">
+                                        <label for="category">Category</label>
+                                        <select type="category">
+                                            <option>choose</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row clearfix">
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <div class="input-group">
+                                        <span class="input-group-addon">
+                                            <i class="material-icons">date_range</i>
+                                        </span>
+                                        <div class="form-line">
+                                            <label for="date_from">Date From</label>
+                                            <input type="text" id="date_from" class="datepicker form-control" placeholder="Pick a date" /> 
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <div class="input-group">
+                                        <span class="input-group-addon">
+                                            <i class="material-icons">date_range</i>
+                                        </span>
+                                        <div class="form-line">
+                                            <label for="date_to">Date To</label>
+                                            <input type="text" id="date_to" class="datepicker form-control" placeholder="Pick a time" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row clearfix">
+                            <div class="col-12">
+                                <div class="container form-group">
+                                    <div class="form-line">
+                                        <label for="notice_text">Notice</label>
+                                        <input type="text" id="notice_text" class="form-control" placeholder="Enter the notice here" required>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary waves-effect">SAVE CHANGES</button>
+                    <button type="button" class="btn btn-link waves-effect" data-dismiss="modal">CLOSE</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="message" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="messageLabel">Send Message</h4>
+                </div>
+                <div class="modal-body">
+                    <form method="POST" action="#">
+                        <div class="row clearfix">
+                            <div class="col-12">
+                                <div class="container form-group">
+                                    <div class="form-line">
+                                        <label for="room_no">Room Number</label>
+                                        <input type="text" id="room_no" class="form-control" placeholder="Room No" required>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row clearfix">
+                            <div class="col-12">
+                                <div class="container form-group">
+                                    <div class="form-line">
+                                        <label for="message_text">Message</label>
+                                        <input type="text" id="message_text" class="form-control" placeholder="Enter the message here" required>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary waves-effect">SAVE CHANGES</button>
+                    <button type="button" class="btn btn-link waves-effect" data-dismiss="modal">CLOSE</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- Jquery Core Js -->
     <script src="../plugins/jquery/jquery.min.js"></script>
 
