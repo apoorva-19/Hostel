@@ -1,6 +1,20 @@
 <?php
+    session_start();
+    if(!($_SESSION["user"] === "b_warden"))
+    {
+        header("Location:../404.html");
+        exit;
+    }
+
     require_once('base.php');
     require_once('../connect.php');
+
+    $vacant = "SELECT COUNT(`Room_No`) FROM `B_Room` WHERE `Reserved` = 'N';";
+    $reserved = "SELECT COUNT(`Room_No`) FROM `B_Room` WHERE `Reserved` = 'Y';";
+    $res_vacant = mysqli_query($mysqli, $vacant);
+    $res_reserved = mysqli_query($mysqli, $reserved);
+    $row_vacant = $res_vacant->fetch_assoc();
+    $row_reserved = $res_reserved->fetch_assoc();
 ?>
 
 <!DOCTYPE html>
@@ -17,7 +31,7 @@
                         </div>
                         <div class="content">
                             <div class="text">VACANT ROOMS</div>
-                            <div class="number count-to" data-from="0" data-to="4" data-speed="500" data-fresh-interval="20"></div>
+                            <div class="number count-to" data-from="0" data-to="<?php echo $row_vacant["COUNT(`Room_No`)"]; ?>" data-speed="50" data-fresh-interval="20"><?php echo $row_vacant["COUNT(`Room_No`)"]; ?></div>
                         </div>
                     </div>
                 </div>
@@ -28,7 +42,7 @@
                         </div>
                         <div class="content">
                             <div class="text">RESERVED ROOMS</div>
-                            <div class="number count-to" data-from="0" data-to="4" data-speed="500" data-fresh-interval="20"></div>
+                            <div class="number count-to" data-from="0" data-to="<?php echo $row_reserved["COUNT(`Room_No`)"]; ?>" data-speed="50" data-fresh-interval="20"><?php echo $row_reserved["COUNT(`Room_No`)"];?></div>
                         </div>
                     </div>
                 </div>
@@ -39,7 +53,7 @@
                         </div>
                         <div class="content">
                             <div class="text">TOTAL ROOMS</div>
-                            <div class="number count-to" data-from="0" data-to="4" data-speed="500" data-fresh-interval="20"></div>
+                            <div class="number count-to" data-from="0" data-to="135" data-speed="500" data-fresh-interval="20">135</div>
                         </div>
                     </div>
                 </div>
@@ -102,8 +116,8 @@
                               </thead>
                               <tbody>
                                   <?php
-                                    $students="SELECT * FROM `New_Registerations` WHERE `Reg_Date` = '".date("Y-m-d")."';";
-                                    if($result = mysqli_query($connect, $students))
+                                    $students="SELECT * FROM `New_Registerations` WHERE `Reg_Date` = '".date("Y-m-d")."' AND `Gender` = 'M';";
+                                    if($result = mysqli_query($mysqli, $students))
                                     {
                                         $cnt=1;
                                         while($row = $result->fetch_assoc())

@@ -24,7 +24,7 @@
                                     <table class="table table-condensed" style="width: 0%;">
                                         <tr>
                                             <td style="vertical-align:middle">G</td>
-                                            <td style="padding-left:0px; padding-right:0px;width:420px;">
+                                            <td style="padding-left:0px; padding-right:0px;">
                                                 <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
                                                     <div class="btn-group" role="group" aria-label="First group">
                                                         <button id="001A" value="001A" type="button" class="seating-btn btn btn-default btn-xs waves-effect">001A</button>
@@ -373,6 +373,16 @@
                                             </td>
                                         </tr>
                                     </table>
+                                    <div class="row clearfix">
+                                        <div class="col-md-3">
+                                            <div class="form-group ">
+                                                <div class="form-line">
+                                                    <label for="room_no">You picked room number</label>
+                                                    <input type="text" id="room_no" name="room_no" class="form-control">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                                 <button type="button" class="btn btn-primary m-t-15 waves-effect" style="float: right;">Submit</button>    
                                 <br>

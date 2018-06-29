@@ -11,7 +11,12 @@
         }
         else
         {
-            echo "<script>alert('Validations were done successfully!');</script>";
+            date_default_timezone_set('Asia/Kolkata');
+            $insert_stud = "INSERT INTO `New_Registerations`(`Name`, `Gender`, `DOB`, `MIS`, `Email_Id`, `Contact_Number`, `Branch`, `Year`, `Reg_Date`) VALUES ('".$_POST["stud_name"]."','".$_POST["stud_gender"]."','".convertDate($_POST["stud_dob"])."','".$_POST["stud_mis"]."','".$_POST["stud_email"]."',".$_POST["stud_contact"].",'".$_POST["stud_branch"]."',".$_POST["stud_year"].",'".date('Y-m-d')."');";
+            if($res = mysqli_query($mysqli, $insert_stud))
+                echo "<script>alert('Validations were done successfully!');</script>";
+            else
+                echo "<script>alert('Failed to sign up');</script>";
         }
     }
 
@@ -46,7 +51,7 @@
         {
             $valid = false;
         }
-        if(isset($_POST["stud_gender"]) && $_POST["stud_gender"] != "" && preg_match('/[FMO]{1}/', $_POST["stud_gender"]))
+        if(!(isset($_POST["stud_gender"]) && $_POST["stud_gender"] != "" && preg_match('/^F$|^M$|^O$/', $_POST["stud_gender"])))
         {
             $valid = false;
         }
@@ -262,6 +267,24 @@
         </div>
     </section>
 
+    <!--First Time-->
+    <div class="modal fade" id="firstTime" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-sm" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="firstTime">General Instructions</h4>
+                </div>
+                <div class="modal-body">
+                    <h4>Greetings from PICT</h4>
+                    <p>All students who are willing to seek accomodation in college hostel are requested to fill up this form and then head to the respective hostels to book the room. The room number will be alloted by the warden. Welcome aboard!</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-link waves-effect">SAVE CHANGES</button>
+                    <button type="button" class="btn btn-link waves-effect" data-dismiss="modal">CLOSE</button>
+                </div>
+            </div>
+        </div>
+    </div>
     <!-- Jquery Core Js -->
     <script src=" plugins/jquery/jquery.min.js"></script>
 
@@ -292,6 +315,12 @@
 
     <!-- Demo Js -->
     <script src=" js/demo.js"></script>
+
+    <script type="text/javascript">
+        $(window).on('load', function(){
+            $('#firstTime').modal('show');
+        });
+    </script>
 </body>
 
 </html>

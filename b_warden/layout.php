@@ -214,7 +214,7 @@
                                         <div class="col-md-3">
                                             <div class="form-group">
                                                 <div class="form-line">
-                                                    <label for="room_no">You pick room number</label>
+                                                    <label for="room_no">You picked room number</label>
                                                     <input type="text" id="room_no" name="room_no" class="form-control">
                                                 </div>
                                             </div>
