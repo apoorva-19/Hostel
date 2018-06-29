@@ -1,4 +1,4 @@
-﻿/* Navbar ====================================== */
+/* Navbar ====================================== */
 @import url(materialize.css);
 .navbar {
   font-family: "Roboto", sans-serif;
@@ -8040,14 +8040,6 @@ html.ie11 .dropdown-menu ul.menu li a {
 html.ie11 .bs-searchbox .form-control {
   width: 90%; }
 
-.seating .row .btn-toolbar .btn-group button{
-  margin-right: 3px;
-}
-
-.seating .row .btn-toolbar .btn-group .btn-default:hover {
+.seating-btn:hover{
   background-color: #2dc492 !important;
-}
-
-.seating .row .btn-toolbar .btn-group button:last-child{
-  margin-right:0px;
 }
