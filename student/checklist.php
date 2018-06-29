@@ -6,6 +6,12 @@
 <html>
 
 <body>
+    <script>
+        window.onload = function() {
+            document.getElementById("menu_checklist").classList.add("active");
+        }
+    </script>
+
     <section class="content">
         <div class="container-fluid">
             <div class="row clearfix">

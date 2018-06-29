@@ -5,6 +5,11 @@
 
 ?>
 <html>
+<script>
+    window.onload = function() {
+        document.getElementById("menu_night").classList.add("active");
+    }
+</script>
 <body class="theme-indigo">
     <section class="content">
         <div class="container-fluid">

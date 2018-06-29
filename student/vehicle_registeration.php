@@ -3,9 +3,14 @@
 ?>
 <!DOCTYPE html>
 <html>
+    <script>
+        window.onload = function() {
+            document.getElementById("menu_vehicle").classList.add("active");
+        }
+    </script>
 <body>
 		
-		    <section class="content">
+	<section class="content">
         <div class="container-fluid">
             <div class="row clearfix">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">

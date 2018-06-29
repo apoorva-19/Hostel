@@ -108,55 +108,55 @@
             <div class="menu">
                 <ul class="list">
                     <li class="header">MAIN NAVIGATION</li>
-                    <li>
+                    <li id="menu_home">
                         <a href="index.php">
                             <i class="material-icons">home</i>
                             <span>Home</span>
                         </a>
                     </li>
-                    <li>
+                    <li id="menu_details">
                         <a href="details.php">
                             <i class="material-icons">subject</i>
                             <span>Details</span>
                         </a>
                     </li>
-                    <li>
+                    <li id="menu_profile">
                         <a href="profile.php">
                             <i class="material-icons">person</i>
                             <span>My Profile</span>
                         </a>
                     </li>
-                    <li>
+                    <li id="menu_vehicle">
                         <a href="vehicle_registeration.php">
                             <i class="material-icons">assignment</i>
                             <span>Vehicle Registeration Form</span>
                         </a>
                     </li>
-                    <li>
+                    <li id="menu_night">
                         <a href="night.php">
                             <i class="material-icons">assignment</i>
                             <span>Night Out Form</span>
                         </a>
                     </li>
-                    <li>
+                    <li id="menu_checklist">
                         <a href="checklist.php">
                             <i class="material-icons">assignment</i>
                             <span>Room Amenities</span>
                         </a>
                     </li>
-                    <li>
+                    <li id="menu_medical">
                         <a href="medical.php">
                             <i class="material-icons">assignment</i>
                             <span>Medical Information Form</span>
                         </a>
                     </li>
-                    <li>
+                    <li id="menu_suggestions">
                         <a data-toggle="modal" data-target="#suggestion">
                             <i class="material-icons">insert_comment</i>
                             <span>Suggestions</span>
                         </a>
                     </li>
-                    <li>
+                    <li id="menu_complaints">
                         <a data-toggle="modal" data-target="#complaint">
                             <i class="material-icons">thumb_down</i>
                             <span>Complaints</span>

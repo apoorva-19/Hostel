@@ -4,7 +4,11 @@
 
 <!DOCTYPE html>
 <html>
-
+    <script>
+        window.onload = function() {
+            document.getElementById("menu_home").classList.add("active");
+        }
+    </script>
 <body>
     <section class="content">
         <div class="container-fluid">

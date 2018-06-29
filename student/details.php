@@ -3,7 +3,11 @@
 ?>
 <!DOCTYPE html>
 <html>
-
+    <script>
+        window.onload = function() {
+            document.getElementById("menu_details").classList.add("active");
+        }
+    </script>
 
 <body>
     <section class="content">
