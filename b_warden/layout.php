@@ -15,7 +15,7 @@
                 <div class="row clearfix">
                     <div class="card">
                         <div class="header">
-                            <h2>Room Allotment Chart</h2>
+                            <h2>BOYS HOSTEL ROOM ALLOTMENT CHART</h2>
                         </div>
                         <div class="row clearfix">
                             <div class="body">

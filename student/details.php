@@ -132,7 +132,7 @@
                                                                     <div class="dz-message">
                                                                         <div class="drag-icon-cph">
                                                                             <i class="material-icons">touch_app</i>
-                                                                            <span>Choose a picture</span>
+                                                                            <span>Upload candidate's photo</span>
                                                                         </div>
                                                                     </div>
                                                                     <div class="fallback">
