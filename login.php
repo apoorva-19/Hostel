@@ -1,3 +1,34 @@
+<?php
+    session_start();
+    $errorMessage = "";
+    if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['adminUsername']) && isset($_POST['adminPassword']))
+    {
+        if((!filter_input(INPUT_POST, 'adminUsername', FILTER_SANITIZE_STRING) === false) || (!filter_input(INPUT_POST, 'adminPassword', FILTER_SANITIZE_STRING) === false))
+        {
+            // Send error message saying invalid input found and exit
+            $errorMessage = "Invalid input entered";
+        }
+        if($_POST["adminUsername"] == "g_warden" && $_POST["adminPassword"] == "gpictotel@3006#")
+        {
+            // Valid username and password for girl's warden
+            $_SESSION["user"] = "g_warden";
+            header("Location:g_warden/index.php");
+            exit;
+        }
+        else if($_POST["adminUsername"] == "b_warden" && $_POST["adminPassword"] == "bpictotel@3006$")
+        {
+            // Valid username and password for boy's warden
+            $_SESSION["user"] = "b_warden";
+            header("Location:b_warden/index.php");
+            exit;
+        }
+        else
+        {
+            // Invalid username and password
+            $errorMessage = "Invalid username or password";
+        }
+    }
+?>
 <!DOCTYPE html>
 <html>
 
@@ -77,16 +108,26 @@
     <!-- #Top Bar -->
     <section class="content">
             <div class="login-box">
-                    <div class="card ">
+                    <div class="card">
                         <div class="body">
-                            <form id="sign_in" method="POST" action="verify_login.php">
-                                <div class="msg">Sign in</div>
+                            <form id="sign_in" method="POST" action="">
+                                <div class="msg">Sign In</div>
+                                <div class="error-message">
+                                    <?php
+                                        if($errorMessage != "")
+                                        {
+                                            echo "<ul>";
+                                            echo "<li>". $errorMessage . "</li>";
+                                            echo "</ul>";
+                                        }
+                                    ?>
+                                </div>
                                 <div class="input-group">
                                     <span class="input-group-addon">
                                         <i class="material-icons">person</i>
                                     </span>
                                     <div class="form-line">
-                                        <input type="text" class="form-control" name="username" placeholder="Username" required autofocus>
+                                        <input type="text" class="form-control" name="adminUsername" placeholder="Username" required autofocus>
                                     </div>
                                 </div>
                                 <div class="input-group">
@@ -94,24 +135,13 @@
                                         <i class="material-icons">lock</i>
                                     </span>
                                     <div class="form-line">
-                                        <input type="password" class="form-control" name="password" placeholder="Password" required>
+                                        <input type="password" class="form-control" name="adminPassword" placeholder="Password" required>
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <div class="col-xs-8 p-t-5">
-                                        <input type="checkbox" name="rememberme" id="rememberme" class="filled-in chk-col-amber">
-                                        <label for="rememberme">Remember Me</label>
-                                    </div>
+                                    <div class="col-xs-8 p-t-5"></div>
                                     <div class="col-xs-4">
                                         <button class="btn btn-block bg-deep-orange waves-effect" type="submit">SIGN IN</button>
-                                    </div>
-                                </div>
-                                <div class="row m-t-15 m-b--20">
-                                    <div class="col-xs-6">
-                                        <a href="sign_up.html">Sign Up Now!</a>
-                                    </div>
-                                    <div class="col-xs-6 align-right">
-                                        <a href="forgot-password.html">Forgot Password?</a>
                                     </div>
                                 </div>
                             </form>

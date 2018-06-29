@@ -1,4 +1,10 @@
 <?php
+    session_start();
+    if(!($_SESSION["user"] === "g_warden"))
+    {
+        header("Location:../404.html");
+        exit;
+    }
     require_once('base.php');
     require_once('../connect.php');
 ?>

@@ -8043,3 +8043,7 @@ html.ie11 .bs-searchbox .form-control {
 .seating-btn:hover{
   background-color: #2dc492 !important;
 }
+
+.error-message li {
+  color: #FF0000;
+}
