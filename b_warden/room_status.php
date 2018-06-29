@@ -2,7 +2,7 @@
 
     require_once("../connect.php");
 
-    $sql = "SELECT Room_No, Reserved FROM G_Room";
+    $sql = "SELECT Room_No, Reserved FROM B_Room";
 
     $result = $mysqli->query($sql);
     $jsonArray = array();
