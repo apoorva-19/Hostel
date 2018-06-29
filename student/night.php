@@ -5,7 +5,7 @@
 
 ?>
 <html>
-<body>
+<body class="theme-indigo">
     <section class="content">
         <div class="container-fluid">
 
