@@ -309,14 +309,15 @@
 
     <!--First Time-->
     <div class="modal fade" id="firstTime" tabindex="-1" role="dialog">
-        <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-dialog modal-default" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <h4 class="modal-title" id="firstTime">General Instructions</h4>
                 </div>
                 <div class="modal-body">
                     <h4>Greetings from PICT</h4>
-                    <p>All students who are willing to seek accomodation in college hostel are requested to fill up this form and then head to the respective hostels to book the room. The room number will be alloted by the warden. Welcome aboard!</p>
+                    <p>All students who are willing to seek accomodation in college hostel are requested to <strong>fill up this form</strong> and then <strong>head to the respective hostels</strong> to book the room. <strong>The room number will be alloted by the warden.</strong><br> Welcome aboard!</p>
+                    <strong><p style="color:red;">Students will be provided accomodation only if their place of residence is atleast 50kms from college.</p></strong>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-link waves-effect" data-dismiss="modal">CLOSE</button>
