@@ -95,7 +95,6 @@
         </div>
         <br>
         <br>
-        <form method="POST" action="#">
           <div class="row clearfix">
               <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                   <div class="card">
@@ -128,7 +127,7 @@
                                                   <td>".$row['Email_Id']."</td>";
                                                   if($row['Room_No'] == 0)
                                                   {
-                                                    echo "<td><button type='button' id='allocate' name='allocate' value='".$row['MIS']."' class='form-contol btn btn-primary waves-effect mt-5'>Allocate Room</button></td>";
+                                                    echo "<td><form method='POST' action='layout.php'><button type='submit' id='allocate'".$cnt." name='allocate' value='".$row['MIS']."' class='form-contol btn btn-primary waves-effect mt-5'>Allocate Room</button></form></td>";
                                                   }
                                                   else  
                                                     echo "<td>".$row['Room_No']."</td>";
@@ -144,13 +143,26 @@
                   </div>
               </div>
           </div>
-        </form>
     </section>
-    <script type="text/javascript">
+    <!--<script type="text/javascript">
         document.getElementById("allocate").onclick = function () {
             location.href = "layout.php";
         };
-    </script>
+    </script>-->
+    <?php
+        // echo "<script>
+        //         var allocateBtnArray = document.getElementsByName('allocate');
+        //         for(var i = 0; i < allocateBtnArray.length; i++) {
+        //             var allocateBtn = allocateBtnArray[i].onclick = function() {
+        //                 location.href = 'layout.php';
+        //             }
+        //         }
+        //         document.getElementsByName('allocate').onclick = function() {
+        //             location.href = 'layout.php';
+        //         };
+        //         </script>"
+
+    ?>
 </body>
 
 </html>

@@ -33,6 +33,9 @@
     <!-- Bootstrap Select Css -->
     <link href="../plugins/bootstrap-select/css/bootstrap-select.css" rel="stylesheet" />
 
+    <!-- Sweetalert Css -->
+    <link href="../plugins/sweetalert/sweetalert.css" rel="stylesheet" />
+
     <!-- Custom Css -->
     <link href="../css/style.css" rel="stylesheet">
 
@@ -283,6 +286,9 @@
 
     <!-- Autosize Plugin Js -->
     <script src="../plugins/autosize/autosize.js"></script>
+
+    <!-- Sweetalert Plugin Js -->
+    <script src="../plugins/sweetalert/sweetalert.min.js"></script>
 
     <!-- Moment Plugin Js -->
     <script src="../plugins/momentjs/moment.js"></script>
