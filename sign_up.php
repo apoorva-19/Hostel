@@ -43,7 +43,7 @@
         {
             $valid = false;
         }
-        if(!(isset($_POST["stud_branch"]) && $_POST["stud_branch"] != "" && preg_match('/^CS$|^IT$|^EnTC$/', $_POST["stud_branch"])))
+        if(!(isset($_POST["stud_branch"]) && $_POST["stud_branch"] != "" && preg_match('/^CE$|^IT$|^EnTC$/', $_POST["stud_branch"])))
         {
             $valid = false;
         }
@@ -237,7 +237,7 @@
                                         <div id="stud_branch" class="selectDiv">
                                             <label for="stud_branch">Branch</label>
                                             <select class="form-control" name="stud_branch">
-                                                <option value="CS">CS</option>
+                                                <option value="CE">CE</option>
                                                 <option value="IT">IT</option>
                                                 <option value="EnTC">EnTC</option>
                                             </select>
@@ -257,6 +257,25 @@
                                     </div>
                                 </div>
                             </div>
+                            <div class="row clearfix">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <div class="form-line inputDiv" id="stud_receipt">
+                                            <label for="stud_receipt">Receipt Number</label>
+                                            <input type="text" class=" form-control" placeholder="Receipt Number for Hostel Reservation" name="stud_receipt">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <div class="form-line inputDiv" id="amt_paid">
+                                            <label for="amt_paid">Amount Paid</label>
+                                            <input type="text" pattern="" placeholder="Amount Paid for Hostel Reservation" class="form-control" name="amt_paid">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
                             <button type="submit" class="btn btn-primary m-t-15 waves-effect" style="float: right;">Submit</button>
                             <br>
                             <br>

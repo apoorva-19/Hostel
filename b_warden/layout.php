@@ -98,7 +98,7 @@
                                             <td style="padding-left:0px; padding-right:0px;">                                        
                                                 <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
                                                     <div class="btn-group" role="group" aria-label="First group">
-                                                        <button id="101A" onclick="setText(this.value);" value="201A" type="button" class="seating-btn btn btn-default btn-xs waves-effect">201A</button>
+                                                        <button id="201A" onclick="setText(this.value);" value="201A" type="button" class="seating-btn btn btn-default btn-xs waves-effect">201A</button>
                                                         <button id="202A" onclick="setText(this.value);" value="202A" type="button" class="seating-btn btn btn-default btn-xs waves-effect">202A</button>
                                                         <button id="203A" onclick="setText(this.value);" value="203A" type="button" class="seating-btn btn btn-default btn-xs waves-effect">203A</button>
                                                         <button id="204A" onclick="setText(this.value);" value="204A" type="button" class="seating-btn btn btn-default btn-xs waves-effect">204A</button>

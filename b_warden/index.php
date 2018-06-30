@@ -30,7 +30,7 @@
                             <i class="material-icons">face</i>
                         </div>
                         <div class="content">
-                            <div class="text">VACANT ROOMS</div>
+                            <div class="text">VACANT SEATS</div>
                             <div class="number count-to" data-from="0" data-to="<?php echo $row_vacant["COUNT(`Room_No`)"]; ?>" data-speed="50" data-fresh-interval="20"><?php echo $row_vacant["COUNT(`Room_No`)"]; ?></div>
                         </div>
                     </div>
@@ -41,7 +41,7 @@
                             <i class="material-icons">room</i>
                         </div>
                         <div class="content">
-                            <div class="text">RESERVED ROOMS</div>
+                            <div class="text">RESERVED SEATS</div>
                             <div class="number count-to" data-from="0" data-to="<?php echo $row_reserved["COUNT(`Room_No`)"]; ?>" data-speed="50" data-fresh-interval="20"><?php echo $row_reserved["COUNT(`Room_No`)"];?></div>
                         </div>
                     </div>
@@ -52,7 +52,7 @@
                             <i class="material-icons">bookmark</i>
                         </div>
                         <div class="content">
-                            <div class="text">TOTAL ROOMS</div>
+                            <div class="text">TOTAL SEATS</div>
                             <div class="number count-to" data-from="0" data-to="135" data-speed="500" data-fresh-interval="20">135</div>
                         </div>
                     </div>
