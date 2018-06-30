@@ -1,6 +1,6 @@
 <?php
     session_start();
-    if(!($_SESSION["user"] === "g_warden"))
+    if(!(isset($_SESSION["user"]) || $_SESSION["user"] === "g_warden"))
     {
         header("Location:../404.html");
         exit;

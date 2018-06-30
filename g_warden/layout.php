@@ -1,11 +1,22 @@
 <?php
-    require_once('base.php');
-    require_once('../connect.php');
-    if(!(isset($_POST["allocate"]) || test_input($_POST["allocate"]) == ""))
+    session_start();
+    if(!(isset($_SESSION["user"])))
     {
-        header("Location: ../500.html");
+        header("Location:../404.html");
         exit;
     }
+    if(!($_SESSION["user"] === "g_warden"))
+    {
+        header("Location:../404.html");
+        exit;
+    }
+    if(!(isset($_POST["allocate"])))
+    {
+        header("Location: ../404.html");
+        exit;
+    }
+    require_once('../connect.php');
+    require_once('base.php');
     $misID = test_input($_POST["allocate"]);
     echo '<input type="hidden" value="'.$misID.'" id="mis">';
 ?>
@@ -473,13 +484,4 @@
         httpPostAsync('allocate_room.php', postData, submitResult);
     }
     </script>
-    <?php
-        // echo "<script>
-        //         function submitRoomNo() {
-        //             roomNoInput = document.getElementById('roomNo');
-        //             postData = 'roomNo=' + roomNoInput.innerHTML + '&misID=".$misID."';
-        //             httpPostAsync('allocate_room.php', postData, submitResult);
-        //         }
-        //         </script>";
-    ?>
 </html>
