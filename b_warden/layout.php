@@ -44,7 +44,7 @@
                         </div>
                         <div class="row clearfix">
                             <div class="body">
-                                <div class="demo-button-toolbar clearfix container">
+                                <div class="demo-button-toolbar clearfix">
                                     <table class="table table-condensed" style="width: 0%; border:white">
                                         <tr>
                                             <td style="vertical-align:middle">1</td>
