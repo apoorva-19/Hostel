@@ -81,7 +81,7 @@
                                                         <button id="107B" onclick="setText(this.value);" value="107B" type="button" class="seating-btn btn btn-default btn-xs waves-effect">107B</button>
                                                         <button id="108B" onclick="setText(this.value);" value="108B" type="button" class="seating-btn btn btn-default btn-xs waves-effect">108B</button>
                                                         <button id="109B" onclick="setText(this.value);" value="109B" type="button" class="seating-btn btn btn-default btn-xs waves-effect">109B</button>
-                                                        <button id="110B" onclick="setText(this.value);" value="110B" type="button" class="seating-btn btn btn-default btn-xs waves-effect">110B</button>
+                                                        <button id="110B" onclick="" value="---" type="button" class="seating-btn btn btn-default btn-xs waves-effect">----</button>
                                                         <button id="111B" onclick="setText(this.value);" value="111B" type="button" class="seating-btn btn btn-default btn-xs waves-effect">111B</button>
                                                         <button id="112B" onclick="setText(this.value);" value="112B" type="button" class="seating-btn btn btn-default btn-xs waves-effect">112B</button>
                                                         <button id="113B" onclick="setText(this.value);" value="113B" type="button" class="seating-btn btn btn-default btn-xs waves-effect">113B</button>

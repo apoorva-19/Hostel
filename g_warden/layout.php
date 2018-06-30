@@ -322,7 +322,7 @@
                                                     <button id="506B"  onclick="setText(this.value);" value="506B" type="button" class="seating-btn btn btn-default btn-xs waves-effect">506B</button>
                                                     <button id="507B"  onclick="setText(this.value);" value="507B" type="button" class="seating-btn btn btn-default btn-xs waves-effect">507B</button>
                                                     <button id="508B"  onclick="setText(this.value);" value="508B" type="button" class="seating-btn btn btn-default btn-xs waves-effect">508B</button>
-                                                    <button id="509B"  onclick="setText(this.value);" value="509B" type="button" class="seating-btn btn btn-default btn-xs waves-effect">409B</button>
+                                                    <button id="509B"  onclick="setText(this.value);" value="509B" type="button" class="seating-btn btn btn-default btn-xs waves-effect">509B</button>
                                                     <button id="510B"  onclick="setText(this.value);" value="510B" type="button" class="seating-btn btn btn-default btn-xs waves-effect">510B</button>
                                                     </div>
                                                 </div>
@@ -402,7 +402,7 @@
                                             <div class="form-group ">
                                                 <div class="form-line">
                                                     <label for="room_no">You picked room number</label>
-                                                    <input type="text" id="room_no" name="room_no" class="form-control">
+                                                    <p class="form-control" id="room_no">--</p>
                                                 </div>
                                             </div>
                                         </div>
@@ -424,8 +424,9 @@
 
     <script>
         function setText(value) {
+            document.getElementById(value).style.backgroundColor = "#2dc492 !important";
+            document.getElementById("room_no").innerHTML = value;
             console.log(value);
-            document.getElementById("room_no").value = value;
         }
 
         function submitRoomNo() {
