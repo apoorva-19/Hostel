@@ -308,6 +308,11 @@
 
     <!-- Demo Js -->
     <script src="../js/demo.js"></script>
+    <script>
+        $(document).ready(function(){
+            $(".required").after("<span style='color:red;'> *</span>");
+        });
+    </script>
 </body>
 
 </html>

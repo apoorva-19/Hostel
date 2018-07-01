@@ -126,7 +126,7 @@
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <title>Sign Up</title>
     <!-- Favicon-->
-    <link rel="icon" href=" favicon.ico" type="image/x-icon">
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
 
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css?family=Roboto:400,700&subset=latin,cyrillic-ext" rel="stylesheet" type="text/css">
@@ -187,7 +187,7 @@
             <div class="navbar-header">
                 <a href="javascript:void(0);" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse" aria-expanded="false"></a>
                 <a href="javascript:void(0);" class="bars"></a>
-                <a class="navbar-brand" href="index.html">Hostel Management</a>
+                <a class="navbar-brand" href="index.html">PICT Hostel</a>
             </div>
             <div class="collapse navbar-collapse" id="navbar-collapse">
                 <ul class="nav navbar-nav navbar-right">
@@ -212,7 +212,7 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <div class="form-line inputDiv" id="stud_name">
-                                            <label for="stud_name">Student's Name</label>
+                                            <label class="required" for="stud_name">Student's Name</label>
                                             <input type="text" pattern="^[A-Za-z\s]{1,}[\.]{0,1}[A-Za-z\s]{0,}$" class="form-control" name="stud_name" required>
                                         </div>
                                     </div>
@@ -220,7 +220,7 @@
                                 <div class="col-md-3">
                                     <div class="form-group">
                                         <div id="stud_gender" class="selectDiv">
-                                            <label for="stud_gender">Gender</label>
+                                            <label class="required" for="stud_gender">Gender</label>
                                             <select id="stud_gender" name="stud_gender" class="form-control" required>
                                                 <option value="F">Female</option>
                                                 <option value="M">Male</option>
@@ -232,7 +232,7 @@
                                 <div class="col-md-3">
                                     <div class="form-group">
                                         <div id="admission_type" class="selectDiv">
-                                            <label for="admission_type">Admission Type</label>
+                                            <label class="required" for="admission_type">Admission Type</label>
                                             <select id="admission_type" name="admission_type" class="form-control" required>
                                                 <option value="M">Management</option>
                                                 <option value="C">CAP Round</option>
@@ -246,7 +246,7 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <div class="form-line inputDiv" id="stud_dob">
-                                            <label for="stud_dob">Date of birth</label>
+                                            <label class="required" for="stud_dob">Date of birth</label>
                                             <input type="text" class="datepicker form-control" placeholder="dd/mm/yy" name="stud_dob" required>
                                         </div>
                                     </div>
@@ -254,7 +254,7 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <div class="form-line inputDiv" id="stud_mis">
-                                            <label for="stud_mis">Registration Number</label>
+                                            <label class="required" for="stud_mis">Registration Number</label>
                                             <input type="text" pattern="[A-Z0-9]{0,15}" placeholder="MIS Login" class="form-control" name="stud_mis" required>
                                         </div>
                                     </div>
@@ -264,7 +264,7 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <div class="form-line inputDiv" id="stud_email">
-                                            <label for="stud_email">Email Id</label>
+                                            <label class="required" for="stud_email">Email Id</label>
                                             <input type="email" placeholder="someone@somewhere.com" class="form-control" name="stud_email" required>
                                         </div>
                                     </div>
@@ -272,7 +272,7 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <div class="form-line inputDiv" id="stud_contact">
-                                            <label for="stud_contact">Contact Number</label>
+                                            <label class="required" for="stud_contact">Contact Number</label>
                                             <input type="text" pattern="[789]{1}[0-9]{9}" placeholder="10 digit mobile number" class="form-control" name="stud_contact" required>
                                         </div>
                                     </div>
@@ -282,7 +282,7 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <div id="stud_branch" class="selectDiv">
-                                            <label for="stud_branch">Branch</label>
+                                            <label class="required" for="stud_branch">Branch</label>
                                             <select class="form-control" name="stud_branch" required>
                                                 <option value="CE">CE</option>
                                                 <option value="IT">IT</option>
@@ -294,7 +294,7 @@
                                 <div class="col-md-6">
                                 <div class="form-group">
                                         <div id="stud_year" class="selectDiv">
-                                            <label for="stud_year">Year</label>
+                                            <label class="required" for="stud_year">Year</label>
                                             <select class="form-control" name="stud_year" required>
                                                 <option value="1">First Year</option>
                                                 <option value="2">Second Year</option>
@@ -308,7 +308,7 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <div class="form-line inputDiv" id="stud_receipt">
-                                            <label for="stud_receipt">Receipt Number</label>
+                                            <label class="required" for="stud_receipt">Receipt Number</label>
                                             <input type="text" class=" form-control" placeholder="Receipt Number for Hostel Reservation" name="stud_receipt" required>
                                         </div>
                                     </div>
@@ -316,7 +316,7 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <div class="form-line inputDiv" id="amt_paid">
-                                            <label for="amt_paid">Amount Paid</label>
+                                            <label class="required" for="amt_paid">Amount Paid</label>
                                             <input type="text" placeholder="Amount Paid for Hostel Reservation" class="form-control" name="amt_paid" required>
                                         </div>
                                     </div>
@@ -342,8 +342,9 @@
                 </div>
                 <div class="modal-body">
                     <h4>Greetings from PICT</h4>
-                    <p>All students who are willing to seek accomodation in college hostel are requested to <strong>fill up this form</strong> and then <strong>head to the respective hostels</strong> to book the room. <strong>The room number will be alloted by the warden.</strong><br> Welcome aboard!</p>
+                    <p>All students who are willing to seek accomodation in college hostel are requested to <strong>fill up this form</strong> and then <strong>head to the respective hostels</strong> to book the room. <strong>The room number will be alloted by the warden.</strong></p>
                     <strong><p style="color:red;">Students will be provided accomodation only if their place of residence is atleast 50kms from college.</p></strong>
+                    <h4>Welcome aboard!</h4>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-link waves-effect" data-dismiss="modal">CLOSE</button>
@@ -388,6 +389,11 @@
     <script type="text/javascript">
         $(window).on('load', function(){
             $('#firstTime').modal('show');
+        });
+    </script>
+     <script>
+        $(document).ready(function(){
+            $(".required").after("<span style='color:red;'> *</span>");
         });
     </script>
 </body>

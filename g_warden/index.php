@@ -109,6 +109,9 @@
                                       <th>Name</th>
                                       <th>Registernation Number</th>
                                       <th>Email Id</th>
+                                      <th>Place of Residence</th>
+                                      <th>Admission Type</th>
+                                      <th>Fees Paid</th>
                                       <th>Room Number</th>
                                   </tr>
                               </thead>
@@ -124,7 +127,15 @@
                                                   <th scope=\"row\">".$cnt."</th>
                                                   <td>".$row['Name']."</td>
                                                   <td>".$row['MIS']."</td>
-                                                  <td>".$row['Email_Id']."</td>";
+                                                  <td>".$row['Email_Id']."</td>
+                                                  <td>".$row['Address']."</td>";
+                                                  if($row['Admission_Type'] == 'M')
+                                                    echo "<td>Management Quota</td>";
+                                                  else if($row['Admission_Type'] == 'C')
+                                                    echo "<td>CAP Rounds</td>";
+                                                  else
+                                                    echo "<td>Others</td>";
+                                                  echo "<td>".$row['Amount_Paid']."</td>";
                                                   if($row['Room_No'] == 0)
                                                   {
                                                     echo "<td><form method='POST' action='layout.php'><button type='submit' id='allocate'".$cnt." name='allocate' value='".$row['MIS']."' class='form-contol btn btn-primary waves-effect mt-5'>Allocate Room</button></form></td>";

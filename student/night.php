@@ -29,18 +29,28 @@
                             <form action="/" id="night_form" method="post">
                                 <div class="row clearfix">
                                     <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
-                                        <h2 class="card-inside-title">Student Name</h2>
                                         <div class="form-group">
-                                            <div class="form-line">
-                                                <input type="text" class="form-control" name="stud_name" placeholder="Type here..." required> 
+                                            <div class="input-group">
+                                                <span class="input-group-addon">
+                                                    <i class="material-icons">date_range</i>
+                                                </span>
+                                                <div class="form-line">
+                                                    <label class="required" for="out_time">Out Time</label>
+                                                    <input type="text" id="out_time" name="out_time" class="datetimepicker form-control" placeholder="Pick Date and Time...">
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
-                                        <h2 class="card-inside-title">Room Number</h2>
                                         <div class="form-group">
-                                            <div class="form-line">
-                                                <input type="text" class="form-control" name="room_no" placeholder="Type here..." required minlength="4" maxlength="4">
+                                            <div class="input-group">
+                                                <span class="input-group-addon">
+                                                    <i class="material-icons">date_range</i>
+                                                </span>
+                                                <div class="form-line">
+                                                    <label class="required" for="in_time">In Time</label>
+                                                    <input type="text" id="in_time" name="in_time" class="datetimepicker form-control" placeholder="Pick Date and Time...">
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -48,29 +58,29 @@
 
                                 <div class="row clearfix">
                                     <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
-                                        <h2 class="card-inside-title">Out Time</h2>
                                         <div class="form-group">
                                             <div class="form-line">
-                                                <input type="text" class="datetimepicker form-control" placeholder="Pick Date and Time...">
+                                                <label class="required" for="contact_name">Contact Person's Name</label>
+                                                <input type="text" id="contact_name" name="contact_name" class="form-control" placeholder="Name">
                                             </div>
                                         </div>
                                     </div>
                                     <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
-                                        <h2 class="card-inside-title">In Time</h2>
                                         <div class="form-group">
                                             <div class="form-line">
-                                                <input type="text" class="datetimepicker form-control" placeholder="Pick Date and Time...">
+                                                <label class="required" for="contact_number">Parent's Contact Number</label>
+                                                <input type="text" id="contact_number" name="contact_number" class="form-control" placeholder="xxxxxxxxxx">
                                             </div>
                                         </div>
                                     </div>
                                 </div>
 
                                 <div class="row clearfix">
-                                    <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8">
-                                        <h2 class="card-inside-title">Address</h2>
+                                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                                         <div class="form-group">
                                             <div class="form-line">
-                                                <textarea rows="4" class="form-control no-resize" placeholder="Type here..."></textarea>
+                                                <label class="required" for="address">Address</label>
+                                                <textarea id="guardian_address" rows="1" class="form-control no-resize auto-growth" placeholder=""></textarea>
                                             </div>
                                         </div>
                                     </div>

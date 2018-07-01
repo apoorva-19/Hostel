@@ -37,8 +37,8 @@
                             <table class="table table-condensed" style="width: 0%;">
                                 <tr>
                                     <td><h4>#</h4></td>
-                                    <td><h4>Old Block</h4></td>
-                                    <td><h4>New Block</h4></td>
+                                    <td><h4>A Wing</h4></td>
+                                    <td><h4>B Wing</h4></td>
                                 </tr>
                                 <tr>
                                     <td style="vertical-align:middle">G</td>

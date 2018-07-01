@@ -25,7 +25,7 @@
                                     <div class="col-sm-6 col-md-6">
                                         <div class="form-group">
                                             <div class="form-line">
-                                                <label for="brand">Brand</label>
+                                                <label class="required" for="brand">Brand</label>
                                                 <input type="text" id="brand" class="form-control" placeholder="" />
                                             </div>
                                         </div>
@@ -35,7 +35,7 @@
                                     <div class="col-sm-6">
                                         <div class="form-group">
                                             <div class="form-line">
-                                                <label for="reg_id">Registration Number</label>
+                                                <label class="required" for="reg_id">Registration Number</label>
                                                 <input type="text" id="reg_id" class="form-control" placeholder="" />
                                             </div>
                                         </div>
@@ -43,7 +43,7 @@
                                     <div class="col-sm-6">
                                         <div class="form-group">
                                             <div class="form-line">
-                                                <label for="driving_license">Driving License Number</label>
+                                                <label class="required" for="driving_license">Driving License Number</label>
                                                 <input type="text" id="driving_license" class="form-control" placeholder="" />
                                             </div>
                                         </div>
@@ -57,7 +57,7 @@
                                                         <i class="material-icons">date_range</i>
                                                     </span>
                                                     <div class="form-line">
-                                                        <label for="license_issue">License Issue Date</label>
+                                                        <label class="required" for="license_issue">License Issue Date</label>
                                                         <input type="text" id="license_issue" class="datepicker form-control" placeholder="Pick a date" /> 
                                                     </div>
                                                 </div>
@@ -70,7 +70,7 @@
                                                         <i class="material-icons">date_range</i>
                                                     </span>
                                                     <div class="form-line">
-                                                        <label for="license_validity">License Validity</label>
+                                                        <label class="required" for="license_validity">License Validity</label>
                                                         <input type="text" id="license_validity" class="timepicker form-control" placeholder="Pick a time" />
                                                     </div>
                                                 </div>
@@ -81,7 +81,7 @@
                                         <div class="col-sm-6">
                                             <div class="form-group">
                                                 <div class="form-line">
-                                                    <label for="insurance_comp">Insurance Company</label>
+                                                    <label class="required" for="insurance_comp">Insurance Company</label>
                                                     <input type="text" id="insurance_comp" class="form-control" placeholder="" />
                                                 </div>
                                             </div>
@@ -89,7 +89,7 @@
                                         <div class="col-sm-6">
                                             <div class="form-group">
                                                 <div class="form-line">
-                                                    <label for="insurance_policy">Insurance Policy Number</label>
+                                                    <label class="required" for="insurance_policy">Insurance Policy Number</label>
                                                     <input type="text" id="insurance_policy" class="form-control" placeholder="" />
                                                 </div>
                                             </div>
@@ -103,7 +103,7 @@
                                                             <i class="material-icons">date_range</i>
                                                         </span>
                                                         <div class="form-line">
-                                                            <label for="policy_issue">Policy Issue Date</label>
+                                                            <label class="required" for="policy_issue">Policy Issue Date</label>
                                                             <input type="text" id="policy_issue" class="datepicker form-control" placeholder="Pick a date" /> 
                                                         </div>
                                                     </div>
@@ -116,7 +116,7 @@
                                                             <i class="material-icons">date_range</i>
                                                         </span>
                                                         <div class="form-line">
-                                                            <label for="policy_validity">License Validity</label>
+                                                            <label class="required" for="policy_validity">License Validity</label>
                                                             <input type="text" id="policy_validity" class="timepicker form-control" placeholder="Pick a time" />
                                                         </div>
                                                     </div>

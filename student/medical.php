@@ -24,7 +24,7 @@
                                         <div class="col-sm-6">
                                             <div class="form-group">
                                                 <div class="form-line">
-                                                    <label for="date">Date</label>
+                                                    <label class="required" for="date">Date</label>
                                                     <input type="text" id="date" class="datepicker form-control" placeholder="dd/mm/yy">
                                                 </div>
                                             </div>
@@ -32,7 +32,7 @@
                                         <div class="col-sm-6">
                                             <div class="form-group">
                                                 <div class="">
-                                                    <label for="blood_grp">Blood Group</label>
+                                                    <label class="required" for="blood_grp">Blood Group</label>
                                                     <select id="blood_grp">
                                                         <option>A +ve</option>
                                                         <option>A -ve</option>
@@ -52,7 +52,7 @@
                                         <div class="col-md-6">        
                                             <div class="form-group">
                                                 <div class="form-line">        
-                                                    <label for="height">Height</label>
+                                                    <label class="required" for="height">Height</label>
                                                     <input type ="text" id="height" class = "form-control" placeholder="in feet">
                                                 </div>
                                             </div>    
@@ -60,7 +60,7 @@
                                         <div class="col-md-6">        
                                             <div class="form-group">
                                                 <div class="form-line">        
-                                                    <label for="weight">Weight</label>
+                                                    <label class="required" for="weight">Weight</label>
                                                     <input type ="text" id="weight" class = "form-control" placeholder="in kg" >
                                                 </div>    
                                             </div>
@@ -70,7 +70,7 @@
                                         <div class="col-sm-12">
                                             <div class="form-group">
                                                 <div class="form-line">
-                                                    <label for="allergies">Allergies</label>
+                                                    <label class="required" for="allergies">Allergies</label>
                                                     <textarea id="allergies" rows="1" class="form-control no-resize auto-growth" placeholder="Enter your allergies here."></textarea>
                                                 </div>
                                             </div> 
@@ -80,7 +80,7 @@
                                         <div class="col-md-6 col-sm-12">
                                             <div class="form-group">
                                                 <div class="form-line">
-                                                    <label for="family_physician">Family Physician</label>
+                                                    <label class="required" for="family_physician">Family Physician</label>
                                                     <input type="text" id="family_physician" class="form-control" placeholder="Name of family physician" reqiured>
                                                 </div>
                                             </div>
@@ -88,7 +88,7 @@
                                         <div class="col-md-6 col-sm-12">
                                             <div class="form-group">
                                                 <div class="form-line">
-                                                    <label for="dr_contact">Contact Number</label>
+                                                    <label class="required" for="dr_contact">Contact Number</label>
                                                     <input type="text" id="dr_contact" class="form-control" placeholder="xxx-xxx-xxxx" reqiured>
                                                 </div>
                                             </div>
