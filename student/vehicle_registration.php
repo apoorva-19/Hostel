@@ -17,7 +17,7 @@
                     <div class="card">
                         <div class="body table-responsive">
                             <div class="header">
-                                <h2>Vehicle Registeration Form</h2>
+                                <h2>Vehicle Registration Form</h2>
                             </div>
                             <br>
                             <form method="POST" action="#">
@@ -35,7 +35,7 @@
                                     <div class="col-sm-6">
                                         <div class="form-group">
                                             <div class="form-line">
-                                                <label for="reg_id">Registeration Number</label>
+                                                <label for="reg_id">Registration Number</label>
                                                 <input type="text" id="reg_id" class="form-control" placeholder="" />
                                             </div>
                                         </div>

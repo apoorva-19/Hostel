@@ -127,9 +127,9 @@
                         </a>
                     </li>
                     <li id="menu_vehicle">
-                        <a href="vehicle_registeration.php">
+                        <a href="vehicle_registration.php">
                             <i class="material-icons">assignment</i>
-                            <span>Vehicle Registeration Form</span>
+                            <span>Vehicle Registration Form</span>
                         </a>
                     </li>
                     <li id="menu_night">

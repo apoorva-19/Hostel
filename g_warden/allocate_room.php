@@ -3,7 +3,7 @@
 if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["roomNo"]) && isset($_POST["misID"]))
     {
         $jsonArray = array();
-        $sql = "UPDATE New_Registerations SET Room_No = '".test_input($_POST['roomNo'])."' WHERE MIS = '".test_input($_POST['misID'])."';";
+        $sql = "UPDATE New_Registrations SET Room_No = '".test_input($_POST['roomNo'])."' WHERE MIS = '".test_input($_POST['misID'])."';";
         // $result["result"] = $sql;
         // echo json_encode($result);
         // $stmt = $mysqli->prepare($sql);

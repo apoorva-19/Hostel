@@ -15,25 +15,34 @@
         else
         {
             date_default_timezone_set('Asia/Kolkata');
-            $insert_stud = "INSERT INTO `New_Registerations`(`Name`, `Gender`, `DOB`, `MIS`, `Email_Id`, `Contact_Number`, `Branch`, `Year`, `Receipt_No`, `Amount_Paid`, `Reg_Date`) VALUES ('".$_POST["stud_name"]."','".$_POST["stud_gender"]."','".convertDate($_POST["stud_dob"])."','".$_POST["stud_mis"]."','".$_POST["stud_email"]."',".$_POST["stud_contact"].",'".$_POST["stud_branch"]."',".$_POST["stud_year"].",'".$_POST["stud_receipt"]."',".$_POST["amt_paid"].",'".date('Y-m-d')."');";
-            // echo '<script>alert("'.$insert_stud.'");</script>';
-            if($res = mysqli_query($mysqli, $insert_stud))
+            $verify_mis = "SELECT MIS FROM `New_Registrations` WHERE MIS = '".$_POST["stud_mis"]."';";
+            if($res = mysqli_query($mysqli, $verify_mis))
             {
-                echo "<script>alert('Sign up completed successfully!');</script>";
-                // echo "<script>swal({
-                //     title: 'Done!',
-                //     text: 'Sign up completed successfully!',
-                //     type: 'success',
-                //     confirmButtonText: 'Ok'}, function(isConfirm) { if(isConfirm) { window.location.href = 'sign_up.php'; } });</script>";
-            }
-            else
-            {
-                echo "<script>alert('Failed to sign up');</script>";
-                // echo "<script>swal({
-                //     title: 'Error!',
-                //     text: 'An unexpected error occured. Please contact the system administrator',
-                //     type: 'error'});</script>";
-                // echo "<script>alert('Failed to sign up');</script>";
+                if(mysqli_num_rows($res)) //checking for duplicate entries
+                    echo "<script>alert('Incorrect Registration ID');</script>";
+                else
+                {
+                    $insert_stud = "INSERT INTO `New_Registrations`(`Name`, `Gender`, `Admission_Type`, `DOB`, `MIS`, `Email_Id`, `Contact_Number`, `Branch`, `Year`, `Receipt_No`, `Amount_Paid`, `Reg_Date`) VALUES ('".$_POST["stud_name"]."','".$_POST["stud_gender"]."','".$_POST["admission_type"]."','".convertDate($_POST["stud_dob"])."','".$_POST["stud_mis"]."','".$_POST["stud_email"]."',".$_POST["stud_contact"].",'".$_POST["stud_branch"]."',".$_POST["stud_year"].",'".$_POST["stud_receipt"]."',".$_POST["amt_paid"].",'".date('Y-m-d')."');";
+                    // echo '<script>alert("'.$insert_stud.'");</script>';
+                    if($res = mysqli_query($mysqli, $insert_stud))
+                    {
+                        echo "<script>alert('Sign up completed successfully!');</script>";
+                        // echo "<script>swal({
+                        //     title: 'Done!',
+                        //     text: 'Sign up completed successfully!',
+                        //     type: 'success',
+                        //     confirmButtonText: 'Ok'}, function(isConfirm) { if(isConfirm) { window.location.href = 'sign_up.php'; } });</script>";
+                    }
+                    else
+                    {
+                        echo "<script>alert('Failed to sign up');</script>";
+                        // echo "<script>swal({
+                        //     title: 'Error!',
+                        //     text: 'An unexpected error occured. Please contact the system administrator',
+                        //     type: 'error'});</script>";
+                        // echo "<script>alert('Failed to sign up');</script>";
+                    }
+                }
             }
         }
     }
@@ -73,6 +82,10 @@
         {
             $valid = false;
         }
+        if(!(isset($_POST["admission_type"]) && $_POST["admission_type"] != "" && preg_match('/^M$|^C$|^O$/', $_POST["admission_type"])))
+        {
+            $valid = false;
+        }
         return $valid;
     }
 
@@ -101,6 +114,7 @@
         echo "<script>document.addEventListener('DOMContentLoaded', function() { document.getElementById('stud_branch').className += ' form-line focused error'; });</script>";
         echo "<script>document.addEventListener('DOMContentLoaded', function() { document.getElementById('stud_year').className += ' form-line focused error'; });</script>";
         echo "<script>document.addEventListener('DOMContentLoaded', function() { document.getElementById('stud_gender').className += ' form-line focused error'; });</script>";
+        echo "<script>document.addEventListener('DOMContentLoaded', function() { document.getElementById('admission_type').className += ' form-line focused error'; });</script>";
     }
 ?>
 <!DOCTYPE html>
@@ -203,13 +217,25 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-md-6">
+                                <div class="col-md-3">
                                     <div class="form-group">
                                         <div id="stud_gender" class="selectDiv">
                                             <label for="stud_gender">Gender</label>
                                             <select id="stud_gender" name="stud_gender" class="form-control" required>
                                                 <option value="F">Female</option>
                                                 <option value="M">Male</option>
+                                                <option value="O">Others</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <div id="admission_type" class="selectDiv">
+                                            <label for="admission_type">Admission Type</label>
+                                            <select id="admission_type" name="admission_type" class="form-control" required>
+                                                <option value="M">Management</option>
+                                                <option value="C">CAP Round</option>
                                                 <option value="O">Others</option>
                                             </select>
                                         </div>
