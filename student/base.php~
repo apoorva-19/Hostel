@@ -33,9 +33,6 @@
     <!-- Bootstrap Select Css -->
     <link href="../plugins/bootstrap-select/css/bootstrap-select.css" rel="stylesheet" />
 
-	<!-- Sweet Alert Css -->
-    <link href="../plugins/sweetalert/sweetalert.css" rel="stylesheet" />
-    
     <!-- Custom Css -->
     <link href="../css/style.css" rel="stylesheet">
 
@@ -406,7 +403,7 @@
 
     <!-- Sweet Alert Plugin Js -->
     <script src="../plugins/sweetalert/sweetalert.min.js"></script>
-
+    
     <!-- Custom Js -->
     <script src="../js/admin.js"></script>
     <script src="../js/pages/forms/basic-form-elements.js"></script>

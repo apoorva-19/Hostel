@@ -9,6 +9,10 @@ $(function () {
         },
         onStepChanged: function (event, currentIndex, priorIndex) {
             setButtonWavesEffect(event);
+        },
+        onFinished: function(event, currentIndex) {
+            $("#detailsForm").submit();
+            alert("Submitted");
         }
     });
 
@@ -62,7 +66,43 @@ $(function () {
             return form.valid();
         },
         onFinished: function (event, currentIndex) {
-            swal("Good job!", "Submitted!", "success");
+            swal({
+                title: 'Are you sure?',
+                text: 'You won\'t be able to revert this',
+                type: 'warning',
+                confirmButtonText: 'Yes, submit the form',
+                cancelButtonText: 'No, do not submit'
+            }).then((result) => {
+                if(result.value){
+                    $.ajax({
+                        type: 'post',
+                        url: 'save_details.php',
+                        data: $('#wizard_with_validations').serialize()
+                    }).done(function(data, textStatus, jqXHR) {
+                        swal({
+                            title: 'Done!',
+                            text: data,
+                            type: 'success',
+                            confirmButtonText: 'Ok'
+                        }).then((secondResult) => {
+                            if(secondResult.value)
+                                window.location.href = "details.php";
+                        });
+                    }).fail(function(jqXHR, textStatus, errorThrown) {
+                        swal({
+                            title: 'Error',
+                            text: errorThrown,
+                            type: 'error'
+                        });
+                    });
+                } else {
+                    swal({
+                        title: 'Cancelled',
+                        text: 'Details were not saved',
+                        type: 'error'
+                    });
+                }
+            });
         }
     });
 

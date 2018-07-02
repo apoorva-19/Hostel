@@ -53,9 +53,6 @@
                                         <div class="col-sm-6">
                                             <div class="form-group">
                                                 <div class="input-group">
-                                                    <span class="input-group-addon">
-                                                        <i class="material-icons">date_range</i>
-                                                    </span>
                                                     <div class="form-line">
                                                         <label class="required" for="license_issue">License Issue Date</label>
                                                         <input type="text" id="license_issue" class="datepicker form-control" placeholder="Pick a date" /> 
@@ -66,13 +63,13 @@
                                         <div class="col-sm-6">
                                             <div class="form-group">
                                                 <div class="input-group">
+                                                    <div class="form-line">
+                                                        <label class="required" for="license_validity">License Validity</label>
+                                                        <input type="text" id="license_validity" class="datepicker form-control" placeholder="Pick a date" />
+                                                    </div>
                                                     <span class="input-group-addon">
                                                         <i class="material-icons">date_range</i>
                                                     </span>
-                                                    <div class="form-line">
-                                                        <label class="required" for="license_validity">License Validity</label>
-                                                        <input type="text" id="license_validity" class="timepicker form-control" placeholder="Pick a time" />
-                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
