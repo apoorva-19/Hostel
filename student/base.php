@@ -324,7 +324,7 @@
                     <h4 class="modal-title" id="change_roomLabel">Change Room</h4>
                 </div>
                 <div class="modal-body">
-                    <form method="POST" action="#">
+                    <form method="POST" action="change_room.php">
                         <div class="row clearfix">
                             <div class="form-group container">
                                 <h4>Students may change their room incase they want to share it with someone else. The change is subject to acceptance by all students concerned.</h4>
@@ -335,7 +335,7 @@
                                 <div class="form-group">
                                     <div class="form-line">
                                         <label for="room_mate2" class="required">Room Number of new Roommate </label>
-                                        <input type="text" placeholder="" pattern={4} class="form-control" id="room_mate2" name="room_mate2" required>
+                                        <input type="text" placeholder="" pattern=[0-9]{3}[AB]{1} class="form-control" id="room_mate2" name="room_mate2" required>
                                     </div>
                                 </div>
                             </div>
@@ -345,7 +345,7 @@
                                 <div class="form-group">
                                     <div class="form-line">
                                         <label for="reason" class="required">Reason for Room Change</label>
-                                        <textarea id="reason" rows="1" class="form-control no-resize auto-growth" placeholder="" required></textarea>
+                                        <textarea id="reason" name="reason" rows="1" class="form-control no-resize auto-growth" placeholder="" required></textarea>
                                     </div>
                                 </div>
                             </div>

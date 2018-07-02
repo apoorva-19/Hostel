@@ -3,7 +3,6 @@ require_once('../connect.php');
 $errors = false;
 if(($_SERVER["REQUEST_METHOD"] == "POST"))
 {
-    error_log("Reached inside save_details.php");
     if(!validateInput())
     {
         echo "<script>swal({
