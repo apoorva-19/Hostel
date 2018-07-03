@@ -193,18 +193,18 @@
     <!-- Suggestions -->
     <div class="modal fade" id="suggestion" tabindex="-1" role="dialog">
         <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h4 class="modal-title" id="suggestionLabel">Suggestions</h4>
-                </div>
-                <div class="modal-body">
-                    <form method="POST" action="#">
+            <form method="POST" action="suggestion.php">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title" id="suggestionLabel">Suggestions</h4>
+                    </div>
+                    <div class="modal-body">
                         <div class="row clearfix">
                             <div class="col-12">
                                 <div class="container form-group">
                                     <div class="form-line">
                                         <label for="category_suggestion">Category</label>
-                                        <select id="category_suggestion">
+                                        <select id="category_suggestion" name="category_suggestion">
                                             <option value="housekeeping">Housekeeping</option>
                                             <option value="wifi">Wi-Fi</option>
                                             <option value="plumbing">Plumbing</option>
@@ -221,36 +221,36 @@
                                 <div class="container form-group">
                                     <div class="form-line">
                                         <label for="suggestion_text" class="required">Suggestion</label>
-                                        <textarea rows="3" class="form-control" required>Add you suggestion here.</textarea>
+                                        <textarea rows="3" class="form-control" required name="suggestion_text" id="suggestion_text">Add you suggestion here.</textarea>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary waves-effect">SAVE CHANGES</button>
+                        <button type="button" class="btn btn-link waves-effect" data-dismiss="modal">CLOSE</button>
+                    </div>
                 </div>
-                <div class="modal-footer">
-                    <button type="submit" class="btn btn-primary waves-effect">SAVE CHANGES</button>
-                    <button type="button" class="btn btn-link waves-effect" data-dismiss="modal">CLOSE</button>
-                </div>
-            </div>
+            </form>
         </div>
     </div>
 
     <!-- Complaints -->
     <div class="modal fade" id="complaint" tabindex="-1" role="dialog">
         <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h4 class="modal-title" id="complaintLabel">Complaints</h4>
-                </div>
-                <div class="modal-body">
-                    <form method="POST" action="#">
+            <form method="POST" action="#">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title" id="complaintLabel">Complaints</h4>
+                    </div>
+                    <div class="modal-body">
                         <div class="row clearfix">
                             <div class="col-12">
                                 <div class="container form-group">
                                     <div class="form-line">
                                         <label for="category_complaint">Category</label>
-                                        <select id="category_complaint">
+                                        <select id="category_complaint" name="category_complaint">
                                             <option value="housekeeping">Housekeeping</option>
                                             <option value="wifi">Wi-Fi</option>
                                             <option value="plumbing">Plumbing</option>
@@ -266,31 +266,31 @@
                             <div class="col-12">
                                 <div class="container form-group">
                                     <div class="form-line">
-                                        <label for="suggestion_text" class="required">Complaint</label>
-                                        <textarea rows="3" class="form-control" required>Add you complaint here.</textarea>
+                                        <label for="complaint_text" class="required">Complaint</label>
+                                        <textarea rows="3" class="form-control" required id="complaint_text" name="complaint_text">Add you complaint here.</textarea>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary waves-effect">SAVE CHANGES</button>
+                        <button type="button" class="btn btn-link waves-effect" data-dismiss="modal">CLOSE</button>
+                    </div>
                 </div>
-                <div class="modal-footer">
-                    <button type="submit" class="btn btn-primary waves-effect">SAVE CHANGES</button>
-                    <button type="button" class="btn btn-link waves-effect" data-dismiss="modal">CLOSE</button>
-                </div>
-            </div>
+            </form>
         </div>
     </div>
 
     <!-- Decline Meals -->
     <div class="modal fade" id="meal" tabindex="-1" role="dialog">
         <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h4 class="modal-title" id="mealLabel">Meals</h4>
-                </div>
-                <div class="modal-body">
-                    <form method="POST" action="#">
+            <form method="POST" action="decline_meal.php">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title" id="mealLabel">Meals</h4>
+                    </div>
+                    <div class="modal-body">
                         <div class="row clearfix">
                             <div class="form-group">
                                 <h4>To prevent wastage of food, kindly help us inform the canteen if you are not going to have food today. For lunch please inform before 10 am and for dinner before 1pm.</h4>
@@ -299,20 +299,20 @@
                         <div class="row clearfix">
                             <div class="form-group container" style="margin-left:10%;">
                                 <div class="demo-checkbox">
-                                    <input type="checkbox" id="lunch" name="meal[]" class="filled-in chk-col-light-green form-control"/>
+                                    <input type="checkbox" id="lunch" name="meal[]" value=1 class="filled-in chk-col-light-green form-control"/>
                                     <label for="lunch">Lunch</label>
-                                    <input type="checkbox" id="dinner" name="meal[]" class="filled-in chk-col-light-green form-control"/>
+                                    <input type="checkbox" id="dinner" name="meal[]" value=2 class="filled-in chk-col-light-green form-control"/>
                                     <label for="dinner">Dinner</label>
                                 </div>
                             </div>
                         </div>
-                    </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary waves-effect">SAVE CHANGES</button>
+                        <button type="button" class="btn btn-link waves-effect" data-dismiss="modal">CLOSE</button>
+                    </div>
                 </div>
-                <div class="modal-footer">
-                    <button type="submit" class="btn btn-primary waves-effect">SAVE CHANGES</button>
-                    <button type="button" class="btn btn-link waves-effect" data-dismiss="modal">CLOSE</button>
-                </div>
-            </div>
+            </form>
         </div>
     </div>
 
@@ -320,42 +320,43 @@
     <div class="modal fade" id="change_room" tabindex="-1" role="dialog">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
-                <div class="modal-header">
-                    <h4 class="modal-title" id="change_roomLabel">Change Room</h4>
-                </div>
-                <div class="modal-body">
-                    <form method="POST" action="change_room.php">
-                        <div class="row clearfix">
-                            <div class="form-group container">
-                                <h4>Students may change their room incase they want to share it with someone else. The change is subject to acceptance by all students concerned.</h4>
+                <form method="POST" action="change_room.php">
+                    <div class="modal-header">
+                        <h4 class="modal-title" id="change_roomLabel">Change Room</h4>
+                    </div>
+                    <div class="modal-body">
+                            <div class="row clearfix">
+                                <div class="form-group container">
+                                    <h4>Students may change their room incase they want to share it with someone else. The change is subject to acceptance by all students concerned.</h4>
+                                </div>
                             </div>
-                        </div>
-                        <div class="row clearfix">
-                            <div class="col-md-12">
-                                <div class="form-group">
-                                    <div class="form-line">
-                                        <label for="room_mate2" class="required">Room Number of new Roommate </label>
-                                        <input type="text" placeholder="" pattern=[0-9]{3}[AB]{1} class="form-control" id="room_mate2" name="room_mate2" required>
+                            <div class="row clearfix">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <div class="form-line">
+                                            <label for="room_mate2" class="required">Room Number of new Roommate </label>
+                                            <input type="text" placeholder="" pattern=[0-9]{3}[AB]{1} class="form-control" id="room_mate2" name="room_mate2" required>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="row clearfix">
-                            <div class="col-md-12">
-                                <div class="form-group">
-                                    <div class="form-line">
-                                        <label for="reason" class="required">Reason for Room Change</label>
-                                        <textarea id="reason" name="reason" rows="1" class="form-control no-resize auto-growth" placeholder="" required></textarea>
+                            <div class="row clearfix">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <div class="form-line">
+                                            <label for="reason" class="required">Reason for Room Change</label>
+                                            <textarea id="reason" name="reason" rows="1" class="form-control no-resize auto-growth" placeholder="" required></textarea>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="submit" class="btn btn-primary waves-effect">SAVE CHANGES</button>
-                    <button type="button" class="btn btn-link waves-effect" data-dismiss="modal">CLOSE</button>
-                </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary waves-effect">SAVE CHANGES</button>
+                        <button type="button" class="btn btn-link waves-effect" data-dismiss="modal">CLOSE</button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
