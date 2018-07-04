@@ -31,7 +31,18 @@
                             <i class="material-icons">access_time</i>
                         </div>
                         <div class="content">
-                            <div class="text">NOON REMARKS</div>
+                            <div class="text">AFTERNOON REMARKS</div>
+                            <div class="number count-to" data-from="0" data-to="4" data-speed="500" data-fresh-interval="20">4</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                    <div class="info-box hover-expand-effect">
+                        <div class="icon  bg-purple">
+                            <i class="material-icons">directions_run</i>
+                        </div>
+                        <div class="content">
+                            <div class="text">LEAVE REMARKS</div>
                             <div class="number count-to" data-from="0" data-to="4" data-speed="500" data-fresh-interval="20">4</div>
                         </div>
                     </div>

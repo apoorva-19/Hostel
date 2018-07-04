@@ -110,4 +110,8 @@
             });</script>";
         }
     }
+    function validateInput()
+    {
+        
+    }
 ?>

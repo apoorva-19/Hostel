@@ -107,7 +107,7 @@
                                   <tr>
                                       <th>#</th>
                                       <th>Name</th>
-                                      <th>Registernation Number</th>
+                                      <th>Registration Number</th>
                                       <th>Email Id</th>
                                       <th>Room Number</th>
                                   </tr>

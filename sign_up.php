@@ -280,7 +280,7 @@
             <div class="navbar-header">
                 <a href="javascript:void(0);" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse" aria-expanded="false"></a>
                 <a href="javascript:void(0);" class="bars"></a>
-                <a class="navbar-brand" href="index.html">PICT Hostel</a>
+                <a class="navbar-brand" href="index.html">SCTR's PICT Hostel</a>
             </div>
             <div class="collapse navbar-collapse" id="navbar-collapse">
                 <ul class="nav navbar-nav navbar-right">
@@ -404,11 +404,22 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-md-6">
+                                <div class="col-md-3">
                                     <div class="form-group">
                                         <div class="form-line inputDiv" id="amt_paid">
                                             <label class="required" for="amt_paid">Amount Paid for Hostel Reservation</label>
                                             <input type="text" placeholder="Amount Paid for Hostel Reservation" class="form-control" name="amt_paid" id="amt_paid_input" required>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <div class="selectDiv" id="amt_paid">
+                                            <label for="mode_trans" class="required">Mode of Transaction</label>
+                                            <select class="form-control" name="mode_trans" id="mode_trans_input" required>
+                                                <option value="1">Offline</option>
+                                                <option value="2">Online</option>
+                                            </select>
                                         </div>
                                     </div>
                                 </div>

@@ -88,4 +88,8 @@
             })</script>";
         }
     }
+    function validateInput()
+    {
+        
+    }
 ?>

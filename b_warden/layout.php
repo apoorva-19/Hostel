@@ -79,6 +79,26 @@
                 }, 200);
             }
         }
+        function successFees(resultJson) {
+            var JSONresult = JSON.parse(resultJson);
+            if(JSONresult.result == "Amount is correct!")
+            {
+                swal({
+                    title: "Done!",
+                    text: "Amount is correct!",
+                    type: "success",
+                });
+            }
+            else 
+            {
+                swal({
+                    title: "Error!",
+                    text: "Amount is incorrect",
+                    type: "error"
+                });
+                setTimeout(function(){window.location.href = "index.php";},700);
+            }
+        }
     </script>
     <body>
         <section class="content">
@@ -298,8 +318,32 @@
                     </div>
                 </div>
             </div>
-
         </section>                        
+        <div class="modal fade" id="verify_fees" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-default" role="document">
+            <div class="modal-content">
+                <form method="post" action="">
+                    <div class="modal-header">
+                        <h4 class="modal-title" id="verify_fees">Verify Fees</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row clearfix">
+                            <div class="form-group col-md-12">
+                                <div class="form-line">
+                                    <label for="amount_paid">Amount Paid</label>
+                                    <input type="number" min=0 id="amount_paid" class="form-control" placeholder="Enter the fees paid">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" onclick="submitFees();" class="btn btn-link waves-effect" data-dismiss="modal">SAVE</button>
+                        <button type="button" class="btn btn-link waves-effect" data-dismiss="modal">CLOSE</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div> 
     </body>
     <script src="../js/async_connect.js"></script>
 
@@ -320,5 +364,18 @@
         postData = "roomNo=" + roomNo + "&misID=" + misID;
         httpPostAsync('allocate_room.php', postData, submitResult);
     }
+
+    function submitFees(){
+        misID = document.getElementById('mis').value;
+        amt = document.getElementById('amount_paid').value;
+        postData = "misID=" + misID + "&amt=" + amt;
+        httpPostAsync('check_fees.php', postData, successFees);
+    }
+
+    </script>
+    <script type="text/javascript">
+        $(window).on('load', function(){
+            $('#verify_fees').modal('show');
+        });
     </script>
 </html>

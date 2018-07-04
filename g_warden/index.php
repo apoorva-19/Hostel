@@ -107,10 +107,11 @@
                                   <tr>
                                       <th>#</th>
                                       <th>Name</th>
-                                      <th>Registernation Number</th>
+                                      <th>Registration Number</th>
                                       <th>Email Id</th>
                                       <th>Place of Residence</th>
                                       <th>Admission Type</th>
+                                      <th>Receipt Number</th>
                                       <th>Fees Paid</th>
                                       <th>Room Number</th>
                                   </tr>
@@ -135,6 +136,7 @@
                                                     echo "<td>CAP Rounds</td>";
                                                   else
                                                     echo "<td>Others</td>";
+                                                  echo "<td>".$row['Receipt_No']."</td>";
                                                   echo "<td>".$row['Amount_Paid']."</td>";
                                                   if($row['Room_No'] == 0)
                                                   {

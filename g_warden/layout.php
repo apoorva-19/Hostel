@@ -65,6 +65,7 @@
                         window.location.href = "index.php";
                     }
                 });
+                window.location.href="index.php";
             }
             else
             {
@@ -93,9 +94,17 @@
                 swal({
                     title: "Error!",
                     text: "Amount is incorrect",
-                    type: "error"
+                    type: "error",
+                    showConfirmButton: true,
+                    confirmButtonText: "Ok"
+                }, function(isConfirm) {
+                    if(isConfirm) {
+                        window.location.href = "index.php";
+                    }
                 });
-                setTimeout(function(){window.location.href = "index.php";},700);
+                setTimeout(() => {
+                    window.location.href="index.php";
+                }, 1200);
             }
         }
     </script>
@@ -494,18 +503,25 @@
                         <h4 class="modal-title" id="verify_fees">Verify Fees</h4>
                     </div>
                     <div class="modal-body">
+                    <div class="row clearfix">
+                            <div class="form-group col-md-12">
+                                <div class="form-line">
+                                    <label for="receipt_no">Receipt Number</label>
+                                    <input type="text" id="receipt_no" class="form-control" placeholder="Enter the receipt number" required>
+                                </div>
+                            </div>
+                        </div>
                         <div class="row clearfix">
                             <div class="form-group col-md-12">
                                 <div class="form-line">
                                     <label for="amount_paid">Amount Paid</label>
-                                    <input type="number" min=0 id="amount_paid" class="form-control" placeholder="Enter the fees paid">
+                                    <input type="number" min=0 id="amount_paid" class="form-control" placeholder="Enter the fees paid" required>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="modal-footer">
                         <button type="submit" onclick="submitFees();" class="btn btn-link waves-effect" data-dismiss="modal">SAVE</button>
-                        <button type="button" class="btn btn-link waves-effect" data-dismiss="modal">CLOSE</button>
                     </div>
                 </form>
             </div>
