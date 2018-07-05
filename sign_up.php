@@ -295,7 +295,7 @@
             <div class="row clearfix">
                 <div class="card">
                     <div class="header">
-                        <h2>Sign Up</h2>
+                        <b><h2>Registration for Students</h2></b>
                     </div>
                     <div class="body">
                         <form method="POST" action="" id="signUpForm">
@@ -327,6 +327,10 @@
                                             <select id="admission_type_input" name="admission_type" class="form-control" required>
                                                 <option value="M">Management</option>
                                                 <option value="C">CAP Round</option>
+                                                <option value="P">PIO</option>
+                                                <option value="C">CIWGC</option>
+                                                <option value="JK">Jammu and Kashmir</option>
+                                                <option value="DSE">Direct Second Year</option>
                                                 <option value="O">Others</option>
                                             </select>
                                         </div>
@@ -375,9 +379,9 @@
                                         <div id="stud_branch" class="selectDiv">
                                             <label class="required" for="stud_branch">Branch</label>
                                             <select class="form-control" name="stud_branch" id="stud_branch_input" required>
-                                                <option value="CE">CE</option>
-                                                <option value="IT">IT</option>
-                                                <option value="EnTC">EnTC</option>
+                                                <option value="CE">Computer Enginnering</option>
+                                                <option value="IT">Information Technology</option>
+                                                <option value="EnTC">Electronics and Telecommunication</option>
                                             </select>
                                         </div>
                                     </div>
@@ -399,7 +403,7 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <div class="form-line inputDiv" id="stud_receipt">
-                                            <label class="required" for="stud_receipt">Hostel fee receipt number</label>
+                                            <label class="required" for="stud_receipt">Hostel fee receipt number/UTR number</label>
                                             <input type="text" class=" form-control" placeholder="Receipt Number for Hostel Reservation" name="stud_receipt" id="stud_receipt_input" required>
                                         </div>
                                     </div>
@@ -456,9 +460,15 @@
                     <h4 class="modal-title" id="firstTime">General Instructions</h4>
                 </div>
                 <div class="modal-body">
-                    <h4>Greetings from PICT</h4>
+                    <h4>Greetings from PICT...!</h4>
                     <p>All students who are willing to seek accomodation in college hostel are requested to <strong>fill up this form</strong> and then <strong>head to the respective hostels</strong> to book the room. <strong>The room number will be alloted by the warden.</strong></p>
                     <strong><p style="color:red;">Students will be provided accomodation only if their place of residence is atleast 40kms from college.</p></strong>
+                    <h4>Before registering make sure you have the following:</h4>
+                    <ul>
+                        <li>Registration Number (MIS Id)</li>
+                        <li>Receipt Number/UTR Number for hostel fees</li>
+                    </ul>
+                    <br>
                     <h4>Welcome aboard!</h4>
                 </div>
                 <div class="modal-footer">

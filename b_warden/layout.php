@@ -62,30 +62,33 @@
                     text: "Room has been alloted successfully!",
                     type: "success",
                     confirmButtonText: "Ok"
-                }, function(isConfirm) {
-                    if(isConfirm) {
-                        window.location.href = "index.php";
+                }).then((result) => {
+                    if(result.value){
+                        window.location.href="index.php";
                     }
                 });
             }
             else
             {
-                setTimeout(function() {
-                    swal({
-                        title: "Error!",
-                        text: "An unexpected error occured. Please try again or contact the administrator",
-                        type: "error"
-                    });
-                }, 200);
+                swal({
+                    title: "Error!",
+                    text: "An unexpected error occured. Please try again or contact the administrator",
+                    type: "error",  
+                    confirmButtonText: "Ok"
+                }).then((result) => {
+                    if(result.value){
+                        window.location.href="index.php";
+                    }
+                });
             }
         }
         function successFees(resultJson) {
             var JSONresult = JSON.parse(resultJson);
-            if(JSONresult.result == "Amount is correct!")
+            if(JSONresult.result == "MIS Id, Receipt Number and Amount Paid have been verified. Room can now be allocated.")
             {
                 swal({
                     title: "Done!",
-                    text: "Amount is correct!",
+                    text: "MIS Id, Receipt Number and Amount Paid have been verified. Room can now be allocated.",
                     type: "success",
                 });
             }
@@ -93,10 +96,15 @@
             {
                 swal({
                     title: "Error!",
-                    text: "Amount is incorrect",
-                    type: "error"
+                    text: "Receipt Number and Amount Paid have not been verified.",
+                    type: "error",
+                    showConfirmButton: true,
+                    confirmButtonText: "Ok"
+                }).then((result) => {
+                    if(result.value){
+                        window.location.href="index.php";
+                    }
                 });
-                setTimeout(function(){window.location.href = "index.php";},700);
             }
         }
     </script>
@@ -327,25 +335,39 @@
                         <h4 class="modal-title" id="verify_fees">Verify Fees</h4>
                     </div>
                     <div class="modal-body">
-                        <div class="row clearfix">
-                            <div class="form-group col-md-12">
-                                <div class="form-line">
-                                    <label for="amount_paid">Amount Paid</label>
-                                    <input type="number" min=0 id="amount_paid" class="form-control" placeholder="Enter the fees paid">
-                                </div>
+                    <div class="row clearfix">
+                        <div class="form-group col-md-12">
+                            <div class="form-line">
+                                <label for="verify_mis_id">MIS Id</label>
+                                <input type="text" id="verify_mis_id" class="form-control" placeholder="Enter the MIS Id" required>
                             </div>
                         </div>
                     </div>
+                    <div class="row clearfix">
+                        <div class="form-group col-md-12">
+                            <div class="form-line">
+                                <label for="receipt_no">Receipt Number</label>
+                                <input type="text" id="receipt_no" class="form-control" placeholder="Enter the receipt number" required>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row clearfix">
+                        <div class="form-group col-md-12">
+                            <div class="form-line">
+                                <label for="amount_paid">Amount Paid</label>
+                                <input type="number" min=0 id="amount_paid" class="form-control" placeholder="Enter the fees paid" required>
+                            </div>
+                        </div>
+                    </div>
+                    </div>
                     <div class="modal-footer">
                         <button type="submit" onclick="submitFees();" class="btn btn-link waves-effect" data-dismiss="modal">SAVE</button>
-                        <button type="button" class="btn btn-link waves-effect" data-dismiss="modal">CLOSE</button>
                     </div>
                 </form>
             </div>
         </div>
-    </div> 
+    </div>     
     </body>
-    <script src="../js/async_connect.js"></script>
 
     <script>
     var flag=0;
@@ -368,14 +390,16 @@
     function submitFees(){
         misID = document.getElementById('mis').value;
         amt = document.getElementById('amount_paid').value;
-        postData = "misID=" + misID + "&amt=" + amt;
+        receipt_no = document.getElementById('receipt_no').value;
+        verify_mis_id = document.getElementById('verify_mis_id').value;
+        postData = "misID=" + misID + "&amt=" + amt + "&receipt_no=" + receipt_no + "&verify_mis_id=" + verify_mis_id;
         httpPostAsync('check_fees.php', postData, successFees);
     }
 
     </script>
     <script type="text/javascript">
         $(window).on('load', function(){
-            $('#verify_fees').modal('show');
+            $('#verify_fees').modal({backdrop: 'static', keyboard: false})  
         });
     </script>
 </html>

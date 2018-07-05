@@ -120,6 +120,12 @@
                         </a>
                     </li>
                     <li>
+                        <a data-toggle="modal" data-target="#room_number">
+                            <i class="material-icons">event_seat</i>
+                            <span>Change Room Number</span>
+                        </a>
+                    </li>
+                    <li>
                         <a data-toggle="modal" data-target="#notice">
                             <i class="material-icons">event_note</i>
                             <span>Add Notices</span>
@@ -255,6 +261,35 @@
         </div>
     </div>
 
+    <div class="modal fade" id="room_number" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="room_numberLabel">Change Room Number</h4>
+                </div>
+                <div class="modal-body">
+                    <h5 style="color:red;">The room number will get reset. The room will have to be allocted again</h5>
+                    <div class="row clearfix">
+                        <div class="col-12">
+                            <div class="container form-group">
+                                <div class="form-line">
+                                    <label for="change_mis_id">MIS Id</label>
+                                    <input type="text" id="change_mis_id" class="form-control" placeholder="Enter the MIS Id" required pattern="[A-Z0-9]{11,15}">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" onclick="submitRegNo();" class="btn btn-primary waves-effect">SAVE CHANGES</button>
+                    <button type="button" class="btn btn-link waves-effect" data-dismiss="modal">CLOSE</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+     <script src="../js/async_connect.js"></script>
+     
     <!-- Jquery Core Js -->
     <script src="../plugins/jquery/jquery.min.js"></script>
 
@@ -309,9 +344,46 @@
     <!-- Demo Js -->
     <script src="../js/demo.js"></script>
     <script>
+        function submitChange(resultJson) {
+            var JSONresult = JSON.parse(resultJson);
+            if(JSONresult.result == "Room unallocated successfully!")
+            {
+                swal({
+                    title: "Done!",
+                    text: "Room unallocated successfully!",
+                    type: "success",
+                    confirmButtonText: "Ok"
+                }).then((result) => {
+                    if(result.value){
+                        window.location.href="index.php";
+                    }
+                });
+            }
+            else
+            {
+                swal({
+                    title: "Error!",
+                    text: "An unexpected error occured. Please try again or contact the administrator",
+                    type: "error",  
+                    confirmButtonText: "Ok"
+                }).then((result) => {
+                    if(result.value){
+                        window.location.href="index.php";
+                    }
+                });
+            }
+        }
+
         $(document).ready(function(){
             $(".required").after("<span style='color:red;'> *</span>");
         });
+
+        function submitRegNo()
+        {
+            change_mis_id = document.getElementById("change_mis_id").value;
+            postData = "misID=" + change_mis_id;
+            httpPostAsync('unallocate.php', postData, submitChange);
+        }
     </script>
 </body>
 
