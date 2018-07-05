@@ -3,6 +3,8 @@
     require_once("connect.php");
     echo '<script src=" plugins/jquery/jquery.min.js"></script>';
     echo '<script src=" plugins/jquery-validation/jquery.validate.js"></script>';
+    echo '<link href=" plugins/sweetalert/sweetalert.css" rel="stylesheet" />';
+    echo '<script src=" plugins/sweetalert/sweetalert.min.js"></script>';
     if(($_SERVER["REQUEST_METHOD"] == "POST"))
     {
         if(!validateSignUpInput())
@@ -22,7 +24,15 @@
                             }
                         });
                     </script>";
-        }   
+        }
+        else if(!validateCityDistance(test_input($_POST["stud_city"])))
+        {
+            echo '<script>swal({
+                            title: "Error",
+                            text: "Your city of residence is less than 40 kms from college. Hostel allocation is only for students who live more than 40 kms from college. Please contact the administration office for further details",
+                            type: "error"
+                            });</script>';
+        }
         else
         {
             $name = test_input($_POST["stud_name"]);
@@ -36,9 +46,9 @@
             $year = test_input($_POST["stud_year"]);
             $receipt = test_input($_POST["stud_receipt"]);
             $amtPaid = test_input($_POST["amt_paid"]);
+            $city = test_input($_POST["stud_city"]);
             $date = date('Y-m-d');
 
-			// $verify_mis = "SELECT MIS FROM `New_Registrations` WHERE MIS = '".$_POST["stud_mis"]."';";
 			$sql = "SELECT `MIS` FROM `New_Registrations` WHERE `MIS` = ?;";
 			if(!($verify_mis = $mysqli->prepare($sql)))
 			{
@@ -49,84 +59,135 @@
                     type: 'error'
                 })</script>";
             }
-            if(!($verify_mis = $mysqli->bind_param('s', $mis)))
-            {
-                error_log('Binding failed for mis checking in sign_up.php: ('.$mysqli->errno.') '.$mysqli->error);
-                echo "<script>swal({
-                    title: 'Error',
-                    text: 'Request could not be processed. We are trying to fix the error.',
-                    type: 'error'
-                })</script>";
-            }
-            if(!$verify_mis->execute())
-            {
-                error_log('Execution failed for verifying student in change_room.php: ('.$mysqli->errno.') '.$mysqli->error);
-                echo "<script>swal({
-                    title: 'Error',
-                    text: 'Request could not be processed. We are trying to fix the error.',
-                    type: 'error'
-                })</script>";
-            }
-            $res = $verify_mis->get_result();
-            if($res->num_rows == 1)
-            {
-                echo "<script>swal({
-                    title: 'Error',
-                    text: 'This MIS id has already registered for the hostel',
-                    type: 'error'
-                })</script>";
-            }
             else
             {
-                $insert_stud = "INSERT INTO `New_Registrations`(`Name`, `Gender`, `Admission_Type`, `DOB`, `MIS`, `Email_Id`, `Contact_Number`, `Branch`, `Year`, `Receipt_No`, `Amount_Paid`, `Reg_Date`) VALUES ('".$_POST["stud_name"]."','".$_POST["stud_gender"]."','".$_POST["admission_type"]."','".convertDate($_POST["stud_dob"])."','".$_POST["stud_mis"]."','".$_POST["stud_email"]."',".$_POST["stud_contact"].",'".$_POST["stud_branch"]."',".$_POST["stud_year"].",'".$_POST["stud_receipt"]."',".$_POST["amt_paid"].",'".date('Y-m-d')."');";
-                    // echo '<script>alert("'.$insert_stud.'");</script>';
-                if($res = mysqli_query($mysqli, $insert_stud))
+                if(!($verify_mis = $mysqli->bind_param('s', $mis)))
                 {
-                    echo "<script>alert('Sign up completed successfully!');</script>";
-                    // echo "<script>swal({
-                    //     title: 'Done!',
-                    //     text: 'Sign up completed successfully!',
-                    //     type: 'success',
-                    //     confirmButtonText: 'Ok'}, function(isConfirm) { if(isConfirm) { window.location.href = 'sign_up.php'; } });</script>";
+                    error_log('Binding failed for mis checking in sign_up.php: ('.$mysqli->errno.') '.$mysqli->error);
+                    echo "<script>swal({
+                        title: 'Error',
+                        text: 'Request could not be processed. We are trying to fix the error.',
+                        type: 'error'
+                    })</script>";
                 }
                 else
                 {
-                    echo "<script>alert('Failed to sign up');</script>";
-                    // echo "<script>swal({
-                    //     title: 'Error!',
-                    //     text: 'An unexpected error occured. Please contact the system administrator',
-                    //     type: 'error'});</script>";
-                    // echo "<script>alert('Failed to sign up');</script>";
+                    if(!$verify_mis->execute())
+                    {
+                        error_log('Execution failed for verifying student in sign_up.php: ('.$mysqli->errno.') '.$mysqli->error);
+                        echo "<script>swal({
+                            title: 'Error',
+                            text: 'Request could not be processed. We are trying to fix the error.',
+                            type: 'error'
+                        })</script>";
+                    }
+                    else
+                    {
+                        $res = $verify_mis->get_result();
+                        if($res->num_rows > 0)
+                        {
+                            echo "<script>swal({
+                                title: 'Error',
+                                text: 'This MIS id has already registered for the hostel',
+                                type: 'error'
+                            })</script>";
+                        }
+                        else
+                        {
+                            /* $insert_stud = "INSERT INTO `New_Registrations`(`Name`, `Gender`, `Admission_Type`, `DOB`, `MIS`, `Email_Id`, `Contact_Number`, `Branch`, `Year`, `Receipt_No`, `Amount_Paid`, `Reg_Date`) VALUES ('".$_POST["stud_name"]."','".$_POST["stud_gender"]."','".$_POST["admission_type"]."','".convertDate($_POST["stud_dob"])."','".$_POST["stud_mis"]."','".$_POST["stud_email"]."',".$_POST["stud_contact"].",'".$_POST["stud_branch"]."',".$_POST["stud_year"].",'".$_POST["stud_receipt"]."',".$_POST["amt_paid"].",'".date('Y-m-d')."');";*/
+                            // echo '<script>alert("'.$insert_stud.'");</script>';
+                            $sql = "INSERT INTO `New_Registrations`(`Name`, `Gender`, `Admission_Type`, `DOB`, `MIS`, `Email_Id`, `Contact_Number`, `Branch`, `Year`, `Receipt_No`, `Amount_Paid`, `Reg_Date`,  `City`) VAlUES(?,?,?,?,?,?,?,?,?,?,?,?,?);";
+                            if(!($insert_stud = $mysqli->prepare($sql)))
+                            {
+                                error_log('Prepare failed for insertion of student in sign_up.php: ('.$mysqli->errno.') '.$mysqli->error);
+                                echo "<script>swal({
+                                    title: 'Error',
+                                    text: 'Request could not be processed. We are trying to fix the error.',
+                                    type: 'error'
+                                })</script>";
+                            }
+                            else
+                            {
+                                if(!($insert_stud = $mysqli->bind_param('ssssssisssiss', $name, $gender, $admissionType, $dob, $mis, $email, $contact, $branch, $year, $receipt, $amtPaid, $date, $city)))
+                                {
+                                    error_log('Binding failed for insertion of student in sign_up.php: ('.$mysqli->errno.') '.$mysqli->error);
+                                    echo "<script>swal({
+                                        title: 'Error',
+                                        text: 'Request could not be processed. We are trying to fix the error.',
+                                        type: 'error'
+                                    })</script>";
+                                }
+                                else
+                                {
+                                    if(!$insert_stud->execute())
+                                    {
+                                        error_log('Execution failed for insertion of student in sign_up.php: ('.$mysqli->errno.') '.$mysqli->error);
+                                        echo "<script>swal({
+                                            title: 'Error',
+                                            text: 'Request could not be processed. We are trying to fix the error.',
+                                            type: 'error'
+                                        })</script>";
+                                    }
+                                    else
+                                    {
+                                        echo "<script>swal({
+                                                            title: 'Success',
+                                                            text: 'Sign up completed successfully!',
+                                                            type: 'success'
+                                                            });</script>";
+                                        // if($res = mysqli_query($mysqli, $insert_stud))
+                                        // {
+                                        //     echo "<script>alert('Sign up completed successfully!');</script>";
+                                        //     // echo "<script>swal({
+                                        //     //     title: 'Done!',
+                                        //     //     text: 'Sign up completed successfully!',
+                                        //     //     type: 'success',
+                                        //     //     confirmButtonText: 'Ok'}, function(isConfirm) { if(isConfirm) { window.location.href = 'sign_up.php'; } });</script>";
+                                        // }
+                                        // else
+                                        // {
+                                        //     echo "<script>alert('Failed to sign up');</script>";
+                                        //     // echo "<script>swal({
+                                        //     //     title: 'Error!',
+                                        //     //     text: 'An unexpected error occured. Please contact the system administrator',
+                                        //     //     type: 'error'});</script>";
+                                        //     // echo "<script>alert('Failed to sign up');</script>";
+                                        // }
+                                        // if($res = mysqli_query($mysqli, $verify_mis))
+                                        // {
+                                        //     if(mysqli_num_rows($res)) //checking for duplicate entries
+                                        //         echo "<script>alert('Incorrect Registration ID');</script>";
+                                        //     else
+                                        //     {
+                                        //         $insert_stud = "INSERT INTO `New_Registrations`(`Name`, `Gender`, `Admission_Type`, `DOB`, `MIS`, `Email_Id`, `Contact_Number`, `Branch`, `Year`, `Receipt_No`, `Amount_Paid`, `Reg_Date`) VALUES ('".$_POST["stud_name"]."','".$_POST["stud_gender"]."','".$_POST["admission_type"]."','".convertDate($_POST["stud_dob"])."','".$_POST["stud_mis"]."','".$_POST["stud_email"]."',".$_POST["stud_contact"].",'".$_POST["stud_branch"]."',".$_POST["stud_year"].",'".$_POST["stud_receipt"]."',".$_POST["amt_paid"].",'".date('Y-m-d')."');";
+                                        //         // echo '<script>alert("'.$insert_stud.'");</script>';
+                                        //         if($res = mysqli_query($mysqli, $insert_stud))
+                                        //         {
+                                        //             echo "<script>alert('Sign up completed successfully!');</script>";
+                                        //             // echo "<script>swal({
+                                        //             //     title: 'Done!',
+                                        //             //     text: 'Sign up completed successfully!',
+                                        //             //     type: 'success',
+                                        //             //     confirmButtonText: 'Ok'}, function(isConfirm) { if(isConfirm) { window.location.href = 'sign_up.php'; } });</script>";
+                                        //         }
+                                        //         else
+                                        //         {
+                                        //             echo "<script>alert('Failed to sign up');</script>";
+                                        //             // echo "<script>swal({
+                                        //             //     title: 'Error!',
+                                        //             //     text: 'An unexpected error occured. Please contact the system administrator',
+                                        //             //     type: 'error'});</script>";
+                                        //             // echo "<script>alert('Failed to sign up');</script>";
+                                        //         }
+                                        //     }
+                                        // }
+                                    }
+                                }
+                            }
+                        }
+                    }
                 }
             }
-            // if($res = mysqli_query($mysqli, $verify_mis))
-            // {
-            //     if(mysqli_num_rows($res)) //checking for duplicate entries
-            //         echo "<script>alert('Incorrect Registration ID');</script>";
-            //     else
-            //     {
-            //         $insert_stud = "INSERT INTO `New_Registrations`(`Name`, `Gender`, `Admission_Type`, `DOB`, `MIS`, `Email_Id`, `Contact_Number`, `Branch`, `Year`, `Receipt_No`, `Amount_Paid`, `Reg_Date`) VALUES ('".$_POST["stud_name"]."','".$_POST["stud_gender"]."','".$_POST["admission_type"]."','".convertDate($_POST["stud_dob"])."','".$_POST["stud_mis"]."','".$_POST["stud_email"]."',".$_POST["stud_contact"].",'".$_POST["stud_branch"]."',".$_POST["stud_year"].",'".$_POST["stud_receipt"]."',".$_POST["amt_paid"].",'".date('Y-m-d')."');";
-            //         // echo '<script>alert("'.$insert_stud.'");</script>';
-            //         if($res = mysqli_query($mysqli, $insert_stud))
-            //         {
-            //             echo "<script>alert('Sign up completed successfully!');</script>";
-            //             // echo "<script>swal({
-            //             //     title: 'Done!',
-            //             //     text: 'Sign up completed successfully!',
-            //             //     type: 'success',
-            //             //     confirmButtonText: 'Ok'}, function(isConfirm) { if(isConfirm) { window.location.href = 'sign_up.php'; } });</script>";
-            //         }
-            //         else
-            //         {
-            //             echo "<script>alert('Failed to sign up');</script>";
-            //             // echo "<script>swal({
-            //             //     title: 'Error!',
-            //             //     text: 'An unexpected error occured. Please contact the system administrator',
-            //             //     type: 'error'});</script>";
-            //             // echo "<script>alert('Failed to sign up');</script>";
-            //         }
-            //     }
-            // }
         }
     }
 
@@ -207,7 +268,54 @@
                 setTimeout(function() { $('form').validate().showErrors({ 'admission_type' : 'Please select a valid admission type' }) }, 100);
             });</script>";
         }
+        if(!(isset($_POST["mode_trans"]) && !(empty($_POST["mode_trans"])) && preg_match('/^1{1}|^2{1}/', $_POST["mode_trans"])))
+        {
+            $valid = false;
+            echo "<script>document.addEventListener('DOMContentLoaded', function() { document.getElementById('mode_trans').className += form-line foucsed error'; });</script>";
+            echo "<script>$(document).ready(function() {
+                setTimeout(function() { $('form').validate().showErrors({ 'mode_trans' : 'Please select a valid transaction type' }) }, 100);
+            });</script>";
+        }
+        if(!(isset($_POST["stud_city"]) && !(empty($_POST["stud_city"]))))
+        {
+            $valid = false;
+            echo "<script>document.addEventListener('DOMContentLoaded', function() { document.getElementById('stud_city').className += form-line foucsed error'; });</script>";
+            echo "<script>$(document).ready(function() {
+                setTimeout(function() { $('form').validate().showErrors({ 'stud_city' : 'This field is required' }) }, 100);
+            });</script>";
+        }
+        if(!(isset($_POST["amt_paid"]) && !(empty($_POST["amt_paid"])) && is_numeric($_POST["amt_paid"])))
+        {
+            $valid = false;
+            echo "<script>document.addEventListener('DOMContentLoaded', function() { document.getElementById('amt_paid').className += form-line foucsed error'; });</script>";
+            echo "<script>$(document).ready(function() {
+                setTimeout(function() { $('form').validate().showErrors({ 'amt_paid' : 'Please enter a valid amount' }) }, 100);
+            });</script>";
+        }
+        if(!(isset($_POST["stud_receipt"]) && !(empty($_POST["stud_receipt"])) && is_numeric($_POST["stud_receipt"])))
+        {
+            $valid = false;
+            echo "<script>document.addEventListener('DOMContentLoaded', function() { document.getElementById('stud_receipt').className += form-line foucsed error'; });</script>";
+            echo "<script>$(document).ready(function() {
+                setTimeout(function() { $('form').validate().showErrors({ 'stud_receipt' : 'Please enter a valid receipt number' }) }, 100);
+            });</script>";
+        }
         return $valid;
+    }
+
+    function validateCityDistance($city)
+    {
+        $urlEncodedCity = urlencode($city);
+        $googleMapsUrl = "https://maps.googleapis.com/maps/api/distancematrix/json?origins=18.4575,73.8508&destinations=$urlEncodedCity";
+        $result = file_get_contents($googleMapsUrl);
+        $result = json_decode($json, TRUE);
+
+        $distance = round($result);
+
+        if($distance > 40)
+            return false;
+        
+        return true;
     }
 ?>
 <!DOCTYPE html>
@@ -245,9 +353,6 @@
 
     <!-- Bootstrap Select Css -->
     <link href=" plugins/bootstrap-select/css/bootstrap-select.css" rel="stylesheet" />
-
-    <!-- Sweetalert Css -->
-    <link href=" plugins/sweetalert/sweetalert.css" rel="stylesheet" />
 
     <!-- Custom Css -->
     <link href=" css/style.css" rel="stylesheet">
@@ -404,7 +509,7 @@
                                     <div class="form-group">
                                         <div class="form-line inputDiv" id="stud_receipt">
                                             <label class="required" for="stud_receipt">Hostel fee receipt number/UTR number</label>
-                                            <input type="text" class=" form-control" placeholder="Receipt Number for Hostel Reservation" name="stud_receipt" id="stud_receipt_input" required>
+                                            <input type="text" class=" form-control" placeholder="Receipt Number for Hostel Reservation" name="stud_receipt" id="stud_receipt_input"  pattern="[0-9]+" required>
                                         </div>
                                     </div>
                                 </div>
@@ -412,13 +517,13 @@
                                     <div class="form-group">
                                         <div class="form-line inputDiv" id="amt_paid">
                                             <label class="required" for="amt_paid">Amount Paid for Hostel Reservation</label>
-                                            <input type="text" placeholder="Amount Paid for Hostel Reservation" class="form-control" name="amt_paid" id="amt_paid_input" required>
+                                            <input type="number" placeholder="100000" class="form-control" name="amt_paid" id="amt_paid_input" pattern="[0-9]+" required>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-md-3">
                                     <div class="form-group">
-                                        <div class="selectDiv" id="amt_paid">
+                                        <div class="form-line selectDiv" id="mode_trans">
                                             <label for="mode_trans" class="required">Mode of Transaction</label>
                                             <select class="form-control" name="mode_trans" id="mode_trans_input" required>
                                                 <option value="1">Offline</option>
@@ -499,9 +604,6 @@
     <!-- Bootstrap Material Datetime Picker Plugin Js -->
     <script src=" plugins/bootstrap-material-datetimepicker/js/bootstrap-material-datetimepicker.js"></script>
 
-    <!-- Sweetalert Plugin Js -->
-    <script src=" plugins/sweetalert/sweetalert.min.js"></script>
-
     <!-- Custom Js -->
     <script src=" js/admin.js"></script>
     <script src=" js/pages/forms/basic-form-elements.js"></script>
@@ -563,8 +665,35 @@
 			$("#stud_city_input").oninput = function(event) {
 				event.target.setCustomValidity('');
             }
+            $("#mode_trans_input").oninvalid = function(event) {
+                event.target.setCustomValidity('This field is required');
+            }
+            $("#mode_trans_input").oninput = function(event) {
+                event.target.setCustomValidity('');
+            }
+
+            var cityInput = document.getElementById('stud_city_input');
+
+            autocomplete = new google.maps.places.Autocomplete(
+            /** @type {!HTMLInputElement} */ (
+                cityInput), {
+            types: ['(cities)'],
+            });
+
+            autocomplete.addListener('place_changed', onPlaceChanged);
+
+            function onPlaceChanged() {
+                var city = autocomplete.getPlace();
+                if(place.geometry) {
+                    cityInput.placeholder = city;
+                } else {
+                    cityInput.placeholder = 'City of permanent residence';
+                }
+            }
         });
     </script>
+    <!-- TODO: Replace YOUR_API_KEY with the API_KEY generated from google developers console with the pict hostel gmail account -->
+    <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=places" async defer></script>
 </body>
 
 </html>
