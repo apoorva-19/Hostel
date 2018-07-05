@@ -558,40 +558,51 @@
                                 </div>
                             </div>
                             <div class="row clearfix">
-                                <div class="col-md-3">
+                                <div class="col-md-8">
+                                    <div class="form-group">
+                                        <div class="form-line inputDiv" id="street_numebr">
+                                            <label class="required" for="street_number">Street/Landmark/Locality</label>
+                                            <input id="street_number_input" name="street_number" class="form-control" disabled style="background-color:#efefef;" type="text" required />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
                                     <div class="form-group">
                                         <div class="form-line inputDiv" id="locality">
                                             <label class="required" for="locality">City</label>
-                                            <input id="locality_input" name="locality" class="form-control" disabled style="background-color:#efefef;" type="text" />
+                                            <input id="locality_input" name="locality" class="form-control" disabled style="background-color:#efefef;" type="text" required />
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-md-3">
+                            </div>
+                            <div class="row clearfix">
+                                <div class="col-md-4">
                                     <div class="form-group">
                                         <div class="form-line inputDiv" id="administrative_area_level_1">
                                             <label class="required" for="administrative_area_level_1">State</label>
-                                            <input id="administrative_area_level_1_input" name="administrative_area_level_1" class="form-control" disabled style="background-color:#efefef;" type="text" />
+                                            <input id="administrative_area_level_1_input" name="administrative_area_level_1" class="form-control" disabled style="background-color:#efefef;" type="text" required/>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-md-3">
+                                <div class="col-md-4">
                                     <div class="form-group">
                                         <div class="form-line inputDiv" id="postal_code">
                                             <label class="required" for="postal_code">Pin Code</label>
-                                            <input id="postal_code_input" name="postal_code" class="form-control" disabled style="background-color:#efefef;" type="text" />
+                                            <input id="postal_code_input" name="postal_code" class="form-control" disabled style="background-color:#efefef;" type="text" required/>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-md-3">
+                                <div class="col-md-4">
                                     <div class="form-group">
                                         <div class="form-line inputDiv" id="country">
                                             <label class="required" for="country">Country</label>
-                                            <input id="country_input" name="country" class="form-control" disabled style="background-color:#efefef;" type="text" />
+                                            <input id="country_input" name="country" class="form-control" disabled style="background-color:#efefef;" type="text" required/>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                             <button type="submit" class="btn btn-primary waves-effect" style="float: right;">Submit</button>
+                            <br>
                         </form>
                     </div>
                 </div>
