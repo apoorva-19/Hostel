@@ -25,7 +25,7 @@
                         });
                     </script>";
         }
-        else if(!validateCityDistance(test_input($_POST["stud_city"])))
+        else if(!validateCityDistance(test_input($_POST["stud_locality"])))
         {
             echo '<script>swal({
                             title: "Error",
@@ -46,7 +46,7 @@
             $year = test_input($_POST["stud_year"]);
             $receipt = test_input($_POST["stud_receipt"]);
             $amtPaid = test_input($_POST["amt_paid"]);
-            $city = test_input($_POST["stud_city"]);
+            $city = test_input($_POST["stud_locality"]);
             $date = date('Y-m-d');
 
 			$sql = "SELECT `MIS` FROM `New_Registrations` WHERE `MIS` = ?;";
@@ -276,12 +276,12 @@
                 setTimeout(function() { $('form').validate().showErrors({ 'mode_trans' : 'Please select a valid transaction type' }) }, 100);
             });</script>";
         }
-        if(!(isset($_POST["stud_city"]) && !(empty($_POST["stud_city"]))))
+        if(!(isset($_POST["stud_locality"]) && !(empty($_POST["stud_locality"]))))
         {
             $valid = false;
-            echo "<script>document.addEventListener('DOMContentLoaded', function() { document.getElementById('stud_city').className += form-line foucsed error'; });</script>";
+            echo "<script>document.addEventListener('DOMContentLoaded', function() { document.getElementById('stud_locality').className += form-line foucsed error'; });</script>";
             echo "<script>$(document).ready(function() {
-                setTimeout(function() { $('form').validate().showErrors({ 'stud_city' : 'This field is required' }) }, 100);
+                setTimeout(function() { $('form').validate().showErrors({ 'stud_locality' : 'This field is required' }) }, 100);
             });</script>";
         }
         if(!(isset($_POST["amt_paid"]) && !(empty($_POST["amt_paid"])) && is_numeric($_POST["amt_paid"])))
@@ -330,6 +330,7 @@
     <link rel="icon" href="favicon.ico" type="image/x-icon">
 
     <!-- Google Fonts -->
+    <link type="text/css" rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500">
     <link href="https://fonts.googleapis.com/css?family=Roboto:400,700&subset=latin,cyrillic-ext" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" type="text/css">
 
@@ -523,7 +524,7 @@
                                 </div>
                                 <div class="col-md-3">
                                     <div class="form-group">
-                                        <div class="form-line selectDiv" id="mode_trans">
+                                        <div class="selectDiv" id="mode_trans">
                                             <label for="mode_trans" class="required">Mode of Transaction</label>
                                             <select class="form-control" name="mode_trans" id="mode_trans_input" required>
                                                 <option value="1">Offline</option>
@@ -536,10 +537,9 @@
                             <div class="row clearfix">
                                 <div class="col-md-12">
                                     <div class="form-group">
-                                        <div class="form-line inputDiv" id="stud_city">
-                                            <label class="required" for="stud_city">City of permanent residence</label>
-                                            <input type="text" placeholder="City of permanent residence" class="form-control"
-                                            name="stud_city" id="stud_city_input" required>
+                                        <div class="form-line inputDiv" id="stud_locality">
+                                            <label class="required" for="stud_locality">Locality</label>
+                                            <input id="stud_locality_input" name="stud_locality" placeholder="Enter your locality. Example: Chandani Chowk" onFocus="geolocate()" type="text" class="form-control" />
                                             <div class="help-info">
                                                 Hostel will be alloted to those students whose radial distance is more than 40 kms.
                                             </div>
@@ -547,9 +547,41 @@
                                     </div>
                                 </div>
                             </div>
-                            <button type="submit" class="btn btn-primary m-t-15 waves-effect" style="float: right;">Submit</button>
-                            <br>
-                            <br>
+                            <div class="row clearfix">
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <div class="form-line inputDiv" id="locality">
+                                            <label class="required" for="locality">City</label>
+                                            <input id="locality_input" name="locality" class="form-control" disabled style="background-color:#efefef;" type="text" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <div class="form-line inputDiv" id="administrative_area_level_1">
+                                            <label class="required" for="administrative_area_level_1">State</label>
+                                            <input id="administrative_area_level_1_input" name="administrative_area_level_1" class="form-control" disabled style="background-color:#efefef;" type="text" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <div class="form-line inputDiv" id="postal_code">
+                                            <label class="required" for="postal_code">Pin Code</label>
+                                            <input id="postal_code_input" name="postal_code" class="form-control" disabled style="background-color:#efefef;" type="text" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <div class="form-line inputDiv" id="country">
+                                            <label class="required" for="country">Country</label>
+                                            <input id="country_input" name="country" class="form-control" disabled style="background-color:#efefef;" type="text" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <button type="submit" class="btn btn-primary waves-effect" style="float: right;">Submit</button>
                         </form>
                     </div>
                 </div>
@@ -659,10 +691,10 @@
 			$("#amt_paid_input").oninput = function(event) {
 				event.target.setCustomValidity('');
             }
-			$("#stud_city_input").oninvalid = function(event) {
+			$("#stud_locality_input").oninvalid = function(event) {
 				event.target.setCustomValidity('This field is required');
             }
-			$("#stud_city_input").oninput = function(event) {
+			$("#stud_locality_input").oninput = function(event) {
 				event.target.setCustomValidity('');
             }
             $("#mode_trans_input").oninvalid = function(event) {
@@ -672,7 +704,7 @@
                 event.target.setCustomValidity('');
             }
 
-            var cityInput = document.getElementById('stud_city_input');
+            var cityInput = document.getElementById('stud_locality_input');
 
             autocomplete = new google.maps.places.Autocomplete(
             /** @type {!HTMLInputElement} */ (

@@ -66,6 +66,19 @@
                     }
                 });
             }
+            else if (JSONresult.result = "Details not verified. Please verify and try again.")
+            {
+                swal({
+                    title: "Error!",
+                    text: "Details not verified. Please verify and try again.",
+                    type: "error",  
+                    confirmButtonText: "Ok"
+                }).then((result) => {
+                    if(result.value){
+                        window.location.href="index.php";
+                    }
+                });
+            }
             else
             {
                 swal({
@@ -95,7 +108,7 @@
             {
                 swal({
                     title: "Error!",
-                    text: "Receipt Number and Amount Paid have not been verified.",
+                    text: "MIS Id, Receipt Number and Amount Paid have not been verified.",
                     type: "error",
                     showConfirmButton: true,
                     confirmButtonText: "Ok"

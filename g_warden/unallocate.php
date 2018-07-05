@@ -28,7 +28,7 @@
             $row = $result->fetch_assoc();
             if($mis == $row["MIS"])
             {   
-                $reset_room_no = "UPDATE `New_Registrations` SET `Room_No` = '0' WHERE `MIS` = ?";
+                $reset_room_no = "UPDATE `New_Registrations` SET `Room_No` = '0', `Verify_Warden` = 'N' WHERE `MIS` = ?";
                 if(!($reset_room_no = $mysqli->prepare($reset_room_no)))
                 {
                     error_log('Prepare failed for resetting room number in unallocate.php: ('.$mysqli->errno.') '.$mysqli->error);
