@@ -130,11 +130,21 @@
                                     }
                                     else
                                     {
-                                        echo "<script>swal({
+                                        if(!$result = $insert_stud->get_result() && $mysqli->errno == 0)
+                                            echo "<script>swal({
                                                             title: 'Success',
                                                             text: 'Sign up completed successfully!',
                                                             type: 'success'
                                                             });</script>";
+                                        else
+                                        {
+                                            error_log('PHP code executed but MySQL query failed. Please check the query or MySQL database for errors in sign_up.php: ('.$mysqli->errno.')'.$mysqli->error);
+                                            echo "<script>swal({
+                                                            title: 'Error',
+                                                            text: 'Request could not be processed. We are trying to fix the error.',
+                                                            type: 'error'
+                                                            });</script>";
+                                        }
                                         // if($res = mysqli_query($mysqli, $insert_stud))
                                         // {
                                         //     echo "<script>alert('Sign up completed successfully!');</script>";

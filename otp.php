@@ -1,7 +1,7 @@
 <?php
 	function otp($len)
 	{
-		$string =	 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWYZ0123456789';
+		$string = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWYZ0123456789';
 		$otp = "";
 		for($i = 0; $i < $len; $i++)
 		{
