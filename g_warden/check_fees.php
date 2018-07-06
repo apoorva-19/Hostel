@@ -27,11 +27,11 @@
         }
         if($result = $fees_paid->get_result())
         {
-            $row = $result->fetch_assoc();
+            $row = $result->fetch_assoc();            
             if($_POST["amt"] == $row["Amount_Paid"] && $receipt_no == $row["Receipt_No"] && $verify_mis_id == $mis)
             {
                 $jsonArray["result"] = "MIS Id, Receipt Number and Amount Paid have been verified. Room can now be allocated.";
-
+                error_log("here");
                 $warden_verification = "UPDATE `New_Registrations` SET `Verify_Warden` = 'Y' WHERE `MIS` = ?";
                 if(!($warden_verification = $mysqli->prepare($warden_verification)))
                 {
@@ -51,8 +51,9 @@
                     $jsonArray["result"] = "Request could not be processed. We are trying to fix the error.";
                     exit;
                 }
-                if(!$result = $warden_verification->get_result() && $mysqli->errno != 0)
+                if(!($result = $warden_verification->get_result()) && $mysqli->errno != 0)
                 {
+                    error_log('Get result failed for warden_verification in check_fees.php: ('.$mysqli->errno.') '.$mysqli->error);
                     $jsonArray["result"] = "MIS Id, Receipt Number and Amount Paid have not been verified.";
                 }
             }

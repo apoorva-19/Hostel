@@ -129,7 +129,7 @@
                                                   <td>".$row['Name']."</td>
                                                   <td>".$row['MIS']."</td>
                                                   <td>".$row['Email_Id']."</td>
-                                                  <td>".$row['Address']."</td>";
+                                                  <td>".$row['City']."</td>";
                                                   if($row['Admission_Type'] == 'M')
                                                     echo "<td>Management Quota</td>";
                                                   else if($row['Admission_Type'] == 'C')
