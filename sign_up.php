@@ -4,15 +4,22 @@
     1. HTTP restriction for Places API - http://hostel.pictinc.org/*
     2. HTTP restriction for Distance Matrix API - http://hostel.pictinc.org/*
     3. Need to add validation for receipt number and amount paid
+    4. Check if country is not India. If not, distance checking is not required and sign up can be done directly.
 */
+    $GLOBALS["visit"] = false;
     require_once("convert.php");
     require_once("connect.php");
     echo '<script src=" plugins/jquery/jquery.min.js"></script>';
     echo '<script src=" plugins/jquery-validation/jquery.validate.js"></script>';
     echo '<link href=" plugins/sweetalert/sweetalert.css" rel="stylesheet" />';
     echo '<script src=" plugins/sweetalert/sweetalert.min.js"></script>';
+    echo '<style>
+    .bootstrap-select.swal2-select{
+        display:none !important;
+    }</style>';
     if(($_SERVER["REQUEST_METHOD"] == "POST"))
     {
+        $GLOBALS["visit"] = true;
         if(!validateSignUpInput())
         {
             echo "<script>
@@ -33,31 +40,42 @@
         }
         else
         {
-            $distanceResult = validateDistance(test_input($_POST["route"]));
+            if(test_input($_POST["country"]) == "India")
+                $distanceResult = validateDistance(test_input($_POST["lat"]), test_input($_POST["lng"]));
+            else
+                $distanceResult = 1;
 
             if($distanceResult == 0)
             {
-                echo '<script>swal({
-                    title: "Error",
-                    text: "Your city of residence is less than 40 kms from college. Hostel allocation is only for students who live more than 40 kms from college. Please contact the administration office for further details",
-                    type: "error"
-                    });</script>';
+                echo '<script>$(document).ready(function(){
+                    swal({
+                        title: "Error",
+                        text: "Your city of residence is less than 40 kms from college. Hostel allocation is only for students who live more than 40 kms from college. Please contact the administration office for further details",
+                        type: "error"
+                        });
+                        $(".btn-group.bootstrap-select.swal2-select").toggle(false);
+                });</script>';
             }
             else if($distanceResult == 2)
             {
-                echo "<script>swal({
+                echo "<script>$(document).ready(function(){
+                    swal({
                     title: 'Error',
                     text: 'Request could not be processed. We are trying to fix the error.',
                     type: 'error'
-                })</script>";
+                    });
+                    $('.btn-group.bootstrap-select.swal2-select').toggle(false);
+                });</script>";
             }
             else if($distanceResult == 3)
             {
-                echo "<script>swal({
+                echo "<script>$(document).ready(function(){swal({
                     title: 'Error',
                     text: 'We could not find the distance to the specified location. Please select another landmark near your permanent residence from our list of suggestions. We are extremely sorry for the inconvenience.',
-                    type: 'warning'
-                })</script>";
+                    type: 'error',
+                    });
+                    $('.btn-group.bootstrap-select.swal2-select').toggle(false);
+                });</script>";
             }
             else
             {
@@ -84,21 +102,27 @@
                 if(!($verify_mis = $mysqli->prepare($sql)))
                 {
                     error_log('Prepare failed for mis checking in sign_up.php: ('.$mysqli->errno.') '.$mysqli->error);
-                    echo "<script>swal({
+                    echo "<script>$(document).ready(function(){
+                        swal({
                         title: 'Error',
                         text: 'Request could not be processed. We are trying to fix the error.',
                         type: 'error'
-                    })</script>";
+                        });
+                        $('.btn-group.bootstrap-select.swal2-select').toggle(false);
+                    });</script>";
                 }
                 else
                 {
                     if(!($verify_mis->bind_param('s', $mis)))
                     {
                         error_log('Binding failed for mis checking in sign_up.php: ('.$mysqli->errno.') '.$mysqli->error);
-                        echo "<script>swal({
+                        echo "<script>$(document).ready(function(){
+                            swal({
                             title: 'Error',
                             text: 'Request could not be processed. We are trying to fix the error.',
                             type: 'error'
+                            });
+                            $('.btn-group.bootstrap-select.swal2-select').toggle(false);
                         })</script>";
                     }
                     else
@@ -106,10 +130,13 @@
                         if(!$verify_mis->execute())
                         {
                             error_log('Execution failed for verifying student in sign_up.php: ('.$mysqli->errno.') '.$mysqli->error);
-                            echo "<script>swal({
+                            echo "<script>$(document).ready(function(){
+                                swal({
                                 title: 'Error',
                                 text: 'Request could not be processed. We are trying to fix the error.',
                                 type: 'error'
+                                });
+                                $('.btn-group.bootstrap-select.swal2-select').toggle(false);
                             })</script>";
                         }
                         else
@@ -117,25 +144,29 @@
                             $res = $verify_mis->get_result();
                             if($res->num_rows > 0)
                             {
-                                echo "<script>swal({
+                                echo "<script>$(document).ready(function(){
+                                    swal({
                                     title: 'Error',
                                     text: 'This MIS id has already registered for the hostel',
                                     type: 'error'
+                                    });
+                                    $('.btn-group.bootstrap-select.swal2-select').toggle(false);
                                 })</script>";
                             }
                             else
                             {
-                                /* $insert_stud = "INSERT INTO `New_Registrations`(`Name`, `Gender`, `Admission_Type`, `DOB`, `MIS`, `Email_Id`, `Contact_Number`, `Branch`, `Year`, `Receipt_No`, `Amount_Paid`, `Reg_Date`) VALUES ('".$_POST["stud_name"]."','".$_POST["stud_gender"]."','".$_POST["admission_type"]."','".convertDate($_POST["stud_dob"])."','".$_POST["stud_mis"]."','".$_POST["stud_email"]."',".$_POST["stud_contact"].",'".$_POST["stud_branch"]."',".$_POST["stud_year"].",'".$_POST["stud_receipt"]."',".$_POST["amt_paid"].",'".date('Y-m-d')."');";*/
-                                // echo '<script>alert("'.$insert_stud.'");</script>';
                                 $sql = "INSERT INTO `New_Registrations`(`Name`, `Gender`, `Admission_Type`, `DOB`, `MIS`, `Email_Id`, `Contact_Number`, `Branch`, `Year`, `Receipt_No`, `Amount_Paid`, `Mode_Transaction`, `Street`, `City`, `State`, `Pincode`, `Country`, `Reg_Date`) VAlUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
 
                                 if(!($insert_stud = $mysqli->prepare($sql)))
                                 {
                                     error_log('Prepare failed for insertion of student in sign_up.php: ('.$mysqli->errno.') '.$mysqli->error);
-                                    echo "<script>swal({
+                                    echo "<script>$(document).ready(function(){
+                                        swal({
                                         title: 'Error',
                                         text: 'Request could not be processed. We are trying to fix the error.',
                                         type: 'error'
+                                        });
+                                        $('.btn-group.bootstrap-select.swal2-select').toggle(false);
                                     })</script>";
                                 }
                                 else
@@ -143,10 +174,13 @@
                                     if(!($insert_stud->bind_param('ssssssisisiissssss', $name, $gender, $admissionType, $dob, $mis, $email, $contact, $branch, $year, $receipt, $amtPaid, $modeTrans, $street, $city, $state, $zipcode, $country, $date)))
                                     {
                                         error_log('Binding failed for insertion of student in sign_up.php: ('.$mysqli->errno.') '.$mysqli->error);
-                                        echo "<script>swal({
+                                        echo "<script>$(document).ready(function(){
+                                            swal({
                                             title: 'Error',
                                             text: 'Request could not be processed. We are trying to fix the error.',
                                             type: 'error'
+                                            });
+                                            $('.btn-group.bootstrap-select.swal2-select').toggle(false);
                                         })</script>";
                                     }
                                     else
@@ -154,28 +188,36 @@
                                         if(!$insert_stud->execute())
                                         {
                                             error_log('Execution failed for insertion of student in sign_up.php: ('.$mysqli->errno.') '.$mysqli->error);
-                                            echo "<script>swal({
+                                            echo "<script>$(document).ready(function(){swal({
                                                 title: 'Error',
                                                 text: 'Request could not be processed. We are trying to fix the error.',
                                                 type: 'error'
+                                                });
+                                                $('.btn-group.bootstrap-select.swal2-select').toggle(false);
                                             })</script>";
                                         }
                                         else
                                         {
                                             if(!$result = $insert_stud->get_result() && $mysqli->errno == 0)
-                                                echo "<script>swal({
-                                                            title: 'Success',
-                                                            text: 'Sign up completed successfully!',
-                                                            type: 'success'
-                                                            });</script>";
+                                                echo "<script>$(document).ready(function(){
+                                                        swal({
+                                                        title: 'Success',
+                                                        text: 'Sign up completed successfully!',
+                                                        type: 'success'
+                                                    });
+                                                    $('.btn-group.bootstrap-select.swal2-select').toggle(false);
+                                                });</script>";
                                             else
                                             {
                                                 error_log('PHP code executed but MySQL query failed. Please check the query or MySQL database for errors in sign_up.php: ('.$mysqli->errno.')'.$mysqli->error);
-                                                echo "<script>swal({
-                                                                title: 'Error',
-                                                                text: 'Request could not be processed. We are trying to fix the error.',
-                                                                type: 'error'
-                                                                });</script>";
+                                                echo "<script>$(document).ready(function(){
+                                                    swal({
+                                                        title: 'Error',
+                                                        text: 'Request could not be processed. We are trying to fix the error.',
+                                                        type: 'error'
+                                                    });
+                                                    $('.btn-group.bootstrap-select.swal2-select').toggle(false);
+                                                });</script>";
                                             }
                                         }
                                     }
@@ -187,54 +229,6 @@
             }
         }
     }
-
-    // if($res = mysqli_query($mysqli, $insert_stud))
-    // {
-    //     echo "<script>alert('Sign up completed successfully!');</script>";
-    //     // echo "<script>swal({
-    //     //     title: 'Done!',
-    //     //     text: 'Sign up completed successfully!',
-    //     //     type: 'success',
-    //     //     confirmButtonText: 'Ok'}, function(isConfirm) { if(isConfirm) { window.location.href = 'sign_up.php'; } });</script>";
-    // }
-    // else
-    // {
-    //     echo "<script>alert('Failed to sign up');</script>";
-    //     // echo "<script>swal({
-    //     //     title: 'Error!',
-    //     //     text: 'An unexpected error occured. Please contact the system administrator',
-    //     //     type: 'error'});</script>";
-    //     // echo "<script>alert('Failed to sign up');</script>";
-    // }
-    // if($res = mysqli_query($mysqli, $verify_mis))
-    // {
-    //     if(mysqli_num_rows($res)) //checking for duplicate entries
-    //         echo "<script>alert('Incorrect Registration ID');</script>";
-    //     else
-    //     {
-    //         $insert_stud = "INSERT INTO `New_Registrations`(`Name`, `Gender`, `Admission_Type`, `DOB`, `MIS`, `Email_Id`, `Contact_Number`, `Branch`, `Year`, `Receipt_No`, `Amount_Paid`, `Reg_Date`) VALUES ('".$_POST["stud_name"]."','".$_POST["stud_gender"]."','".$_POST["admission_type"]."','".convertDate($_POST["stud_dob"])."','".$_POST["stud_mis"]."','".$_POST["stud_email"]."',".$_POST["stud_contact"].",'".$_POST["stud_branch"]."',".$_POST["stud_year"].",'".$_POST["stud_receipt"]."',".$_POST["amt_paid"].",'".date('Y-m-d')."');";
-    //         // echo '<script>alert("'.$insert_stud.'");</script>';
-    //         if($res = mysqli_query($mysqli, $insert_stud))
-    //         {
-    //             echo "<script>alert('Sign up completed successfully!');</script>";
-    //             // echo "<script>swal({
-    //             //     title: 'Done!',
-    //             //     text: 'Sign up completed successfully!',
-    //             //     type: 'success',
-    //             //     confirmButtonText: 'Ok'}, function(isConfirm) { if(isConfirm) { window.location.href = 'sign_up.php'; } });</script>";
-    //         }
-    //         else
-    //         {
-    //             echo "<script>alert('Failed to sign up');</script>";
-    //             // echo "<script>swal({
-    //             //     title: 'Error!',
-    //             //     text: 'An unexpected error occured. Please contact the system administrator',
-    //             //     type: 'error'});</script>";
-    //             // echo "<script>alert('Failed to sign up');</script>";
-    //         }
-    //     }
-    // }
-
     function validateSignUpInput()
     {
         $valid = true;
@@ -335,51 +329,18 @@
                 setTimeout(function() { $('form').validate().showErrors({ 'stud_receipt' : 'Please enter a valid receipt number' }) }, 100);
             });</script>";
         }
-        if(!(isset($_POST["route"]) && !(empty(trim($_POST["route"])))))
+        if(!(isset($_POST["lat"]) && !(empty(trim($_POST["lat"])))))
         {
-            $valid = false;
-            echo "<script>document.addEventListener('DOMContentLoaded', function() { document.getElementById('route_div').className += ' focused error'; });</script>";
-            echo "<script>$(document).ready(function() {
-                setTimeout(function() { $('form').validate().showErrors({ 'route' : 'Please select an option closest to your permanent address from our list of suggestions that populates this field' }) }, 100);
-            });</script>";
+            $valid = false;            
         }
-        if(!(isset($_POST["locality"]) && !(empty(trim($_POST["locality"])))))
+        if(!(isset($_POST["lng"]) && !(empty(trim($_POST["lng"])))))
         {
-            $valid = false;
-            echo "<script>document.addEventListener('DOMContentLoaded', function() { document.getElementById('locality_div').className +=' focused error'; });</script>";
-            echo "<script>$(document).ready(function() {
-                setTimeout(function() { $('form').validate().showErrors({ 'locality' : 'Please select an option closest to your permanent address from our list of suggestions that populates this field' }) }, 100);
-            });</script>";
-        }
-        if(!(isset($_POST["administrative_area_level_1"]) && !(empty(trim($_POST["administrative_area_level_1"])))))
-        {
-            $valid = false;
-            echo "<script>document.addEventListener('DOMContentLoaded', function() { document.getElementById('administrative_area_level_1_div').className += ' focused error'; });</script>";
-            echo "<script>$(document).ready(function() {
-                setTimeout(function() { $('form').validate().showErrors({ 'administrative_area_level_1' : 'Please select an option closest to your permanent address from our list of suggestions that populates this field' }) }, 100);
-            });</script>";
-        }
-        if(!(isset($_POST["postal_code"]) && !(empty(trim($_POST["postal_code"])))))
-        {
-            $valid = false;
-            echo '<script>alert("Reached inside postal code if condition");</script>';
-            echo "<script>document.addEventListener('DOMContentLoaded', function() { document.getElementById('postal_code_div').className +=' focused error'; });</script>";
-            echo "<script>$(document).ready(function() {
-                setTimeout(function() { $('form').validate().showErrors({ 'postal_code' : 'Please select an option closest to your permanent address from our list of suggestions that populates this field' }) }, 100);
-            });</script>";
-        }
-        if(!(isset($_POST["country"]) && !(empty(trim($_POST["country"])))))
-        {
-            $valid = false;
-            echo "<script>document.addEventListener('DOMContentLoaded', function() { document.getElementById('country_div').className +=' focused error'; });</script>";
-            echo "<script>$(document).ready(function() {
-                setTimeout(function() { $('form').validate().showErrors({ 'country' : 'Please select an option closest to your permanent address from our list of suggestions that populates this field' }) }, 100);
-            });</script>";
+            $valid = false;            
         }
         return $valid;
     }
 
-    function validateDistance($street)
+    function validateDistance($lat, $lng)
     {
         /*
             NOTE: In this function, the following return values carry the following meaning:
@@ -402,8 +363,10 @@
                 - MAX_ROUTE_LENGTH_EXCEEDED indicates the requested route is too long and cannot be processed.
         */
 
-        $urlEncodedStreet = urlencode($street);
-        $googleMapsUrl = "https://maps.googleapis.com/maps/api/distancematrix/json?origins=18.4575,73.8508&destinations=$urlEncodedStreet&key=AIzaSyCR3Ec8JjPlBt6u4ycIoqa3CzbZUByjkmw&language=en";
+        // $urlEncodedStreet = urlencode($street);
+        $urlEncodedLocation = $lat.",".$lng;
+        error_log($urlEncodedLocation);
+        $googleMapsUrl = "https://maps.googleapis.com/maps/api/distancematrix/json?origins=18.4575,73.8508&destinations=$urlEncodedLocation&key=AIzaSyBaW6EE3ERJBT_RmUjL_lGhh3IdvdabxrM&language=en";
         $data = file_get_contents($googleMapsUrl);
         $data = json_decode($data);
         if($data->status == "OK")
@@ -581,7 +544,7 @@
                                     <div class="form-group">
                                         <div class="form-line inputDiv" id="stud_email">
                                             <label class="required" for="stud_email">Email Id</label>
-                                            <input type="email" placeholder="Email address" class="form-control" name="stud_email" oninvalid="this.setCustomValidity('Please enter a valid email address');" onchange='this.setCustomValidity('');' id="stud_email_input" oninput="this.setCustomValidity('');" required>
+                                            <input type="email" placeholder="Email address" class="form-control" name="stud_email" oninvalid="this.setCustomValidity('Please enter a valid email address');" onchange="this.setCustomValidity('');" id="stud_email_input" oninput="this.setCustomValidity('');" required/>
                                         </div>
                                     </div>
                                 </div>
@@ -666,7 +629,7 @@
                                 <div class="col-md-8">
                                     <div class="form-group">
                                         <div class="form-line inputDiv" id="route_div">
-                                            <label class="required" for="route">Street/Landmark/Locality</label>
+                                            <label class="" for="route">Street/Landmark/Locality</label>
                                             <input id="route" name="route" class="form-control" readonly style="background-color:#efefef;" type="text" required />
                                         </div>
                                     </div>
@@ -674,7 +637,7 @@
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <div class="form-line inputDiv" id="locality_div">
-                                            <label class="required" for="locality">City</label>
+                                            <label class="" for="locality">City</label>
                                             <input id="locality" name="locality" class="form-control" readonly style="background-color:#efefef;" type="text" required />
                                         </div>
                                     </div>
@@ -684,7 +647,7 @@
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <div class="form-line inputDiv" id="administrative_area_level_1_div">
-                                            <label class="required" for="administrative_area_level_1">State</label>
+                                            <label class="" for="administrative_area_level_1">State</label>
                                             <input id="administrative_area_level_1" name="administrative_area_level_1" class="form-control" readonly style="background-color:#efefef;" type="text" required/>
                                         </div>
                                     </div>
@@ -692,7 +655,7 @@
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <div class="form-line inputDiv" id="postal_code_div">
-                                            <label class="required" for="postal_code">Pin Code</label>
+                                            <label class="" for="postal_code">Pin Code</label>
                                             <input id="postal_code" name="postal_code" class="form-control" readonly style="background-color:#efefef;" type="text" required/>
                                         </div>
                                     </div>
@@ -700,12 +663,15 @@
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <div class="form-line inputDiv" id="country_div">
-                                            <label class="required" for="country">Country</label>
+                                            <label class="" for="country">Country</label>
                                             <input id="country" name="country" class="form-control" readonly style="background-color:#efefef;" type="text" required/>
                                         </div>
                                     </div>
                                 </div>
                             </div>
+                            <input type="hidden" name="completeAddress" id="completeAddress" readonly required/>
+                            <input type="hidden" name="lat" id="lat" readonly required>
+                            <input type="hidden" name="lng" id="lng" readonly required>
                             <button type="submit" class="btn btn-primary waves-effect" style="float: right;">Submit</button>
                             <br>
                         </form>
@@ -770,23 +736,33 @@
     <script src=" js/demo.js"></script>
 
     <!-- Google Places API -->
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCR3Ec8JjPlBt6u4ycIoqa3CzbZUByjkmw&libraries=places" async defer></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBaW6EE3ERJBT_RmUjL_lGhh3IdvdabxrM&libraries=places" async defer></script>
 
     <script type="text/javascript">
-        $(window).on('load', function() {
-                $('#firstTime').modal('show');
-        });
+        <?php 
+            if(isset($GLOBALS["visit"]))
+            {
+                if(!$GLOBALS["visit"])
+                {
+                    echo "$(window).on('load', function() {
+                        $('#firstTime').modal('show');
+                    });";
+                    $GLOBALS["visit"] = true;
+                }
+            }
+        ?>
         $(document).ready(function() {
             $(".required").after("<span style='color:red;'> *</span>");
         });
 
-        var placeSearch, autocomplete;
+        var placeSearch, autocomplete, completeAddress = "";
         var componentForm = {
             route: 'long_name',
             locality: 'long_name',
             administrative_area_level_1: 'long_name',
             postal_code: 'short_name',
             country: 'long_name'
+
         };
 
         function initAutoComplete() {
@@ -799,7 +775,6 @@
 
         function fillInAddress() {
             var place = autocomplete.getPlace();
-
             for(var component in componentForm) {
                 document.getElementById(component).value = '';
             }
@@ -809,8 +784,12 @@
                 if(componentForm[addressType]) {
                     var val = place.address_components[i][componentForm[addressType]];
                     document.getElementById(addressType).value = val;
+                    completeAddress = completeAddress.concat(val.toString());
                 }
             }
+            document.getElementById('lat').value = place.geometry.location.lat();
+            document.getElementById('lng').value = place.geometry.location.lng();
+            document.getElementById('completeAddress').value = completeAddress;
         }
     </script>
 </body>
