@@ -14,6 +14,7 @@ function httpGetAsync(url, callback) {
 }
 
 function httpPostAsync(url, params, callback) {
+    //sample params = 'lorem=ipsum&dolor=amet'
     if (window.XMLHttpRequest) {
         xmlHttp = new XMLHttpRequest();
     } else {
@@ -21,8 +22,7 @@ function httpPostAsync(url, params, callback) {
         xmlHttp = new ActiveXObject("Microsoft.XMLHTTP");
     }
     xmlHttp.onreadystatechange = function() {
-        if (xmlHttp.readyState == 4 && xmlHttp.status == 200)
-        {
+        if (xmlHttp.readyState == 4 && xmlHttp.status == 200) {
             callback(xmlHttp.responseText);
         }
     }
