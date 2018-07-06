@@ -1,4 +1,10 @@
 <?php
+/*
+    TODO:
+    1. HTTP restriction for Places API - http://hostel.pictinc.org/*
+    2. HTTP restriction for Distance Matrix API - http://hostel.pictinc.org/*
+    3. Need to add validation for receipt number and amount paid
+*/
     require_once("convert.php");
     require_once("connect.php");
     echo '<script src=" plugins/jquery/jquery.min.js"></script>';
@@ -25,45 +31,59 @@
                         });
                     </script>";
         }
-        else if(!validateCityDistance(test_input($_POST["stud_locality"])))
-        {
-            echo '<script>swal({
-                            title: "Error",
-                            text: "Your city of residence is less than 40 kms from college. Hostel allocation is only for students who live more than 40 kms from college. Please contact the administration office for further details",
-                            type: "error"
-                            });</script>';
-        }
         else
         {
-            $name = test_input($_POST["stud_name"]);
-            $gender = test_input($_POST["stud_gender"]);
-            $admissionType = test_input($_POST["admission_type"]);
-            $dob = convertDate(test_input($_POST["stud_dob"]));
-            $mis = test_input($_POST["stud_mis"]);
-            $email = test_input($_POST["stud_email"]);
-            $contact = test_input($_POST["stud_contact"]);
-            $branch = test_input($_POST["stud_branch"]);
-            $year = test_input($_POST["stud_year"]);
-            $receipt = test_input($_POST["stud_receipt"]);
-            $amtPaid = test_input($_POST["amt_paid"]);
-            $city = test_input($_POST["stud_locality"]);
-            $date = date('Y-m-d');
+            $distanceResult = validateDistance(test_input($_POST["route"]));
 
-			$sql = "SELECT `MIS` FROM `New_Registrations` WHERE `MIS` = ?;";
-			if(!($verify_mis = $mysqli->prepare($sql)))
-			{
-				error_log('Prepare failed for mis checking in sign_up.php: ('.$mysqli->errno.') '.$mysqli->error);
+            if($distanceResult == 0)
+            {
+                echo '<script>swal({
+                    title: "Error",
+                    text: "Your city of residence is less than 40 kms from college. Hostel allocation is only for students who live more than 40 kms from college. Please contact the administration office for further details",
+                    type: "error"
+                    });</script>';
+            }
+            else if($distanceResult == 2)
+            {
                 echo "<script>swal({
                     title: 'Error',
                     text: 'Request could not be processed. We are trying to fix the error.',
                     type: 'error'
                 })</script>";
             }
+            else if($distanceResult == 3)
+            {
+                echo "<script>swal({
+                    title: 'Error',
+                    text: 'We could not find the distance to the specified location. Please select another landmark near your permanent residence from our list of suggestions. We are extremely sorry for the inconvenience.',
+                    type: 'warning'
+                })</script>";
+            }
             else
             {
-                if(!($verify_mis = $mysqli->bind_param('s', $mis)))
+                $name = test_input($_POST["stud_name"]);
+                $gender = test_input($_POST["stud_gender"]);
+                $admissionType = test_input($_POST["admission_type"]);
+                $dob = convertDate(test_input($_POST["stud_dob"]));
+                $mis = test_input($_POST["stud_mis"]);
+                $email = test_input($_POST["stud_email"]);
+                $contact = test_input($_POST["stud_contact"]);
+                $branch = test_input($_POST["stud_branch"]);
+                $year = test_input($_POST["stud_year"]);
+                $receipt = test_input($_POST["stud_receipt"]);
+                $amtPaid = test_input($_POST["amt_paid"]);
+                $modeTrans = test_input($_POST["mode_trans"]);
+                $street = test_input($_POST["route"]);
+                $city = test_input($_POST["locality"]);
+                $state = test_input($_POST["administrative_area_level_1"]);
+                $zipcode = test_input($_POST["postal_code"]);
+                $country = test_input($_POST["country"]);
+                $date = date('Y-m-d');
+
+                $sql = "SELECT `MIS` FROM `New_Registrations` WHERE `MIS` = ?;";
+                if(!($verify_mis = $mysqli->prepare($sql)))
                 {
-                    error_log('Binding failed for mis checking in sign_up.php: ('.$mysqli->errno.') '.$mysqli->error);
+                    error_log('Prepare failed for mis checking in sign_up.php: ('.$mysqli->errno.') '.$mysqli->error);
                     echo "<script>swal({
                         title: 'Error',
                         text: 'Request could not be processed. We are trying to fix the error.',
@@ -72,9 +92,9 @@
                 }
                 else
                 {
-                    if(!$verify_mis->execute())
+                    if(!($verify_mis->bind_param('s', $mis)))
                     {
-                        error_log('Execution failed for verifying student in sign_up.php: ('.$mysqli->errno.') '.$mysqli->error);
+                        error_log('Binding failed for mis checking in sign_up.php: ('.$mysqli->errno.') '.$mysqli->error);
                         echo "<script>swal({
                             title: 'Error',
                             text: 'Request could not be processed. We are trying to fix the error.',
@@ -83,34 +103,35 @@
                     }
                     else
                     {
-                        $res = $verify_mis->get_result();
-                        if($res->num_rows > 0)
+                        if(!$verify_mis->execute())
                         {
+                            error_log('Execution failed for verifying student in sign_up.php: ('.$mysqli->errno.') '.$mysqli->error);
                             echo "<script>swal({
                                 title: 'Error',
-                                text: 'This MIS id has already registered for the hostel',
+                                text: 'Request could not be processed. We are trying to fix the error.',
                                 type: 'error'
                             })</script>";
                         }
                         else
                         {
-                            /* $insert_stud = "INSERT INTO `New_Registrations`(`Name`, `Gender`, `Admission_Type`, `DOB`, `MIS`, `Email_Id`, `Contact_Number`, `Branch`, `Year`, `Receipt_No`, `Amount_Paid`, `Reg_Date`) VALUES ('".$_POST["stud_name"]."','".$_POST["stud_gender"]."','".$_POST["admission_type"]."','".convertDate($_POST["stud_dob"])."','".$_POST["stud_mis"]."','".$_POST["stud_email"]."',".$_POST["stud_contact"].",'".$_POST["stud_branch"]."',".$_POST["stud_year"].",'".$_POST["stud_receipt"]."',".$_POST["amt_paid"].",'".date('Y-m-d')."');";*/
-                            // echo '<script>alert("'.$insert_stud.'");</script>';
-                            $sql = "INSERT INTO `New_Registrations`(`Name`, `Gender`, `Admission_Type`, `DOB`, `MIS`, `Email_Id`, `Contact_Number`, `Branch`, `Year`, `Receipt_No`, `Amount_Paid`, `Reg_Date`,  `City`) VAlUES(?,?,?,?,?,?,?,?,?,?,?,?,?);";
-                            if(!($insert_stud = $mysqli->prepare($sql)))
+                            $res = $verify_mis->get_result();
+                            if($res->num_rows > 0)
                             {
-                                error_log('Prepare failed for insertion of student in sign_up.php: ('.$mysqli->errno.') '.$mysqli->error);
                                 echo "<script>swal({
                                     title: 'Error',
-                                    text: 'Request could not be processed. We are trying to fix the error.',
+                                    text: 'This MIS id has already registered for the hostel',
                                     type: 'error'
                                 })</script>";
                             }
                             else
                             {
-                                if(!($insert_stud = $mysqli->bind_param('ssssssisssiss', $name, $gender, $admissionType, $dob, $mis, $email, $contact, $branch, $year, $receipt, $amtPaid, $date, $city)))
+                                /* $insert_stud = "INSERT INTO `New_Registrations`(`Name`, `Gender`, `Admission_Type`, `DOB`, `MIS`, `Email_Id`, `Contact_Number`, `Branch`, `Year`, `Receipt_No`, `Amount_Paid`, `Reg_Date`) VALUES ('".$_POST["stud_name"]."','".$_POST["stud_gender"]."','".$_POST["admission_type"]."','".convertDate($_POST["stud_dob"])."','".$_POST["stud_mis"]."','".$_POST["stud_email"]."',".$_POST["stud_contact"].",'".$_POST["stud_branch"]."',".$_POST["stud_year"].",'".$_POST["stud_receipt"]."',".$_POST["amt_paid"].",'".date('Y-m-d')."');";*/
+                                // echo '<script>alert("'.$insert_stud.'");</script>';
+                                $sql = "INSERT INTO `New_Registrations`(`Name`, `Gender`, `Admission_Type`, `DOB`, `MIS`, `Email_Id`, `Contact_Number`, `Branch`, `Year`, `Receipt_No`, `Amount_Paid`, `Mode_Transaction`, `Street`, `City`, `State`, `Pincode`, `Country`, `Reg_Date`) VAlUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
+
+                                if(!($insert_stud = $mysqli->prepare($sql)))
                                 {
-                                    error_log('Binding failed for insertion of student in sign_up.php: ('.$mysqli->errno.') '.$mysqli->error);
+                                    error_log('Prepare failed for insertion of student in sign_up.php: ('.$mysqli->errno.') '.$mysqli->error);
                                     echo "<script>swal({
                                         title: 'Error',
                                         text: 'Request could not be processed. We are trying to fix the error.',
@@ -119,9 +140,9 @@
                                 }
                                 else
                                 {
-                                    if(!$insert_stud->execute())
+                                    if(!($insert_stud->bind_param('ssssssisisiissssss', $name, $gender, $admissionType, $dob, $mis, $email, $contact, $branch, $year, $receipt, $amtPaid, $modeTrans, $street, $city, $state, $zipcode, $country, $date)))
                                     {
-                                        error_log('Execution failed for insertion of student in sign_up.php: ('.$mysqli->errno.') '.$mysqli->error);
+                                        error_log('Binding failed for insertion of student in sign_up.php: ('.$mysqli->errno.') '.$mysqli->error);
                                         echo "<script>swal({
                                             title: 'Error',
                                             text: 'Request could not be processed. We are trying to fix the error.',
@@ -130,82 +151,94 @@
                                     }
                                     else
                                     {
-                                        if(!$result = $insert_stud->get_result() && $mysqli->errno == 0)
+                                        if(!$insert_stud->execute())
+                                        {
+                                            error_log('Execution failed for insertion of student in sign_up.php: ('.$mysqli->errno.') '.$mysqli->error);
                                             echo "<script>swal({
+                                                title: 'Error',
+                                                text: 'Request could not be processed. We are trying to fix the error.',
+                                                type: 'error'
+                                            })</script>";
+                                        }
+                                        else
+                                        {
+                                            if(!$result = $insert_stud->get_result() && $mysqli->errno == 0)
+                                                echo "<script>swal({
                                                             title: 'Success',
                                                             text: 'Sign up completed successfully!',
                                                             type: 'success'
                                                             });</script>";
-                                        else
-                                        {
-                                            error_log('PHP code executed but MySQL query failed. Please check the query or MySQL database for errors in sign_up.php: ('.$mysqli->errno.')'.$mysqli->error);
-                                            echo "<script>swal({
-                                                            title: 'Error',
-                                                            text: 'Request could not be processed. We are trying to fix the error.',
-                                                            type: 'error'
-                                                            });</script>";
+                                            else
+                                            {
+                                                error_log('PHP code executed but MySQL query failed. Please check the query or MySQL database for errors in sign_up.php: ('.$mysqli->errno.')'.$mysqli->error);
+                                                echo "<script>swal({
+                                                                title: 'Error',
+                                                                text: 'Request could not be processed. We are trying to fix the error.',
+                                                                type: 'error'
+                                                                });</script>";
+                                            }
                                         }
-                                        // if($res = mysqli_query($mysqli, $insert_stud))
-                                        // {
-                                        //     echo "<script>alert('Sign up completed successfully!');</script>";
-                                        //     // echo "<script>swal({
-                                        //     //     title: 'Done!',
-                                        //     //     text: 'Sign up completed successfully!',
-                                        //     //     type: 'success',
-                                        //     //     confirmButtonText: 'Ok'}, function(isConfirm) { if(isConfirm) { window.location.href = 'sign_up.php'; } });</script>";
-                                        // }
-                                        // else
-                                        // {
-                                        //     echo "<script>alert('Failed to sign up');</script>";
-                                        //     // echo "<script>swal({
-                                        //     //     title: 'Error!',
-                                        //     //     text: 'An unexpected error occured. Please contact the system administrator',
-                                        //     //     type: 'error'});</script>";
-                                        //     // echo "<script>alert('Failed to sign up');</script>";
-                                        // }
-                                        // if($res = mysqli_query($mysqli, $verify_mis))
-                                        // {
-                                        //     if(mysqli_num_rows($res)) //checking for duplicate entries
-                                        //         echo "<script>alert('Incorrect Registration ID');</script>";
-                                        //     else
-                                        //     {
-                                        //         $insert_stud = "INSERT INTO `New_Registrations`(`Name`, `Gender`, `Admission_Type`, `DOB`, `MIS`, `Email_Id`, `Contact_Number`, `Branch`, `Year`, `Receipt_No`, `Amount_Paid`, `Reg_Date`) VALUES ('".$_POST["stud_name"]."','".$_POST["stud_gender"]."','".$_POST["admission_type"]."','".convertDate($_POST["stud_dob"])."','".$_POST["stud_mis"]."','".$_POST["stud_email"]."',".$_POST["stud_contact"].",'".$_POST["stud_branch"]."',".$_POST["stud_year"].",'".$_POST["stud_receipt"]."',".$_POST["amt_paid"].",'".date('Y-m-d')."');";
-                                        //         // echo '<script>alert("'.$insert_stud.'");</script>';
-                                        //         if($res = mysqli_query($mysqli, $insert_stud))
-                                        //         {
-                                        //             echo "<script>alert('Sign up completed successfully!');</script>";
-                                        //             // echo "<script>swal({
-                                        //             //     title: 'Done!',
-                                        //             //     text: 'Sign up completed successfully!',
-                                        //             //     type: 'success',
-                                        //             //     confirmButtonText: 'Ok'}, function(isConfirm) { if(isConfirm) { window.location.href = 'sign_up.php'; } });</script>";
-                                        //         }
-                                        //         else
-                                        //         {
-                                        //             echo "<script>alert('Failed to sign up');</script>";
-                                        //             // echo "<script>swal({
-                                        //             //     title: 'Error!',
-                                        //             //     text: 'An unexpected error occured. Please contact the system administrator',
-                                        //             //     type: 'error'});</script>";
-                                        //             // echo "<script>alert('Failed to sign up');</script>";
-                                        //         }
-                                        //     }
-                                        // }
                                     }
                                 }
                             }
                         }
                     }
-                }
+                }    
             }
         }
     }
 
+    // if($res = mysqli_query($mysqli, $insert_stud))
+    // {
+    //     echo "<script>alert('Sign up completed successfully!');</script>";
+    //     // echo "<script>swal({
+    //     //     title: 'Done!',
+    //     //     text: 'Sign up completed successfully!',
+    //     //     type: 'success',
+    //     //     confirmButtonText: 'Ok'}, function(isConfirm) { if(isConfirm) { window.location.href = 'sign_up.php'; } });</script>";
+    // }
+    // else
+    // {
+    //     echo "<script>alert('Failed to sign up');</script>";
+    //     // echo "<script>swal({
+    //     //     title: 'Error!',
+    //     //     text: 'An unexpected error occured. Please contact the system administrator',
+    //     //     type: 'error'});</script>";
+    //     // echo "<script>alert('Failed to sign up');</script>";
+    // }
+    // if($res = mysqli_query($mysqli, $verify_mis))
+    // {
+    //     if(mysqli_num_rows($res)) //checking for duplicate entries
+    //         echo "<script>alert('Incorrect Registration ID');</script>";
+    //     else
+    //     {
+    //         $insert_stud = "INSERT INTO `New_Registrations`(`Name`, `Gender`, `Admission_Type`, `DOB`, `MIS`, `Email_Id`, `Contact_Number`, `Branch`, `Year`, `Receipt_No`, `Amount_Paid`, `Reg_Date`) VALUES ('".$_POST["stud_name"]."','".$_POST["stud_gender"]."','".$_POST["admission_type"]."','".convertDate($_POST["stud_dob"])."','".$_POST["stud_mis"]."','".$_POST["stud_email"]."',".$_POST["stud_contact"].",'".$_POST["stud_branch"]."',".$_POST["stud_year"].",'".$_POST["stud_receipt"]."',".$_POST["amt_paid"].",'".date('Y-m-d')."');";
+    //         // echo '<script>alert("'.$insert_stud.'");</script>';
+    //         if($res = mysqli_query($mysqli, $insert_stud))
+    //         {
+    //             echo "<script>alert('Sign up completed successfully!');</script>";
+    //             // echo "<script>swal({
+    //             //     title: 'Done!',
+    //             //     text: 'Sign up completed successfully!',
+    //             //     type: 'success',
+    //             //     confirmButtonText: 'Ok'}, function(isConfirm) { if(isConfirm) { window.location.href = 'sign_up.php'; } });</script>";
+    //         }
+    //         else
+    //         {
+    //             echo "<script>alert('Failed to sign up');</script>";
+    //             // echo "<script>swal({
+    //             //     title: 'Error!',
+    //             //     text: 'An unexpected error occured. Please contact the system administrator',
+    //             //     type: 'error'});</script>";
+    //             // echo "<script>alert('Failed to sign up');</script>";
+    //         }
+    //     }
+    // }
+
     function validateSignUpInput()
     {
-		//TODO: Need to add validation for receipt number and amount paid
         $valid = true;
-        if(!(isset($_POST["stud_name"]) && !(empty($_POST["stud_name"])) && preg_match('/^[a-zA-Z\s]{1,}[\.]{0,1}[a-zA-Z\s]{0,}$/',$_POST["stud_name"])))
+        if(!(isset($_POST["stud_name"]) && !(empty(trim($_POST["stud_name"]))) && preg_match('/^[a-zA-Z\s]{1,}[\.]{0,1}[a-zA-Z\s]{0,}$/',$_POST["stud_name"])))
         {
 			$valid = false;
             echo "<script>document.addEventListener('DOMContentLoaded', function() { document.getElementById('stud_name').className += ' focused error'; });</script>";
@@ -213,7 +246,7 @@
                 setTimeout(function() { $('form').validate().showErrors({ 'stud_name' : 'Name can consist only of alphabets and the special dot character (.)' }) }, 100);
             });</script>";
         }
-        if(!(isset($_POST["stud_dob"]) && !(empty($_POST["stud_dob"])) && preg_match("/[a-zA-Z0-9\s]{1,}/", $_POST["stud_dob"])))
+        if(!(isset($_POST["stud_dob"]) && !(empty(trim($_POST["stud_dob"]))) && preg_match("/[a-zA-Z0-9\s]{1,}/", $_POST["stud_dob"])))
         {         
 			$valid = false;
             echo "<script>document.addEventListener('DOMContentLoaded', function() { document.getElementById('stud_dob').className += ' focused error'; });</script>";
@@ -221,7 +254,7 @@
                 setTimeout(function() { $('form').validate().showErrors({ 'stud_dob' : 'Please enter a valid date of birth' }) }, 100);
             });</script>";
         }
-        if(!(isset($_POST["stud_mis"]) && !(empty($_POST["stud_mis"])) && preg_match("/[A-Z0-9]{11,12}/", $_POST["stud_mis"])))
+        if(!(isset($_POST["stud_mis"]) && !(empty(trim($_POST["stud_mis"]))) && preg_match("/[A-Z0-9]{11,12}/", $_POST["stud_mis"])))
         {
 			$valid = false;
             echo "<script>document.addEventListener('DOMContentLoaded', function() { document.getElementById('stud_mis').className += ' focused error'; });</script>";
@@ -229,7 +262,7 @@
                 setTimeout(function() { $('form').validate().showErrors({ 'stud_mis' : 'Please enter a valid MIS ID consisting of 11 or 12 alphanumeric characters' }) }, 100);
             });</script>";
         }
-        if(!(isset($_POST["stud_email"]) && !(empty($_POST["stud_email"])) && filter_input(INPUT_POST, "stud_email", FILTER_VALIDATE_EMAIL)))
+        if(!(isset($_POST["stud_email"]) && !(empty(trim($_POST["stud_email"]))) && filter_input(INPUT_POST, "stud_email", FILTER_VALIDATE_EMAIL)))
         {
 			$valid = false;
             echo "<script>document.addEventListener('DOMContentLoaded', function() { document.getElementById('stud_email').className += ' focused error'; });</script>";
@@ -238,7 +271,7 @@
             });</script>";
             
         }
-        if(!(isset($_POST["stud_contact"]) && !(empty($_POST["stud_contact"])) && preg_match('/^[6789]{1}[0-9]{9}/', $_POST["stud_contact"])))
+        if(!(isset($_POST["stud_contact"]) && !(empty(trim($_POST["stud_contact"]))) && preg_match('/^[6789]{1}[0-9]{9}/', $_POST["stud_contact"])))
         {
 			$valid = false;
             echo "<script>document.addEventListener('DOMContentLoaded', function() { document.getElementById('stud_contact').className += ' focused error'; });</script>";
@@ -246,7 +279,7 @@
                 setTimeout(function() { $('form').validate().showErrors({ 'stud_contact' : 'Please enter a valid contact number' }) }, 100);
             });</script>";
         }
-        if(!(isset($_POST["stud_branch"]) && !(empty($_POST["stud_branch"])) && preg_match('/^CE$|^IT$|^EnTC$/', $_POST["stud_branch"])))
+        if(!(isset($_POST["stud_branch"]) && !(empty(trim($_POST["stud_branch"]))) && preg_match('/^CE$|^IT$|^EnTC$/', $_POST["stud_branch"])))
         {
 			$valid = false;
             echo "<script>document.addEventListener('DOMContentLoaded', function() { document.getElementById('stud_branch').className += ' form-line focused error'; });</script>";
@@ -254,7 +287,7 @@
                 setTimeout(function() { $('form').validate().showErrors({ 'stud_branch' : 'Please select a valid branch' }) }, 100);
             });</script>";
         }
-        if(!(isset($_POST["stud_year"]) && !(empty($_POST["stud_year"])) && preg_match('/[1-3]{1}/', $_POST["stud_year"])))
+        if(!(isset($_POST["stud_year"]) && !(empty(trim($_POST["stud_year"]))) && preg_match('/[1-3]{1}/', $_POST["stud_year"])))
         {
 			$valid = false;
             echo "<script>document.addEventListener('DOMContentLoaded', function() { document.getElementById('stud_year').className += ' form-line focused error'; });</script>";
@@ -262,7 +295,7 @@
                 setTimeout(function() { $('form').validate().showErrors({ 'stud_year' : 'Please select a valid year of engineering' }) }, 100);
             });</script>";
         }
-        if(!(isset($_POST["stud_gender"]) && !(empty($_POST["stud_gender"])) && preg_match('/^F{1}|^M{1}|^O{1}/', $_POST["stud_gender"])))
+        if(!(isset($_POST["stud_gender"]) && !(empty(trim($_POST["stud_gender"]))) && preg_match('/^F{1}|^M{1}|^O{1}/', $_POST["stud_gender"])))
         {
 			$valid = false;
             echo "<script>document.addEventListener('DOMContentLoaded', function() { document.getElementById('stud_gender').className += ' form-line focused error'; });</script>";
@@ -270,7 +303,7 @@
                 setTimeout(function() { $('form').validate().showErrors({ 'stud_gender' : 'Please select a valid gender' }) }, 100);
             });</script>";
         }
-        if(!(isset($_POST["admission_type"]) && !(empty($_POST["admission_type"])) && preg_match('/^M{1}|^C{1}|^O{1}/', $_POST["admission_type"])))
+        if(!(isset($_POST["admission_type"]) && !(empty(trim($_POST["admission_type"]))) && preg_match('/^M{1}|^C{1}|^O{1}/', $_POST["admission_type"])))
         {
 			$valid = false;
             echo "<script>document.addEventListener('DOMContentLoaded', function() { document.getElementById('admission_type').className += ' form-line focused error'; });</script>";
@@ -278,54 +311,126 @@
                 setTimeout(function() { $('form').validate().showErrors({ 'admission_type' : 'Please select a valid admission type' }) }, 100);
             });</script>";
         }
-        if(!(isset($_POST["mode_trans"]) && !(empty($_POST["mode_trans"])) && preg_match('/^1{1}|^2{1}/', $_POST["mode_trans"])))
+        if(!(isset($_POST["mode_trans"]) && !(empty(trim($_POST["mode_trans"]))) && preg_match('/^1{1}|^2{1}/', $_POST["mode_trans"])))
         {
             $valid = false;
-            echo "<script>document.addEventListener('DOMContentLoaded', function() { document.getElementById('mode_trans').className += form-line foucsed error'; });</script>";
+            echo "<script>document.addEventListener('DOMContentLoaded', function() { document.getElementById('mode_trans').className += ' form-line focused error'; });</script>";
             echo "<script>$(document).ready(function() {
                 setTimeout(function() { $('form').validate().showErrors({ 'mode_trans' : 'Please select a valid transaction type' }) }, 100);
             });</script>";
         }
-        if(!(isset($_POST["stud_locality"]) && !(empty($_POST["stud_locality"]))))
+        if(!(isset($_POST["amt_paid"]) && !(empty(trim($_POST["amt_paid"]))) && is_numeric($_POST["amt_paid"])))
         {
             $valid = false;
-            echo "<script>document.addEventListener('DOMContentLoaded', function() { document.getElementById('stud_locality').className += form-line foucsed error'; });</script>";
-            echo "<script>$(document).ready(function() {
-                setTimeout(function() { $('form').validate().showErrors({ 'stud_locality' : 'This field is required' }) }, 100);
-            });</script>";
-        }
-        if(!(isset($_POST["amt_paid"]) && !(empty($_POST["amt_paid"])) && is_numeric($_POST["amt_paid"])))
-        {
-            $valid = false;
-            echo "<script>document.addEventListener('DOMContentLoaded', function() { document.getElementById('amt_paid').className += form-line foucsed error'; });</script>";
+            echo "<script>document.addEventListener('DOMContentLoaded', function() { document.getElementById('amt_paid').className +=' focused error'; });</script>";
             echo "<script>$(document).ready(function() {
                 setTimeout(function() { $('form').validate().showErrors({ 'amt_paid' : 'Please enter a valid amount' }) }, 100);
             });</script>";
         }
-        if(!(isset($_POST["stud_receipt"]) && !(empty($_POST["stud_receipt"])) && is_numeric($_POST["stud_receipt"])))
+        if(!(isset($_POST["stud_receipt"]) && !(empty(trim($_POST["stud_receipt"]))) && is_numeric($_POST["stud_receipt"])))
         {
             $valid = false;
-            echo "<script>document.addEventListener('DOMContentLoaded', function() { document.getElementById('stud_receipt').className += form-line foucsed error'; });</script>";
+            echo "<script>document.addEventListener('DOMContentLoaded', function() { document.getElementById('stud_receipt').className += ' focused error'; });</script>";
             echo "<script>$(document).ready(function() {
                 setTimeout(function() { $('form').validate().showErrors({ 'stud_receipt' : 'Please enter a valid receipt number' }) }, 100);
+            });</script>";
+        }
+        if(!(isset($_POST["route"]) && !(empty(trim($_POST["route"])))))
+        {
+            $valid = false;
+            echo "<script>document.addEventListener('DOMContentLoaded', function() { document.getElementById('route_div').className += ' focused error'; });</script>";
+            echo "<script>$(document).ready(function() {
+                setTimeout(function() { $('form').validate().showErrors({ 'route' : 'Please select an option closest to your permanent address from our list of suggestions that populates this field' }) }, 100);
+            });</script>";
+        }
+        if(!(isset($_POST["locality"]) && !(empty(trim($_POST["locality"])))))
+        {
+            $valid = false;
+            echo "<script>document.addEventListener('DOMContentLoaded', function() { document.getElementById('locality_div').className +=' focused error'; });</script>";
+            echo "<script>$(document).ready(function() {
+                setTimeout(function() { $('form').validate().showErrors({ 'locality' : 'Please select an option closest to your permanent address from our list of suggestions that populates this field' }) }, 100);
+            });</script>";
+        }
+        if(!(isset($_POST["administrative_area_level_1"]) && !(empty(trim($_POST["administrative_area_level_1"])))))
+        {
+            $valid = false;
+            echo "<script>document.addEventListener('DOMContentLoaded', function() { document.getElementById('administrative_area_level_1_div').className += ' focused error'; });</script>";
+            echo "<script>$(document).ready(function() {
+                setTimeout(function() { $('form').validate().showErrors({ 'administrative_area_level_1' : 'Please select an option closest to your permanent address from our list of suggestions that populates this field' }) }, 100);
+            });</script>";
+        }
+        if(!(isset($_POST["postal_code"]) && !(empty(trim($_POST["postal_code"])))))
+        {
+            $valid = false;
+            echo '<script>alert("Reached inside postal code if condition");</script>';
+            echo "<script>document.addEventListener('DOMContentLoaded', function() { document.getElementById('postal_code_div').className +=' focused error'; });</script>";
+            echo "<script>$(document).ready(function() {
+                setTimeout(function() { $('form').validate().showErrors({ 'postal_code' : 'Please select an option closest to your permanent address from our list of suggestions that populates this field' }) }, 100);
+            });</script>";
+        }
+        if(!(isset($_POST["country"]) && !(empty(trim($_POST["country"])))))
+        {
+            $valid = false;
+            echo "<script>document.addEventListener('DOMContentLoaded', function() { document.getElementById('country_div').className +=' focused error'; });</script>";
+            echo "<script>$(document).ready(function() {
+                setTimeout(function() { $('form').validate().showErrors({ 'country' : 'Please select an option closest to your permanent address from our list of suggestions that populates this field' }) }, 100);
             });</script>";
         }
         return $valid;
     }
 
-    function validateCityDistance($city)
+    function validateDistance($street)
     {
-        $urlEncodedCity = urlencode($city);
-        $googleMapsUrl = "https://maps.googleapis.com/maps/api/distancematrix/json?origins=18.4575,73.8508&destinations=$urlEncodedCity";
-        $result = file_get_contents($googleMapsUrl);
-        $result = json_decode($json, TRUE);
+        /*
+            NOTE: In this function, the following return values carry the following meaning:
+            0 - The API request was processed successfully and it was determined that the user lives at a distance of less than 40 kms.
+            1 - The API request was processed successfully and it was determined that the user lives at a distance of greater than or equal        to 40 kms.
+            2 - The API request returned an error in the TOP LEVEL STATUS CODE. this could have the following meanings:
+                - INVALID_REQUEST indicates that the provided request was invalid
+                - MAX_ELEMENTS_EXCEEDED indicates that the product of origins and destinations exceeds the per-query limit.
+                - OVER_DAILY_LIMIT indicates any of the following:
+                        The API key is missing or invalid.
+                        Billing has not been enabled on your account.
+                        A self-imposed usage cap has been exceeded.
+                        The provided method of payment is no longer valid (for example, a credit card has expired).
+                - OVER_QUERY_LIMIT indicates the service has received too many requests from your application within the allowed time            period.
+                - REQUEST_DENIED indicates that the service denied use of the Distance Matrix service by your application.
+                - UNKNOWN_ERROR indicates a Distance Matrix request could not be processed due to a server error. The request may succeed        if you try again
+            3 - The API request returned an error in the ELEMENT LEVEL STATUS CODE. This could have the following meanings:
+                - NOT_FOUND indicates that the origin and/or destination of this pairing could not be geocoded.
+                - ZERO_RESULTS indicates no route could be found between the origin and destination.
+                - MAX_ROUTE_LENGTH_EXCEEDED indicates the requested route is too long and cannot be processed.
+        */
 
-        $distance = round($result);
-
-        if($distance > 40)
-            return false;
-        
-        return true;
+        $urlEncodedStreet = urlencode($street);
+        $googleMapsUrl = "https://maps.googleapis.com/maps/api/distancematrix/json?origins=18.4575,73.8508&destinations=$urlEncodedStreet&key=AIzaSyCR3Ec8JjPlBt6u4ycIoqa3CzbZUByjkmw&language=en";
+        $data = file_get_contents($googleMapsUrl);
+        $data = json_decode($data);
+        if($data->status == "OK")
+        {
+            $distance = 0;
+            foreach($data->rows[0]->elements as $road) {
+                if($road->status == "OK")
+                {
+                    $distance += $road->distance->text;
+                    $distance = (float)$distance;
+                    error_log('Debug print: Distance = '.$distance);
+                    if($distance < 40.0)
+                        return 0;   
+                    return 1;
+                }
+                else
+                {
+                    error_log('Google Distance Matrix API Error was encountered. The element level status code returned the error '.$road->status.'. This error was encountered in the data element retrieved inside validateDistance() in sign_up.php. This error does not have a server side fix and possible actions need to be suggested to the user to rectify this.');
+                    return 3;
+                }
+            }
+        }
+        else
+        {
+            error_log('Google Distance Matrix API Error was encountered. The top level status code returned the error '.$data->status.'. This error was encountered in the validateDistance() in sign_up.php. This error will have to be analyzed and fixed for sign up of users to proceed smoothly henceforth.');
+            return 2;
+        }
     }
 ?>
 <!DOCTYPE html>
@@ -414,13 +519,13 @@
                         <b><h2>Registration for Students</h2></b>
                     </div>
                     <div class="body">
-                        <form method="POST" action="" id="signUpForm">
+                        <form method="POST" action="" id="signUpForm" onsubmit="return debugFunction();">
                             <div class="row clearfix">
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <div class="form-line inputDiv" id="stud_name">
                                             <label class="required" for="stud_name">Student's Name</label>
-                                            <input type="text" pattern="^[A-Za-z\s]{1,}[\.]{0,1}[A-Za-z\s]{0,}$" class="form-control" name="stud_name" id="stud_name_input" required>
+                                            <input type="text" pattern="^[A-Za-z\s]{1,}[\.]{0,1}[A-Za-z\s]{0,}$" class="form-control" name="stud_name" id="stud_name_input" oninvalid="this.setCustomValidity('Name must consist only of alphabets and the special dot character(.)');" onchange="this.setCustomValidity('');" required>
                                         </div>
                                     </div>
                                 </div>
@@ -466,7 +571,7 @@
                                     <div class="form-group">
                                         <div class="form-line inputDiv" id="stud_mis">
                                             <label class="required" for="stud_mis">MIS Number</label>
-                                            <input type="text" pattern="[A-Z0-9]{11,12}" placeholder="MIS Login" class="form-control" name="stud_mis" id="stud_mis_input" required>
+                                            <input type="text" pattern="[A-Z0-9]{11,12}" placeholder="MIS Login" class="form-control" name="stud_mis" id="stud_mis_input" oninvalid = "this.setCustomValidity('MIS can contain only alphanumeric characters and have a length of 11 or 12 characters');" onchange="this.setCustomValidity('');" required>
                                         </div>
                                     </div>
                                 </div>
@@ -476,7 +581,7 @@
                                     <div class="form-group">
                                         <div class="form-line inputDiv" id="stud_email">
                                             <label class="required" for="stud_email">Email Id</label>
-                                            <input type="email" placeholder="someone@somewhere.com" class="form-control" name="stud_email" id="stud_email_input" required>
+                                            <input type="email" placeholder="Email address" class="form-control" name="stud_email" oninvalid="this.setCustomValidity('Please enter a valid email address');" onchange='this.setCustomValidity('');' id="stud_email_input" oninput="this.setCustomValidity('');" required>
                                         </div>
                                     </div>
                                 </div>
@@ -484,7 +589,7 @@
                                     <div class="form-group">
                                         <div class="form-line inputDiv" id="stud_contact">
                                             <label class="required" for="stud_contact">Contact Number</label>
-                                            <input type="text" pattern="[6789]{1}[0-9]{9}" placeholder="10 digit Indian mobile number" class="form-control" name="stud_contact" id="stud_contact_input" required>
+                                            <input type="text" pattern="[6789]{1}[0-9]{9}" placeholder="10 digit Indian mobile number" class="form-control" name="stud_contact" id="stud_contact_input" oninvalid="this.setCustomValidity('Please enter a valid 10 digit Indian mobile number');" onchange="this.setCustomValidity('');" oninput="this.setCustomValidity('');" required>
                                         </div>
                                     </div>
                                 </div>
@@ -520,7 +625,7 @@
                                     <div class="form-group">
                                         <div class="form-line inputDiv" id="stud_receipt">
                                             <label class="required" for="stud_receipt">Hostel fee receipt number/UTR number</label>
-                                            <input type="text" class=" form-control" placeholder="Receipt Number for Hostel Reservation" name="stud_receipt" id="stud_receipt_input"  pattern="[0-9]+" required>
+                                            <input type="text" class=" form-control" placeholder="Receipt Number for Hostel Reservation" name="stud_receipt" id="stud_receipt_input" oninvalid="this.setCustomValidity('Please enter a valid hostel receipt number');" onchange="this.setCustomValidity('');" oninput="this.setCustomValidity('');" pattern="^[0-9]\d*$" required>
                                         </div>
                                     </div>
                                 </div>
@@ -528,7 +633,7 @@
                                     <div class="form-group">
                                         <div class="form-line inputDiv" id="amt_paid">
                                             <label class="required" for="amt_paid">Amount Paid for Hostel Reservation</label>
-                                            <input type="number" placeholder="100000" class="form-control" name="amt_paid" id="amt_paid_input" pattern="[0-9]+" required>
+                                            <input type="number" placeholder="100000" class="form-control" name="amt_paid" id="amt_paid_input" pattern="^(?!0*[.,]0*$|[.,]0*$|0*$)\d+[,.]?\d{0,2}$" oninvalid="this.setCustomValidity('Please enter the correct amount paid for the hostel');" onchange="this.setCustomValidity('');" required>
                                         </div>
                                     </div>
                                 </div>
@@ -548,10 +653,10 @@
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <div class="form-line inputDiv" id="stud_locality">
-                                            <label class="required" for="stud_locality">Locality</label>
-                                            <input id="stud_locality_input" name="stud_locality" placeholder="Enter your locality. Example: Chandani Chowk" onFocus="geolocate()" type="text" class="form-control" />
+                                            <label class="required" for="stud_locality">Permanent Address/Nearest landmark to permanent address</label>
+                                            <input id="stud_locality_input" name="stud_locality" placeholder="Enter the street name or the nearest landmark to your permanent address." type="text" class="form-control" onfocus="initAutoComplete();" required/>
                                             <div class="help-info">
-                                                Hostel will be alloted to those students whose radial distance is more than 40 kms.
+                                                Hostel will be alloted to those students whose permanent address is at a distance of more than 40 kms.
                                             </div>
                                         </div>
                                     </div>
@@ -560,17 +665,17 @@
                             <div class="row clearfix">
                                 <div class="col-md-8">
                                     <div class="form-group">
-                                        <div class="form-line inputDiv" id="street_numebr">
-                                            <label class="required" for="street_number">Street/Landmark/Locality</label>
-                                            <input id="street_number_input" name="street_number" class="form-control" disabled style="background-color:#efefef;" type="text" required />
+                                        <div class="form-line inputDiv" id="route_div">
+                                            <label class="required" for="route">Street/Landmark/Locality</label>
+                                            <input id="route" name="route" class="form-control" readonly style="background-color:#efefef;" type="text" required />
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <div class="form-line inputDiv" id="locality">
+                                        <div class="form-line inputDiv" id="locality_div">
                                             <label class="required" for="locality">City</label>
-                                            <input id="locality_input" name="locality" class="form-control" disabled style="background-color:#efefef;" type="text" required />
+                                            <input id="locality" name="locality" class="form-control" readonly style="background-color:#efefef;" type="text" required />
                                         </div>
                                     </div>
                                 </div>
@@ -578,25 +683,25 @@
                             <div class="row clearfix">
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <div class="form-line inputDiv" id="administrative_area_level_1">
+                                        <div class="form-line inputDiv" id="administrative_area_level_1_div">
                                             <label class="required" for="administrative_area_level_1">State</label>
-                                            <input id="administrative_area_level_1_input" name="administrative_area_level_1" class="form-control" disabled style="background-color:#efefef;" type="text" required/>
+                                            <input id="administrative_area_level_1" name="administrative_area_level_1" class="form-control" readonly style="background-color:#efefef;" type="text" required/>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <div class="form-line inputDiv" id="postal_code">
+                                        <div class="form-line inputDiv" id="postal_code_div">
                                             <label class="required" for="postal_code">Pin Code</label>
-                                            <input id="postal_code_input" name="postal_code" class="form-control" disabled style="background-color:#efefef;" type="text" required/>
+                                            <input id="postal_code" name="postal_code" class="form-control" readonly style="background-color:#efefef;" type="text" required/>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <div class="form-line inputDiv" id="country">
+                                        <div class="form-line inputDiv" id="country_div">
                                             <label class="required" for="country">Country</label>
-                                            <input id="country_input" name="country" class="form-control" disabled style="background-color:#efefef;" type="text" required/>
+                                            <input id="country" name="country" class="form-control" readonly style="background-color:#efefef;" type="text" required/>
                                         </div>
                                     </div>
                                 </div>
@@ -664,89 +769,50 @@
     <!-- Demo Js -->
     <script src=" js/demo.js"></script>
 
-     <script type="text/javascript">
-        $(window).on('load', function(){
+    <!-- Google Places API -->
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCR3Ec8JjPlBt6u4ycIoqa3CzbZUByjkmw&libraries=places" async defer></script>
+
+    <script type="text/javascript">
+        $(window).on('load', function() {
                 $('#firstTime').modal('show');
-            });
-        $(document).ready(function(){
+        });
+        $(document).ready(function() {
             $(".required").after("<span style='color:red;'> *</span>");
-			$("#stud_name_input").oninvalid = function(event) {
-				event.target.setCustomValidity('Name must consist only of alphabets and the special dot character(.)');
-            }
-			$("#stud_name_input").oninput = function(event) {
-				event.target.setCustomValidity('');
-            }
-			$("#stud_dob_input").oninvalid = function(event) {
-				event.target.setCustomValidity('This field is required to be filled in');
-            }
-			$("#stud_dob_input").oninput = function(event) {
-				event.target.setCustomValidity('');
-            }
-			$("#stud_mis_input").oninvalid = function(event) {
-				event.target.setCustomValidity('MIS can contain only alphanumeric characters and have a length of 11 or 12 characters');
-            }
-			$("#stud_mis_input").oninput = function(event) {
-				event.target.setCustomValidity('');
-            }
-			$("#stud_email_input").oninvalid = function(event) {
-				event.target.setCustomValidity('Please enter a valid email address');
-            }
-			$("#stud_email_input").oninput = function(event) {
-				event.target.setCustomValidity('');
-            }
-			$("#stud_contact_input").oninvalid = function(event) {
-				event.target.setCustomValidity('Please enter a valid 10 digit Indian mobile number');
-            }
-			$("#stud_contact_input").oninput = function(event) {
-				event.target.setCustomValidity('');
-            }
-			$("#stud_receipt_input").oninvalid = function(event) {
-				event.target.setCustomValidity('Please enter a valid hostel receipt number');
-            }
-			$("#stud_receipt_input").oninput = function(event) {
-				event.target.setCustomValidity('');
-            }
-			$("#amt_paid_input").oninvalid = function(event) {
-				event.target.setCustomValidity('Please enter the correct amount paid for the hostel');
-            }
-			$("#amt_paid_input").oninput = function(event) {
-				event.target.setCustomValidity('');
-            }
-			$("#stud_locality_input").oninvalid = function(event) {
-				event.target.setCustomValidity('This field is required');
-            }
-			$("#stud_locality_input").oninput = function(event) {
-				event.target.setCustomValidity('');
-            }
-            $("#mode_trans_input").oninvalid = function(event) {
-                event.target.setCustomValidity('This field is required');
-            }
-            $("#mode_trans_input").oninput = function(event) {
-                event.target.setCustomValidity('');
-            }
+        });
 
-            var cityInput = document.getElementById('stud_locality_input');
+        var placeSearch, autocomplete;
+        var componentForm = {
+            route: 'long_name',
+            locality: 'long_name',
+            administrative_area_level_1: 'long_name',
+            postal_code: 'short_name',
+            country: 'long_name'
+        };
 
+        function initAutoComplete() {
             autocomplete = new google.maps.places.Autocomplete(
-            /** @type {!HTMLInputElement} */ (
-                cityInput), {
-            types: ['(cities)'],
-            });
+                /** @type {!HTMLInputElement} */(document.getElementById('stud_locality_input')),
+                {types: ['geocode']});
+            
+            autocomplete.addListener('place_changed', fillInAddress);
+        }
 
-            autocomplete.addListener('place_changed', onPlaceChanged);
+        function fillInAddress() {
+            var place = autocomplete.getPlace();
 
-            function onPlaceChanged() {
-                var city = autocomplete.getPlace();
-                if(place.geometry) {
-                    cityInput.placeholder = city;
-                } else {
-                    cityInput.placeholder = 'City of permanent residence';
+            for(var component in componentForm) {
+                document.getElementById(component).value = '';
+            }
+
+            for(var i=0; i<place.address_components.length; i++) {
+                var addressType = place.address_components[i].types[0];
+                if(componentForm[addressType]) {
+                    var val = place.address_components[i][componentForm[addressType]];
+                    document.getElementById(addressType).value = val;
                 }
             }
-        });
+        }
     </script>
-    <!-- TODO: Replace YOUR_API_KEY with the API_KEY generated from google developers console with the pict hostel gmail account -->
-    <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=places" async defer></script>
 </body>
 
 </html>
