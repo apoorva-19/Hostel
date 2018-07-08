@@ -4,7 +4,6 @@
     1. HTTP restriction for Places API - http://hostel.pictinc.org/*
     2. HTTP restriction for Distance Matrix API - http://hostel.pictinc.org/*
     3. Need to add validation for receipt number and amount paid
-    4. Check if country is not India. If not, distance checking is not required and sign up can be done directly.
 */
     $GLOBALS["visit"] = false;
     require_once("convert.php");
@@ -50,10 +49,9 @@
                 echo '<script>$(document).ready(function(){
                     swal({
                         title: "Error",
-                        text: "Your city of residence is less than 40 kms from college. Hostel allocation is only for students who live more than 40 kms from college. Please contact the administration office for further details",
+                        text: "You live '.$GLOBALS["distance"].' kms away from college. Hostel allocation is only for students who live more than 40 kms from college.",
                         type: "error"
                         });
-                        $(".btn-group.bootstrap-select.swal2-select").toggle(false);
                 });</script>';
             }
             else if($distanceResult == 2)
@@ -64,7 +62,7 @@
                     text: 'Request could not be processed. We are trying to fix the error.',
                     type: 'error'
                     });
-                    $('.btn-group.bootstrap-select.swal2-select').toggle(false);
+                    
                 });</script>";
             }
             else if($distanceResult == 3)
@@ -74,7 +72,7 @@
                     text: 'We could not find the distance to the specified location. Please select another landmark near your permanent residence from our list of suggestions. We are extremely sorry for the inconvenience.',
                     type: 'error',
                     });
-                    $('.btn-group.bootstrap-select.swal2-select').toggle(false);
+                    
                 });</script>";
             }
             else
@@ -108,7 +106,7 @@
                         text: 'Request could not be processed. We are trying to fix the error.',
                         type: 'error'
                         });
-                        $('.btn-group.bootstrap-select.swal2-select').toggle(false);
+                        
                     });</script>";
                 }
                 else
@@ -122,7 +120,7 @@
                             text: 'Request could not be processed. We are trying to fix the error.',
                             type: 'error'
                             });
-                            $('.btn-group.bootstrap-select.swal2-select').toggle(false);
+                            
                         })</script>";
                     }
                     else
@@ -136,7 +134,7 @@
                                 text: 'Request could not be processed. We are trying to fix the error.',
                                 type: 'error'
                                 });
-                                $('.btn-group.bootstrap-select.swal2-select').toggle(false);
+                                
                             })</script>";
                         }
                         else
@@ -150,7 +148,7 @@
                                     text: 'This MIS id has already registered for the hostel',
                                     type: 'error'
                                     });
-                                    $('.btn-group.bootstrap-select.swal2-select').toggle(false);
+                                    
                                 })</script>";
                             }
                             else
@@ -166,7 +164,7 @@
                                         text: 'Request could not be processed. We are trying to fix the error.',
                                         type: 'error'
                                         });
-                                        $('.btn-group.bootstrap-select.swal2-select').toggle(false);
+                                        
                                     })</script>";
                                 }
                                 else
@@ -180,7 +178,7 @@
                                             text: 'Request could not be processed. We are trying to fix the error.',
                                             type: 'error'
                                             });
-                                            $('.btn-group.bootstrap-select.swal2-select').toggle(false);
+                                            
                                         })</script>";
                                     }
                                     else
@@ -193,7 +191,7 @@
                                                 text: 'Request could not be processed. We are trying to fix the error.',
                                                 type: 'error'
                                                 });
-                                                $('.btn-group.bootstrap-select.swal2-select').toggle(false);
+                                                
                                             })</script>";
                                         }
                                         else
@@ -205,7 +203,7 @@
                                                         text: 'Sign up completed successfully!',
                                                         type: 'success'
                                                     });
-                                                    $('.btn-group.bootstrap-select.swal2-select').toggle(false);
+                                                    
                                                 });</script>";
                                             else
                                             {
@@ -216,7 +214,7 @@
                                                         text: 'Request could not be processed. We are trying to fix the error.',
                                                         type: 'error'
                                                     });
-                                                    $('.btn-group.bootstrap-select.swal2-select').toggle(false);
+                                                    
                                                 });</script>";
                                             }
                                         }
@@ -366,7 +364,7 @@
         // $urlEncodedStreet = urlencode($street);
         $urlEncodedLocation = $lat.",".$lng;
         error_log($urlEncodedLocation);
-        $googleMapsUrl = "https://maps.googleapis.com/maps/api/distancematrix/json?origins=18.4575,73.8508&destinations=$urlEncodedLocation&key=AIzaSyBaW6EE3ERJBT_RmUjL_lGhh3IdvdabxrM&language=en";
+        $googleMapsUrl = "https://maps.googleapis.com/maps/api/distancematrix/json?origins=18.4575,73.8508&destinations=$urlEncodedLocation&key=AIzaSyAT0vJn-AOVSzztKM-iN8rRgGYV7al6wNI&language=en";
         $data = file_get_contents($googleMapsUrl);
         $data = json_decode($data);
         if($data->status == "OK")
@@ -378,6 +376,7 @@
                     $distance += $road->distance->text;
                     $distance = (float)$distance;
                     error_log('Debug print: Distance = '.$distance);
+                    $GLOBALS["distance"] = $distance;
                     if($distance < 40.0)
                         return 0;   
                     return 1;
@@ -616,7 +615,7 @@
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <div class="form-line inputDiv" id="stud_locality">
-                                            <label class="required" for="stud_locality">Permanent Address/Nearest landmark to permanent address</label>
+                                            <label class="required" for="stud_locality">Nearest landmark to permanent address</label>
                                             <input id="stud_locality_input" name="stud_locality" placeholder="Enter the street name or the nearest landmark to your permanent address." type="text" class="form-control" onfocus="initAutoComplete();" required/>
                                             <div class="help-info">
                                                 Hostel will be alloted to those students whose permanent address is at a distance of more than 40 kms.
@@ -736,7 +735,7 @@
     <script src=" js/demo.js"></script>
 
     <!-- Google Places API -->
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBaW6EE3ERJBT_RmUjL_lGhh3IdvdabxrM&libraries=places" async defer></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAT0vJn-AOVSzztKM-iN8rRgGYV7al6wNI&libraries=places" async defer></script>
 
     <script type="text/javascript">
         <?php 

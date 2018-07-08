@@ -139,7 +139,9 @@
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <div class="col-xs-8 p-t-5"></div>
+                                    <div class="col-xs-8">
+                                        <a href="sign_up.php">Click here to Sign Up!</a>
+                                    </div>
                                     <div class="col-xs-4">
                                         <button class="btn btn-block bg-deep-orange waves-effect" type="submit">SIGN IN</button>
                                     </div>
