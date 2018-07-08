@@ -16,11 +16,16 @@
 
 <html>
 <head>
-<style>
-    table tr  td{
-      border: white !important;
-    }
-  </style>
+    <style>
+        table tr  td{
+        border: white !important;
+        }
+    </style>
+    <script>
+        window.onload = function() {
+            document.getElementById("menu_layout").classList.add("active");
+        }
+    </script>
 </head>
 
 <body>

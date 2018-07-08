@@ -107,13 +107,13 @@
             <div class="menu">
                 <ul class="list">
                     <li class="header">MAIN NAVIGATION</li>
-                    <li>
+                    <li id="menu_home">
                         <a href="index.php">
                             <i class="material-icons">home</i>
                             <span>Home</span>
                         </a>
                     </li>
-                    <li>
+                    <li id="menu_layout">
                         <a href="room_layout.php">
                             <i class="material-icons">room</i>
                             <span>Room Layout</span>
@@ -168,8 +168,8 @@
                                 <div class="container form-group">
                                     <div class="">
                                         <label for="category">Category</label>
-                                        <select type="category">
-                                            <option>choose</option>
+                                        <select id="notice_category" type="category" required>
+                                            <option value="choose">choose</option>
                                         </select>
                                     </div>
                                 </div>
@@ -184,7 +184,7 @@
                                         </span>
                                         <div class="form-line">
                                             <label for="date_from">Date From</label>
-                                            <input type="text" id="date_from" class="datepicker form-control" placeholder="Pick a date" /> 
+                                            <input type="text" id="date_from" required class="datepicker form-control" placeholder="Pick a date" /> 
                                         </div>
                                     </div>
                                 </div>
@@ -197,7 +197,7 @@
                                         </span>
                                         <div class="form-line">
                                             <label for="date_to">Date To</label>
-                                            <input type="text" id="date_to" class="datepicker form-control" placeholder="Pick a time" />
+                                            <input type="text" id="date_to" required class="datepicker form-control" placeholder="Pick a date" />
                                         </div>
                                     </div>
                                 </div>
@@ -208,7 +208,7 @@
                                 <div class="container form-group">
                                     <div class="form-line">
                                         <label for="notice_text">Notice</label>
-                                        <input type="text" id="notice_text" class="form-control" placeholder="Enter the notice here" required>
+                                        <input type="text" id="notice_text" required class="form-control" placeholder="Enter the notice here">
                                     </div>
                                 </div>
                             </div>
@@ -216,7 +216,7 @@
                     </form>
                 </div>
                 <div class="modal-footer">
-                    <button type="submit" class="btn btn-primary waves-effect">SAVE CHANGES</button>
+                <button type="button" onclick="addNoticeAsync();" class="btn btn-primary waves-effect">SAVE CHANGES</button>
                     <button type="button" class="btn btn-link waves-effect" data-dismiss="modal">CLOSE</button>
                 </div>
             </div>
@@ -288,7 +288,54 @@
         </div>
     </div>
 
-    <script src="../js/async_connect.js"></script>
+    <script>
+        function addNoticeCallback(responseText) {
+            console.log(responseText);
+            if(responseText == "Fields cannot be empty") {
+                swal({
+                    title: "Error!",
+                    text: "Fields cannot be empty. Please try again.",
+                    type: "error",
+                });
+            }
+            else if(responseText == "Success") {
+                swal({
+                    title: "Done!",
+                    text: "Notice has been issued successfully!",
+                    type: "success",
+                    confirmButtonText: "Ok"
+                }).then((result) => {
+                    if(result.value){
+                        window.location.href="index.php";
+                    }
+                });
+            }
+            else {
+                console.log(responseText);
+                swal({
+                    title: "Error!",
+                    text: "An unexpected error occured. Please try again or contact the administrator",
+                    type: "error",  
+                    confirmButtonText: "Ok"
+                }).then((result) => {
+                    if(result.value){
+                        window.location.href="index.php";
+                    }
+                });
+            }
+        }
+
+        function addNoticeAsync() {
+            noticeText = document.getElementById("notice_text").value;
+            endDate = document.getElementById("date_to").value;
+            startDate = document.getElementById("date_from").value;
+            noticeCategory = document.getElementById("notice_category").value;
+            var params = "category=" + noticeCategory + "&endDate=" + endDate + "&startDate=" + startDate + "&noticeText=" + noticeText; 
+            httpPostAsync("../g_warden/add_notice.php", params, addNoticeCallback);
+        }
+
+    </script>
+
     <!-- Jquery Core Js -->
     <script src="../plugins/jquery/jquery.min.js"></script>
 
@@ -339,6 +386,7 @@
     <!-- Custom Js -->
     <script src="../js/admin.js"></script>
     <script src="../js/pages/forms/basic-form-elements.js"></script>
+    <script src="../js/async_connect.js"></script>
 
     <!-- Demo Js -->
     <script src="../js/demo.js"></script>

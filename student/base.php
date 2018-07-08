@@ -411,6 +411,7 @@
     <!-- Custom Js -->
     <script src="../js/admin.js"></script>
     <script src="../js/pages/forms/basic-form-elements.js"></script>
+    <script src="../js/async_connect.js"></script>
 
     <!-- Demo Js -->
     <script src="../js/demo.js"></script>

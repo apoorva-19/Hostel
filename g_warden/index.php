@@ -18,6 +18,13 @@
 
 <!DOCTYPE html>
 <html>
+<head>
+    <script>
+        window.onload = function() {
+            document.getElementById("menu_home").classList.add("active");
+        }
+    </script>
+<head>
 
 <body>
     <section class="content">
