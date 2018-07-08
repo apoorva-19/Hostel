@@ -107,13 +107,13 @@
             <div class="menu">
                 <ul class="list">
                     <li class="header">MAIN NAVIGATION</li>
-                    <li>
+                    <li id="menu_home">
                         <a href="index.php">
                             <i class="material-icons">home</i>
                             <span>Home</span>
                         </a>
                     </li>
-                    <li>
+                    <li id="menu_layout">
                         <a href="room_layout.php">
                             <i class="material-icons">room</i>
                             <span>Room Layout</span>
@@ -197,7 +197,7 @@
                                         </span>
                                         <div class="form-line">
                                             <label for="date_to">Date To</label>
-                                            <input type="text" id="date_to" required class="datepicker form-control" placeholder="Pick a time" />
+                                            <input type="text" id="date_to" required class="datepicker form-control" placeholder="Pick a date" />
                                         </div>
                                     </div>
                                 </div>
@@ -208,7 +208,7 @@
                                 <div class="container form-group">
                                     <div class="form-line">
                                         <label for="notice_text">Notice</label>
-                                        <input type="text" id="notice_text" required class="form-control" placeholder="Enter the notice here" required>
+                                        <input type="text" id="notice_text" required class="form-control" placeholder="Enter the notice here">
                                     </div>
                                 </div>
                             </div>
