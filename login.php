@@ -22,6 +22,13 @@
             header("Location:b_warden/index.php");
             exit;
         }
+        else if($_POST["adminUsername"] == "admin" && $_POST["adminPassword"] == "apictotel@3006%")
+        {
+            // Valid username and password for boy's warden
+            $_SESSION["user"] = "admin";
+            header("Location:admin/index.php");
+            exit;
+        }
         else
         {
             // Invalid username and password

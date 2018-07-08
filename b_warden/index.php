@@ -134,6 +134,14 @@
                                               echo "<td>Management Quota</td>";
                                             else if($row['Admission_Type'] == 'C')
                                               echo "<td>CAP Rounds</td>";
+                                            else if($row['Admission_Type'] == 'P')
+                                              echo "<td>PIO</td>";
+                                            else if($row['Admission_Type'] == 'CI')
+                                              echo "<td>CIWGC</td>";
+                                            else if($row['Admission_Type'] == 'JK')
+                                              echo "<td>Jammu and Kashmir</td>";
+                                            else if($row['Admission_Type'] == 'DSE')
+                                              echo "<td>Direct Second Year</td>";
                                             else
                                               echo "<td>Others</td>";
                                             echo "<td>".$row['Receipt_No']."</td>";

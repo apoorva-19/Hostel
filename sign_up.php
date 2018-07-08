@@ -511,7 +511,7 @@
                                                 <option value="M">Management</option>
                                                 <option value="C">CAP Round</option>
                                                 <option value="P">PIO</option>
-                                                <option value="C">CIWGC</option>
+                                                <option value="CI">CIWGC</option>
                                                 <option value="JK">Jammu and Kashmir</option>
                                                 <option value="DSE">Direct Second Year</option>
                                                 <option value="O">Others</option>

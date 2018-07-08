@@ -1,6 +1,6 @@
 <?php
     session_start();
-    if(!(isset($_SESSION["user"]) || $_SESSION["user"] === "g_warden"))
+    if(!(isset($_SESSION["user"]) || $_SESSION["user"] === "admin"))
     {
         header("Location:../404.html");
         exit;
@@ -8,12 +8,20 @@
     require_once('base.php');
     require_once('../connect.php');
 
-    $vacant = "SELECT COUNT(`Room_No`) FROM `G_Room` WHERE `Reserved` = 'N';";
-    $reserved = "SELECT COUNT(`Room_No`) FROM `G_Room` WHERE `Reserved` = 'Y';";
-    $res_vacant = mysqli_query($mysqli, $vacant);
-    $res_reserved = mysqli_query($mysqli, $reserved);
-    $row_vacant = $res_vacant->fetch_assoc();
-    $row_reserved = $res_reserved->fetch_assoc();
+    $g_vacant = "SELECT COUNT(`Room_No`) FROM `G_Room` WHERE `Reserved` = 'N';";
+    $g_reserved = "SELECT COUNT(`Room_No`) FROM `G_Room` WHERE `Reserved` = 'Y';";
+    $g_res_vacant = mysqli_query($mysqli, $g_vacant);
+    $g_res_reserved = mysqli_query($mysqli, $g_reserved);
+    $g_row_vacant = $g_res_vacant->fetch_assoc();
+    $g_row_reserved = $g_res_reserved->fetch_assoc();
+    $b_vacant = "SELECT COUNT(`Room_No`) FROM `B_Room` WHERE `Reserved` = 'N';";
+    $b_reserved = "SELECT COUNT(`Room_No`) FROM `B_Room` WHERE `Reserved` = 'Y';";
+    $b_res_vacant = mysqli_query($mysqli, $b_vacant);
+    $b_res_reserved = mysqli_query($mysqli, $b_reserved);
+    $b_row_vacant = $b_res_vacant->fetch_assoc();
+    $b_row_reserved = $b_res_reserved->fetch_assoc();
+    $vacant = $g_row_vacant["COUNT(`Room_No`)"] + $b_row_vacant["COUNT(`Room_No`)"];
+    $reserved = $g_row_reserved["COUNT(`Room_No`)"] + $b_row_reserved["COUNT(`Room_No`)"];
 ?>
 
 <!DOCTYPE html>
@@ -30,7 +38,7 @@
                         </div>
                         <div class="content">
                             <div class="text">VACANT SEATS</div>
-                            <div class="number count-to" data-from="0" data-to="<?php echo $row_vacant["COUNT(`Room_No`)"]; ?>" data-speed="50" data-fresh-interval="20"><?php echo $row_vacant["COUNT(`Room_No`)"]; ?></div>
+                            <div class="number count-to" data-from="0" data-to="<?php echo $vacant; ?>" data-speed="50" data-fresh-interval="20"><?php echo $vacant; ?></div>
                         </div>
                     </div>
                 </div>
@@ -41,7 +49,7 @@
                         </div>
                         <div class="content">
                             <div class="text">RESERVED SEATS</div>
-                            <div class="number count-to" data-from="0" data-to="<?php echo $row_reserved["COUNT(`Room_No`)"]; ?>" data-speed="50" data-fresh-interval="20"><?php echo $row_reserved["COUNT(`Room_No`)"];?></div>
+                            <div class="number count-to" data-from="0" data-to="<?php echo $reserved; ?>" data-speed="50" data-fresh-interval="20"><?php echo $reserved;?></div>
                         </div>
                     </div>
                 </div>
@@ -52,7 +60,7 @@
                         </div>
                         <div class="content">
                             <div class="text">TOTAL SEATS</div>
-                            <div class="number count-to" data-from="0" data-to="212" data-speed="50" data-fresh-interval="20">212</div>
+                            <div class="number count-to" data-from="0" data-to="212" data-speed="50" data-fresh-interval="20">347</div>
                         </div>
                     </div>
                 </div>
@@ -118,7 +126,7 @@
                               </thead>
                               <tbody>
                                   <?php
-                                    $students="SELECT * FROM `New_Registrations` WHERE `Reg_Date` = '".date("Y-m-d")."' AND `Gender` = 'F';";
+                                    $students="SELECT * FROM `New_Registrations` WHERE `Reg_Date` = '".date("Y-m-d")."';";
                                     if($result = mysqli_query($mysqli, $students))
                                     {
                                         $cnt=1;
@@ -134,14 +142,6 @@
                                                     echo "<td>Management Quota</td>";
                                                   else if($row['Admission_Type'] == 'C')
                                                     echo "<td>CAP Rounds</td>";
-                                                  else if($row['Admission_Type'] == 'P')
-                                                    echo "<td>PIO</td>";
-                                                  else if($row['Admission_Type'] == 'CI')
-                                                    echo "<td>CIWGC</td>";
-                                                  else if($row['Admission_Type'] == 'JK')
-                                                    echo "<td>Jammu and Kashmir</td>";
-                                                  else if($row['Admission_Type'] == 'DSE')
-                                                    echo "<td>Direct Second Year</td>";
                                                   else
                                                     echo "<td>Others</td>";
                                                   echo "<td>".$row['Receipt_No']."</td>";
