@@ -120,16 +120,24 @@
                         </a>
                     </li>
                     <li>
-                        <a href="g_room_layout.php">
+                        <a href="javascript:void(0);" class="menu-toggle">
                             <i class="material-icons">room</i>
-                            <span>Girls' Hostel Room Layout</span>
+                            <span>Hostel Layout</span>
                         </a>
-                    </li>
-                    <li>
-                        <a href="b_room_layout.php">
-                            <i class="material-icons">room</i>
-                            <span>Boys' Hostel Room Layout</span>
-                        </a>
+                        <ul class="ml-menu">
+                            <li>
+                                <a href="g_room_layout.php">
+                                    <i class="material-icons">room</i>
+                                    <span>Girls' Hostel Room Layout</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="b_room_layout.php">
+                                    <i class="material-icons">room</i>
+                                    <span>Boys' Hostel Room Layout</span>
+                                </a>
+                            </li>
+                        </ul>
                     </li>
                     <li>
                         <a data-toggle="modal" data-target="#notice">

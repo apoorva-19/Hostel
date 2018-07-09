@@ -30,77 +30,212 @@
 <body>
     <section class="content">
         <div class="container-fluid">
-            <div class="row clearfix">
-                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                    <div class="info-box hover-expand-effect">
-                        <div class="icon  bg-light-green ">
-                            <i class="material-icons">face</i>
-                        </div>
-                        <div class="content">
-                            <div class="text">VACANT SEATS</div>
-                            <div class="number count-to" data-from="0" data-to="<?php echo $vacant; ?>" data-speed="50" data-fresh-interval="20"><?php echo $vacant; ?></div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                    <div class="info-box hover-expand-effect">
-                        <div class="icon  bg-brown ">
-                            <i class="material-icons">room</i>
-                        </div>
-                        <div class="content">
-                            <div class="text">RESERVED SEATS</div>
-                            <div class="number count-to" data-from="0" data-to="<?php echo $reserved; ?>" data-speed="50" data-fresh-interval="20"><?php echo $reserved;?></div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                    <div class="info-box hover-expand-effect">
-                        <div class="icon  bg-grey ">
-                            <i class="material-icons">bookmark</i>
-                        </div>
-                        <div class="content">
-                            <div class="text">TOTAL SEATS</div>
-                            <div class="number count-to" data-from="0" data-to="212" data-speed="50" data-fresh-interval="20">347</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row clearfix">
-                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                    <div class="info-box hover-expand-effect">
-                        <div class="icon  bg-green ">
-                            <i class="material-icons">person_pin</i>
-                        </div>
-                        <div class="content">
-                            <div class="text">PRESENT</div>
-                            <div class="number count-to" data-from="0" data-to="4" data-speed="500" data-fresh-interval="20"></div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                    <div class="info-box hover-expand-effect">
-                        <div class="icon  bg-blue-grey ">
-                            <i class="material-icons">directions_run</i>
-                        </div>
-                        <div class="content">
-                            <div class="text">NIGHT OUT</div>
-                            <div class="number count-to" data-from="0" data-to="4" data-speed="500" data-fresh-interval="20"></div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                    <div class="info-box hover-expand-effect">
-                        <div class="icon  bg-purple ">
-                            <i class="material-icons">person</i>
-                        </div>
-                        <div class="content">
-                            <div class="text">TOTAL STRENGTH</div>
-                            <div class="number count-to" data-from="0" data-to="4" data-speed="500" data-fresh-interval="20"></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
         </div>
+        <div class="row clearfix">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div class="card">
+                        <div class="body">
+                            <div id="wizard_horizontal">
+                                <h2>GIRLS' HOSTEL</h2>
+                                <section>
+                                    <div class="row clearfix">
+                                        <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                                            <div class="info-box hover-expand-effect">
+                                                <div class="icon  bg-light-green ">
+                                                    <i class="material-icons">face</i>
+                                                </div>
+                                                <div class="content">
+                                                    <div class="text">VACANT SEATS</div>
+                                                    <div class="number count-to" data-from="0" data-to="<?php echo $g_row_vacant["COUNT(`Room_No`)"]; ?>" data-speed="50" data-fresh-interval="20"><?php echo $g_row_vacant["COUNT(`Room_No`)"]; ?></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                                            <div class="info-box hover-expand-effect">
+                                                <div class="icon  bg-brown ">
+                                                    <i class="material-icons">room</i>
+                                                </div>
+                                                <div class="content">
+                                                    <div class="text">RESERVED SEATS</div>
+                                                    <div class="number count-to" data-from="0" data-to="<?php echo $b_row_reserved["COUNT(`Room_No`)"]; ?>" data-speed="50" data-fresh-interval="20"><?php echo $b_row_reserved["COUNT(`Room_No`)"];?></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                                            <div class="info-box hover-expand-effect">
+                                                <div class="icon  bg-grey ">
+                                                    <i class="material-icons">bookmark</i>
+                                                </div>
+                                                <div class="content">
+                                                    <div class="text">TOTAL SEATS</div>
+                                                    <div class="number count-to" data-from="0" data-to="135" data-speed="500" data-fresh-interval="20">135</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row clearfix">
+                                        <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                                            <div class="info-box hover-expand-effect">
+                                                <div class="icon  bg-green">
+                                                    <i class="material-icons">person_pin</i>
+                                                </div>
+                                                <div class="content">
+                                                    <div class="text">PRESENT</div>
+                                                    <div class="number count-to" data-from="0" data-to="" data-speed="50" data-fresh-interval="20"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                                            <div class="info-box hover-expand-effect">
+                                                <div class="icon  bg-blue-grey">
+                                                    <i class="material-icons">directions_run</i>
+                                                </div>
+                                                <div class="content">
+                                                    <div class="text">NIGHT OUT</div>
+                                                    <div class="number count-to" data-from="0" data-to="" data-speed="50" data-fresh-interval="20"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                                            <div class="info-box hover-expand-effect">
+                                                <div class="icon  bg-purple ">
+                                                    <i class="material-icons">person</i>
+                                                </div>
+                                                <div class="content">
+                                                    <div class="text">TOTAL STRENGTH</div>
+                                                    <div class="number count-to" data-from="0" data-to="" data-speed="500" data-fresh-interval="20"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row clearfix">
+                                        <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                                            <div class="info-box hover-expand-effect">
+                                                <div class="icon  bg-red ">
+                                                    <i class="material-icons">report_problem</i>
+                                                </div>
+                                                <div class="content">
+                                                    <div class="text">LATE COUNT</div>
+                                                    <div class="number count-to" data-from="0" data-to="" data-speed="50" data-fresh-interval="20"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                                            <div class="info-box hover-expand-effect">
+                                                <div class="icon  bg-amber ">
+                                                    <i class="material-icons">access_time</i>
+                                                </div>
+                                                <div class="content">
+                                                    <div class="text">NOON COUNT</div>
+                                                    <div class="number count-to" data-from="0" data-to="" data-speed="50" data-fresh-interval="20"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </section>
+
+                                <h2>BOYS' HOSTEL</h2>
+                                <section>
+                                <div class="row clearfix">
+                                        <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                                            <div class="info-box hover-expand-effect">
+                                                <div class="icon  bg-light-green ">
+                                                    <i class="material-icons">face</i>
+                                                </div>
+                                                <div class="content">
+                                                    <div class="text">VACANT SEATS</div>
+                                                    <div class="number count-to" data-from="0" data-to="<?php echo $g_row_vacant["COUNT(`Room_No`)"]; ?>" data-speed="50" data-fresh-interval="20"><?php echo $g_row_vacant["COUNT(`Room_No`)"]; ?></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                                            <div class="info-box hover-expand-effect">
+                                                <div class="icon  bg-brown ">
+                                                    <i class="material-icons">room</i>
+                                                </div>
+                                                <div class="content">
+                                                    <div class="text">RESERVED SEATS</div>
+                                                    <div class="number count-to" data-from="0" data-to="<?php echo $b_row_reserved["COUNT(`Room_No`)"]; ?>" data-speed="50" data-fresh-interval="20"><?php echo $b_row_reserved["COUNT(`Room_No`)"];?></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                                            <div class="info-box hover-expand-effect">
+                                                <div class="icon  bg-grey ">
+                                                    <i class="material-icons">bookmark</i>
+                                                </div>
+                                                <div class="content">
+                                                    <div class="text">TOTAL SEATS</div>
+                                                    <div class="number count-to" data-from="0" data-to="135" data-speed="500" data-fresh-interval="20">135</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row clearfix">
+                                        <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                                            <div class="info-box hover-expand-effect">
+                                                <div class="icon  bg-green">
+                                                    <i class="material-icons">person_pin</i>
+                                                </div>
+                                                <div class="content">
+                                                    <div class="text">PRESENT</div>
+                                                    <div class="number count-to" data-from="0" data-to="" data-speed="50" data-fresh-interval="20"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                                            <div class="info-box hover-expand-effect">
+                                                <div class="icon  bg-blue-grey">
+                                                    <i class="material-icons">directions_run</i>
+                                                </div>
+                                                <div class="content">
+                                                    <div class="text">NIGHT OUT</div>
+                                                    <div class="number count-to" data-from="0" data-to="" data-speed="50" data-fresh-interval="20"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                                            <div class="info-box hover-expand-effect">
+                                                <div class="icon  bg-purple ">
+                                                    <i class="material-icons">person</i>
+                                                </div>
+                                                <div class="content">
+                                                    <div class="text">TOTAL STRENGTH</div>
+                                                    <div class="number count-to" data-from="0" data-to="" data-speed="500" data-fresh-interval="20"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row clearfix">
+                                        <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                                            <div class="info-box hover-expand-effect">
+                                                <div class="icon  bg-red ">
+                                                    <i class="material-icons">report_problem</i>
+                                                </div>
+                                                <div class="content">
+                                                    <div class="text">LATE COUNT</div>
+                                                    <div class="number count-to" data-from="0" data-to="" data-speed="50" data-fresh-interval="20"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                                            <div class="info-box hover-expand-effect">
+                                                <div class="icon  bg-amber ">
+                                                    <i class="material-icons">access_time</i>
+                                                </div>
+                                                <div class="content">
+                                                    <div class="text">NOON COUNT</div>
+                                                    <div class="number count-to" data-from="0" data-to="" data-speed="50" data-fresh-interval="20"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </section>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         <br>
         <br>
           <div class="row clearfix">
@@ -165,6 +300,18 @@
               </div>
           </div>
     </section>
+     <!-- Jquery Validation Plugin Css -->
+     <script src="../plugins/jquery-validation/jquery.validate.js"></script>
+
+    <!-- JQuery Steps Plugin Js -->
+    <script src="../plugins/jquery-steps/jquery.steps.js"></script>
+
+    <!-- Sweet Alert Plugin Js -->
+    <script src="../plugins/sweetalert/sweetalert.min.js"></script>
+
+    <!-- Custom Js -->
+    <script src="../js/pages/forms/form-wizard.js"></script>
+
     <!--<script type="text/javascript">
         document.getElementById("allocate").onclick = function () {
             location.href = "layout.php";

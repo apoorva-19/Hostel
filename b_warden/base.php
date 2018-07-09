@@ -119,10 +119,16 @@
                             <span>Room Layout</span>
                         </a>
                     </li>
-                    <li>
+                    <li id="menu_change_room">
                         <a data-toggle="modal" data-target="#room_number">
                             <i class="material-icons">event_seat</i>
                             <span>Change Room Number</span>
+                        </a>
+                    </li>
+                    <li id="menu_student">
+                        <a href="student_list.php">
+                            <i class="material-icons">person</i>
+                            <span>Student List</span>
                         </a>
                     </li>
                     <li>

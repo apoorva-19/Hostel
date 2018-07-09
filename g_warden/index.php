@@ -99,6 +99,30 @@
                     </div>
                 </div>
             </div>
+            <div class="row clearfix">
+                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                    <div class="info-box hover-expand-effect">
+                        <div class="icon  bg-red ">
+                            <i class="material-icons">report_problem</i>
+                        </div>
+                        <div class="content">
+                            <div class="text">LATE COUNT</div>
+                            <div class="number count-to" data-from="0" data-to="" data-speed="50" data-fresh-interval="20"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                    <div class="info-box hover-expand-effect">
+                        <div class="icon  bg-amber ">
+                            <i class="material-icons">access_time</i>
+                        </div>
+                        <div class="content">
+                            <div class="text">NOON COUNT</div>
+                            <div class="number count-to" data-from="0" data-to="" data-speed="50" data-fresh-interval="20"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
         <br>
         <br>
@@ -131,35 +155,44 @@
                                         $cnt=1;
                                         while($row = $result->fetch_assoc())
                                         {
-                                          echo "<tr>
-                                                  <th scope=\"row\">".$cnt."</th>
-                                                  <td>".$row['Name']."</td>
-                                                  <td>".$row['MIS']."</td>
-                                                  <td>".$row['Email_Id']."</td>
-                                                  <td>".$row['City']."</td>";
-                                                  if($row['Admission_Type'] == 'M')
-                                                    echo "<td>Management Quota</td>";
-                                                  else if($row['Admission_Type'] == 'C')
-                                                    echo "<td>CAP Rounds</td>";
-                                                  else if($row['Admission_Type'] == 'P')
-                                                    echo "<td>PIO</td>";
-                                                  else if($row['Admission_Type'] == 'CI')
-                                                    echo "<td>CIWGC</td>";
-                                                  else if($row['Admission_Type'] == 'JK')
-                                                    echo "<td>Jammu and Kashmir</td>";
-                                                  else if($row['Admission_Type'] == 'DSE')
-                                                    echo "<td>Direct Second Year</td>";
-                                                  else
-                                                    echo "<td>Others</td>";
-                                                  echo "<td>".$row['Receipt_No']."</td>";
-                                                  echo "<td>".$row['Amount_Paid']."</td>";
-                                                  if($row['Room_No'] == 0)
-                                                  {
-                                                    echo "<td><form method='POST' action='layout.php'><button type='submit' id='allocate'".$cnt." name='allocate' value='".$row['MIS']."' class='form-contol btn btn-primary waves-effect mt-5'>Allocate Room</button></form></td>";
-                                                  }
-                                                  else  
-                                                    echo "<td>".$row['Room_No']."</td>";
-                                          echo  "</tr>";
+                                            echo "<tr>
+                                            <th scope=\"row\">".$cnt."</th>
+                                            <td>".$row['Name']."</td>";
+                                            if($row["Room_No"] == 0)
+                                                echo "<td>xxxxxxxxxx</td>";
+                                            else
+                                            echo "<td>".$row['MIS']."</td>";
+                                            echo "<td>".$row['Email_Id']."</td>
+                                            <td>".$row['City']."</td>";
+                                            if($row['Admission_Type'] == 'M')
+                                              echo "<td>Management Quota</td>";
+                                            else if($row['Admission_Type'] == 'C')
+                                              echo "<td>CAP Rounds</td>";
+                                            else if($row['Admission_Type'] == 'P')
+                                              echo "<td>PIO</td>";
+                                            else if($row['Admission_Type'] == 'CI')
+                                              echo "<td>CIWGC</td>";
+                                            else if($row['Admission_Type'] == 'JK')
+                                              echo "<td>Jammu and Kashmir</td>";
+                                            else if($row['Admission_Type'] == 'DSE')
+                                              echo "<td>Direct Second Year</td>";
+                                            else
+                                              echo "<td>Others</td>";
+                                            if($row["Room_No"] == 0)
+                                              echo "<td>xxxxxxxxxx</td>";
+                                            else
+                                                echo "<td>".$row['Receipt_No']."</td>";
+                                            if($row["Room_No"] == 0)
+                                                echo "<td>xxxxxx</td>";
+                                            else
+                                                echo "<td>".$row['Amount_Paid']."</td>";
+                                            if($row['Room_No'] == 0)
+                                            {
+                                              echo "<td><form method='POST' action='layout.php'><button type='submit' id='allocate'".$cnt." name='allocate' value='".$row['MIS']."' class='form-contol btn btn-primary waves-effect mt-5'>Allocate Room</button></form></td>";
+                                            }
+                                            else  
+                                              echo "<td>".$row['Room_No']."</td>";
+                                            echo  "</tr>";
                                         }
                                     }
                                     else
