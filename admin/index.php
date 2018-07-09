@@ -57,7 +57,7 @@
                                             </div>
                                             <div class="content">
                                                 <div class="text">RESERVED SEATS</div>
-                                                <div class="number count-to" data-from="0" data-to="<?php echo $b_row_reserved["COUNT(`Room_No`)"]; ?>" data-speed="50" data-fresh-interval="20"><?php echo $b_row_reserved["COUNT(`Room_No`)"];?></div>
+                                                <div class="number count-to" data-from="0" data-to="<?php echo $g_row_reserved["COUNT(`Room_No`)"]; ?>" data-speed="50" data-fresh-interval="20"><?php echo $g_row_reserved["COUNT(`Room_No`)"];?></div>
                                             </div>
                                         </div>
                                     </div>
@@ -68,7 +68,7 @@
                                             </div>
                                             <div class="content">
                                                 <div class="text">TOTAL SEATS</div>
-                                                <div class="number count-to" data-from="0" data-to="135" data-speed="500" data-fresh-interval="20">135</div>
+                                                <div class="number count-to" data-from="0" data-to="212" data-speed="500" data-fresh-interval="20">212</div>
                                             </div>
                                         </div>
                                     </div>
@@ -144,7 +144,7 @@
                                         </div>
                                         <div class="content">
                                             <div class="text">VACANT SEATS</div>
-                                            <div class="number count-to" data-from="0" data-to="<?php echo $g_row_vacant["COUNT(`Room_No`)"]; ?>" data-speed="50" data-fresh-interval="20"><?php echo $g_row_vacant["COUNT(`Room_No`)"]; ?></div>
+                                            <div class="number count-to" data-from="0" data-to="<?php echo $b_row_vacant["COUNT(`Room_No`)"]; ?>" data-speed="50" data-fresh-interval="20"><?php echo $b_row_vacant["COUNT(`Room_No`)"]; ?></div>
                                         </div>
                                     </div>
                                 </div>

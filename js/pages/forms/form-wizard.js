@@ -10,10 +10,6 @@ $(function () {
         onStepChanged: function (event, currentIndex, priorIndex) {
             setButtonWavesEffect(event);
         },
-        onFinished: function(event, currentIndex) {
-            $("#detailsForm").submit();
-            alert("Submitted");
-        }
     });
 
     //Vertical form basic

@@ -119,27 +119,41 @@
                             <span>New Students Enrolled</span>
                         </a>
                     </li>
-                    <li id="menu_change_room">
-                        <a data-toggle="modal" data-target="#room_number">
-                            <i class="material-icons">event_seat</i>
-                            <span>Change Room Number</span>
+                    <li>
+                        <a href="javascript:void(0);" class="menu-toggle">
+                                <i class="material-icons">event_seat</i>
+                                <span>Room Management</span>
                         </a>
+                        <ul class="ml-menu">
+                            <li id="">
+                                <a data-toggle="modal" data-target="#room_number">
+                                    <i class="material-icons">event_seat</i>
+                                    <span>Change Room Number</span>
+                                </a>
+                            </li>
+                            <li id="">
+                                <a data-toggle="modal" data-target="#reserve_free">
+                                    <i class="material-icons">event_seat</i>
+                                    <span>Reserve or Free Rooms</span>
+                                </a>
+                            </li>
+                        </ul>
                     </li>
                     <li>
                         <a href="javascript:void(0);" class="menu-toggle">
-                            <i class="material-icons">room</i>
+                            <i class="material-icons">business</i>
                             <span>Hostel Layout</span>
                         </a>
                         <ul class="ml-menu">
                             <li>
                                 <a href="g_room_layout.php">
-                                    <i class="material-icons">room</i>
+                                    <i class="material-icons">business</i>
                                     <span>Girls' Hostel Room Layout</span>
                                 </a>
                             </li>
                             <li>
                                 <a href="b_room_layout.php">
-                                    <i class="material-icons">room</i>
+                                    <i class="material-icons">business</i>
                                     <span>Boys' Hostel Room Layout</span>
                                 </a>
                             </li>
@@ -308,33 +322,51 @@
         </div>
     </div>
 
-     <div class="modal fade" id="room_number" tabindex="-1" role="dialog">
+    <div class="modal fade" id="reserve_free" tabindex="-1" role="dialog">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h4 class="modal-title" id="room_numberLabel">Change Room Number</h4>
+                    <h4 class="modal-title" id="reserve_freeLabel">Reserve or Free Rooms</h4>
                 </div>
                 <div class="modal-body">
-                    <h5 style="color:red;">The room number will get reset. The room will have to be allocted again</h5>
                     <div class="row clearfix">
-                        <div class="col-12">
+                        <div class="col-md-12">
                             <div class="container form-group">
-                                <div class="form-line">
-                                    <label for="change_mis_id">MIS Id</label>
-                                    <input type="text" id="change_mis_id" class="form-control" placeholder="Enter the MIS Id" required pattern="[A-Z0-9]{11,15}">
-                                </div>
+                                <label for="hostel" class="required">Hostel</label>
+                                <select class="form-control" id="hostel" name="hostel" required>
+                                    <option value="1">Girls' Hostel</option>
+                                    <option value="0">Boys' Hostel</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="container form-group">
+                                <label for="action" class="required">Room has to be</label>
+                                <select class="form-control" id="action" name="action" required>
+                                    <option value="1">Reserved</option>
+                                    <option value="0">Freed</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="container form-group">
+                                <label for="category" class="required">For category</label>
+                                <select class="form-control" id="category" name="category" required>
+                                    <option value="F">First Year</option>
+                                    <option value="D">Direct Second Year</option>
+                                    <option value="O">Others</option>
+                                </select>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="submit" onclick="submitRegNo();" class="btn btn-primary waves-effect">SAVE CHANGES</button>
+                    <button type="submit" onclick="reserveFree();" class="btn btn-primary waves-effect">SAVE CHANGES</button>
                     <button type="button" class="btn btn-link waves-effect" data-dismiss="modal">CLOSE</button>
                 </div>
             </div>
         </div>
     </div>
-
     <script src="../js/async_connect.js"></script>
     <!-- Jquery Core Js -->
     <script src="../plugins/jquery/jquery.min.js"></script>
@@ -422,11 +454,61 @@
         $(document).ready(function(){
             $(".required").after("<span style='color:red;'> *</span>");
         });
-        function submitRegNo()
-        {
+        function submitRegNo(){
             change_mis_id = document.getElementById("change_mis_id").value;
             postData = "misID=" + change_mis_id;
             httpPostAsync('unallocate.php', postData, submitChange);
+        }
+
+        function submitRoom(resultJson) {
+            var JSONresult = JSON.parse(resultJson);
+            if(JSONresult.result == "Rooms have been reserved successfully!")
+            {
+                swal({
+                    title: "Done!",
+                    text: "Room have beeen reserved successfully!",
+                    type: "success",
+                    confirmButtonText: "Ok"
+                }).then((result) => {
+                    if(result.value){
+                        window.location.href="index.php";
+                    }
+                });
+            }
+            else if(JSONresult.result == "Rooms have been freed successfully!")
+            {
+                swal({
+                    title: "Done!",
+                    text: "Room have been freed successfully!",
+                    type: "success",
+                    confirmButtonText: "Ok"
+                }).then((result) => {
+                    if(result.value){
+                        window.location.href="index.php";
+                    }
+                });
+            }
+            else
+            {
+                swal({
+                    title: "Error!",
+                    text: "An unexpected error occured. Please try again or contact the administrator",
+                    type: "error",  
+                    confirmButtonText: "Ok"
+                }).then((result) => {
+                    if(result.value){
+                        window.location.href="index.php";
+                    }
+                });
+            }
+        }
+
+        function reserveFree(){
+            hostel = document.getElementById("hostel").value;
+            action = document.getElementById("action").value;
+            category = document.getElementById("category").value;
+            postData = "hostel=" + hostel +"&action=" + action + "&category=" + category;
+            httpPostAsync('reserve_free.php', postData, submitRoom);
         }
     </script>
 </body>
