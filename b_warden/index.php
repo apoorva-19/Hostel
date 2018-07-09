@@ -193,6 +193,7 @@
                                             else  
                                               echo "<td>".$row['Room_No']."</td>";
                                             echo  "</tr>";
+                                            $cnt +=1;
                                         }
                                     }
                                     else

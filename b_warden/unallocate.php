@@ -4,7 +4,7 @@
     {
         $jsonArray = array();
         $mis = test_input($_POST["misID"]);
-        $fetch_mis = "SELECT * FROM `New_Registrations` WHERE `MIS` = ? AND `GENDER` = 'M'";
+        $fetch_mis = "SELECT * FROM `New_Registrations` WHERE `MIS` = ? AND `Gender` = 'M'";
         if(!($fetch_mis = $mysqli->prepare($fetch_mis)))
         {
             error_log('Prepare failed for unallocating room number in unallocate.php: ('.$mysqli->errno.') '.$mysqli->error);

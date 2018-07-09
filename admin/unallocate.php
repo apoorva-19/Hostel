@@ -4,7 +4,7 @@
     {
         $jsonArray = array();
         $mis = test_input($_POST["misID"]);
-        $fetch_mis = "SELECT * FROM `New_Registrations` WHERE `MIS` = ? AND `Gender` = 'F';";
+        $fetch_mis = "SELECT * FROM `New_Registrations` WHERE `MIS` = ?";
         if(!($fetch_mis = $mysqli->prepare($fetch_mis)))
         {
             error_log('Prepare failed for unallocating room number in unallocate.php: ('.$mysqli->errno.') '.$mysqli->error);
@@ -49,7 +49,10 @@
                 }
                 else
                 {
-                    $unallocate = "UPDATE `G_Room` SET `Reserved` = 'N' WHERE `Room_No` = ?";
+                		if($row["Gender"] == 'F')
+	                    $unallocate = "UPDATE `G_Room` SET `Reserved` = 'N' WHERE `Room_No` = ?";
+	                  else
+	                  	$unallocate = "UPDATE `B_Room` SET `Reserved` = 'N' WHERE `Room_No` = ?";
                     if(!($unallocate = $mysqli->prepare($unallocate)))
                     {
                         error_log('Prepare failed for resetting room number in unallocate.php: ('.$mysqli->errno.') '.$mysqli->error);

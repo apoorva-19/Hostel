@@ -119,6 +119,12 @@
                             <span>New Students Enrolled</span>
                         </a>
                     </li>
+                    <li id="menu_change_room">
+                        <a data-toggle="modal" data-target="#room_number">
+                            <i class="material-icons">event_seat</i>
+                            <span>Change Room Number</span>
+                        </a>
+                    </li>
                     <li>
                         <a href="javascript:void(0);" class="menu-toggle">
                             <i class="material-icons">room</i>
@@ -276,6 +282,33 @@
     </div>
 
     <div class="modal fade" id="room_number" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="room_numberLabel">Change Room Number</h4>
+                </div>
+                <div class="modal-body">
+                    <h5 style="color:red;">The room number will get reset. The room will have to be allocted again</h5>
+                    <div class="row clearfix">
+                        <div class="col-12">
+                            <div class="container form-group">
+                                <div class="form-line">
+                                    <label for="change_mis_id">MIS Id</label>
+                                    <input type="text" id="change_mis_id" class="form-control" placeholder="Enter the MIS Id" required pattern="[A-Z0-9]{11,15}">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" onclick="submitRegNo();" class="btn btn-primary waves-effect">SAVE CHANGES</button>
+                    <button type="button" class="btn btn-link waves-effect" data-dismiss="modal">CLOSE</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+     <div class="modal fade" id="room_number" tabindex="-1" role="dialog">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
