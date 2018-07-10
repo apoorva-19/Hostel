@@ -43,6 +43,9 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=Edge">
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <meta name="google-signin-scope" content="profile email">
+    <meta name="google-signin-client_id" content="1061494064895-dndnkjleql0qfougmi97tejg3fl7pbp0.apps.googleusercontent.com">
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
     <title>Sign In</title>
     <!-- Favicon-->
     <link rel="icon" href=" favicon.ico" type="image/x-icon">
@@ -74,6 +77,7 @@
 
     <!-- Custom Css -->
     <link href=" css/style.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/login.css">
 
     <!-- AdminBSB Themes. You can choose a theme from css/themes instead of get all themes -->
     <link href=" css/themes/all-themes.css" rel="stylesheet" />
@@ -98,11 +102,11 @@
     </div>
     <!-- #END# Page Loader -->
     <!-- Top Bar -->
-    <nav class="navbar">
+    <nav class="navbar" style="background: rgba(63,81,181,0.5);">
         <div class="container-fluid">
             <div class="navbar-header">
                 <a href="javascript:void(0);" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse" aria-expanded="false"></a>
-                <a class="navbar-brand" href="index.html">Hostel Management</a>
+                <a class="navbar-brand" href="index.html">SCTR's PICT Hostel</a>
             </div>
             <div class="collapse navbar-collapse" id="navbar-collapse">
                 <ul class="nav navbar-nav navbar-right">
@@ -114,49 +118,43 @@
     </nav>
     <!-- #Top Bar -->
     <section class="content">
-            <div class="login-box">
-                    <div class="card">
-                        <div class="body">
-                            <form id="sign_in" method="POST" action="">
-                                <div class="msg">Sign In</div>
-                                <div class="error-message">
-                                    <?php
-                                        if($errorMessage != "")
-                                        {
-                                            echo "<ul>";
-                                            echo "<li>". $errorMessage . "</li>";
-                                            echo "</ul>";
-                                        }
-                                    ?>
-                                </div>
-                                <div class="input-group">
-                                    <span class="input-group-addon">
-                                        <i class="material-icons">person</i>
-                                    </span>
-                                    <div class="form-line">
-                                        <input type="text" class="form-control" name="adminUsername" placeholder="Username" required autofocus>
-                                    </div>
-                                </div>
-                                <div class="input-group">
-                                    <span class="input-group-addon">
-                                        <i class="material-icons">lock</i>
-                                    </span>
-                                    <div class="form-line">
-                                        <input type="password" class="form-control" name="adminPassword" placeholder="Password" required>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-xs-8">
-                                        <a href="sign_up.php">Click here to Sign Up!</a>
-                                    </div>
-                                    <div class="col-xs-4">
-                                        <button class="btn btn-block bg-deep-orange waves-effect" type="submit">SIGN IN</button>
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
+        <div class="form-structor">
+            <div class="signup">
+                <center><img src="images/transparent_logo.png"></center>
+                <center><h2 class="form-title" id="signup"><span>or</span>Student Login</h2></center>
+                <div class="form-holder google">
+                    <center><div class="g-signin2" data-onsuccess="onSignIn" data-theme=""></div></center>
                 </div>
+                <h2 class="form-title">or Sign up</h2>
+                <button class="submit-btn" id="sign_up">Sign up</button>
+            </div>
+            <div class="login slide-up">
+                <div class="center">
+                    <h2 class="form-title" id="login"><span>or</span>Staff Login</h2>
+                    <form id="sign_in" method="POST" action="">
+                        <div class="form-holder">
+                            <div class="input-group">
+                                <span class="input-group-addon">
+                                    <i class="material-icons">person</i>
+                                </span>
+                                <div class="form-line">
+                                    <input type="text" class="form-control" name="adminUsername" placeholder="Username" required autofocus>
+                                </div>
+                            </div>
+                            <div class="input-group">
+                                <span class="input-group-addon">
+                                    <i class="material-icons">lock</i>
+                                </span>
+                                <div class="form-line">
+                                    <input type="password" class="form-control" name="adminPassword" placeholder="Password" required>
+                                </div>
+                            </div>
+                        </div>
+                    <button type="submit" class="submit-btn">Log in</button>
+                    </form>
+                </div>
+            </div>
+        </div>
     </section>
 
     <!-- Jquery Core Js -->
@@ -186,13 +184,33 @@
     <!-- Custom Js -->
     <script src=" js/admin.js"></script>
     <script src=" js/pages/forms/basic-form-elements.js"></script>
+    <script src="js/async_connect.js"</script>
 
     <!-- Demo Js -->
     <script src=" js/demo.js"></script>
+    <script src="js/login.js"></script>
     <script>
+         document.getElementById("sign_up").onclick = function () {
+            window.location.href = "sign_up.php";
+        };
         $(document).ready(function(){
             $(".required").after("<span style='color:red;'> *</span>");
         });
+    </script>
+
+    <script>
+      function onSignIn(googleUser) {
+        var profile = googleUser.getBasicProfile();
+        // console.log('Full Name: ' + profile.getName());
+        // console.log("Image URL: " + profile.getImageUrl());
+        // console.log("Email: " + profile.getEmail());
+        // var name = profile.getName();
+        var email = profile.getEmail();
+        var id_token = googleUser.getAuthResponse().id_token;
+        // console.log("ID Token: " + id_token);
+        postData = "email=" + email + "&id_token=" + id_token;
+        httpPostAsync('verify_log.php', postData, successSignin);        
+      };
     </script>
 </body>
 
