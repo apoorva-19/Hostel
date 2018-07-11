@@ -175,6 +175,13 @@
                             <span>Send Messages</span>
                         </a>
                     </li>
+                    <li id="menu_layout">
+                        <a href="night.php">
+                            <i class="material-icons">room</i>
+                            <span>Night Permissions</span>
+                        </a>
+                    </li>
+
                 </ul>
             </div>
             <!-- #Menu -->
