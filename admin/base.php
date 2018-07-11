@@ -114,10 +114,42 @@
                         </a>
                     </li>
                     <li>
-                        <a href="student_enrol.php">
+                        <a href="javascript:void(0);" class="menu-toggle">
                             <i class="material-icons">people</i>
-                            <span>New Students Enrolled</span>
+                            <span>Student Lists</span>
                         </a>
+                        <ul class="ml-menu">
+                            <li>
+                                <a href="student_enrol.php">
+                                    <i class="material-icons">people</i>
+                                    <span>New Students Enrolled</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="student_night_out.php">
+                                    <i class="material-icons">people</i>
+                                    <span>Night Out</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="student_late.php">
+                                    <i class="material-icons">people</i>
+                                    <span>Late Record</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="student_noon.php">
+                                    <i class="material-icons">people</i>
+                                    <span>Noon Record</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="student_food.php">
+                                    <i class="material-icons">people</i>
+                                    <span>Meal Record</span>
+                                </a>
+                            </li>
+                        </ul>
                     </li>
                     <li>
                         <a href="javascript:void(0);" class="menu-toggle">

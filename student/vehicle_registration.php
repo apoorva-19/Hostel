@@ -93,7 +93,7 @@
                                         <div class="form-group">
                                             <div class="form-line">
                                                 <label class="required" for="brand">Brand</label>
-                                                <input type="text" id="brand" class="form-control" placeholder="" />
+                                                <input type="text" id="brand" name="brand" class="form-control" placeholder="" />
                                             </div>
                                         </div>
                                     </div>
@@ -103,7 +103,7 @@
                                         <div class="form-group">
                                             <div class="form-line">
                                                 <label class="required" for="reg_id">Registration Number</label>
-                                                <input type="text" pattern="[A-Z]{2}[0-9]{1,2}[A-Z]{1,2}[0-9]{1,4}" id="reg_id" class="form-control" placeholder="" />
+                                                <input type="text" pattern="[A-Z]{2}[0-9]{1,2}[A-Z]{1,2}[0-9]{1,4}" id="reg_id" name="reg_id" class="form-control" placeholder="" />
                                             </div>
                                         </div>
                                     </div>
@@ -111,7 +111,7 @@
                                         <div class="form-group">
                                             <div class="form-line">
                                                 <label class="required" for="driving_license">Driving License Number</label>
-                                                <input type="text" pattern="[0-9A-Z]{15}" id="driving_license" class="form-control" placeholder="" />
+                                                <input type="text" pattern="[0-9A-Z]{15}" id="driving_license" name="driving_license" class="form-control" placeholder="" />
                                             </div>
                                         </div>
                                     </div>
@@ -122,7 +122,7 @@
                                                 <div class="input-group">
                                                     <div class="form-line">
                                                         <label class="required" for="license_issue">License Issue Date</label>
-                                                        <input type="text" id="license_issue" class="datepicker form-control" placeholder="Pick a date" /> 
+                                                        <input type="text" id="license_issue" name="license_issue" class="datepicker form-control" placeholder="Pick a date" />  
                                                     </div>
                                                 </div>
                                             </div>
@@ -132,7 +132,7 @@
                                                 <div class="input-group">
                                                     <div class="form-line">
                                                         <label class="required" for="license_validity">License Validity</label>
-                                                        <input type="text" id="license_validity" class="datepicker form-control" placeholder="Pick a date" />
+                                                        <input type="text" id="license_validity" name="license_validity" class="datepicker form-control" placeholder="Pick a date" />
                                                     </div>
                                                 </div>
                                             </div>
@@ -143,7 +143,7 @@
                                         <div class="form-group">
                                             <div class="form-line">
                                                 <label class="required" for="insurance_comp">Insurance Company</label>
-                                                <input type="text" id="insurance_comp" class="form-control" placeholder="" />
+                                                <input type="text" id="insurance_comp" name="insurance_comp" class="form-control" placeholder="" />
                                             </div>
                                         </div>
                                     </div>
@@ -151,7 +151,7 @@
                                         <div class="form-group">
                                             <div class="form-line">
                                                 <label class="required" for="insurance_policy">Insurance Policy Number</label>
-                                                <input type="text" id="insurance_policy" class="form-control" placeholder="" />
+                                                <input type="text" id="insurance_policy" name="insurance_policy" class="form-control" placeholder="" />
                                             </div>
                                         </div>
                                     </div>
@@ -162,7 +162,7 @@
                                             <div class="input-group">
                                                 <div class="form-line">
                                                     <label class="required" for="policy_issue">Policy Issue Date</label>
-                                                    <input type="text" id="policy_issue" class="datepicker form-control" placeholder="Pick a date" /> 
+                                                    <input type="text" id="policy_issue" name="policy_issue" class="datepicker form-control" placeholder="Pick a date" /> 
                                                 </div>
                                             </div>
                                         </div>
@@ -172,7 +172,7 @@
                                             <div class="input-group">
                                                 <div class="form-line">
                                                     <label class="required" for="policy_validity">License Validity</label>
-                                                    <input type="text" id="policy_validity" class="timepicker form-control" placeholder="Pick a time" />
+                                                    <input type="text" id="policy_validity" name="policy_validity" class="timepicker form-control" placeholder="Pick a time" />
                                                 </div>
                                             </div>
                                         </div>
