@@ -42,10 +42,7 @@
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=Edge">
-    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-    <meta name="google-signin-scope" content="profile email">
-    <meta name="google-signin-client_id" content="1061494064895-dndnkjleql0qfougmi97tejg3fl7pbp0.apps.googleusercontent.com">
-    <script src="https://apis.google.com/js/platform.js" async defer></script>
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">x
     <title>Sign In</title>
     <!-- Favicon-->
     <link rel="icon" href=" favicon.ico" type="image/x-icon">
@@ -121,11 +118,29 @@
         <div class="form-structor">
             <div class="signup">
                 <center><img src="images/transparent_logo.png"></center>
-                <center><h2 class="form-title" id="signup"><span>or</span>Student Login</h2></center>
-                <div class="form-holder google">
-                    <center><div class="g-signin2" data-onsuccess="onSignIn" data-theme=""></div></center>
-                </div>
-                <h2 class="form-title">or Sign up</h2>
+                <h2 class="form-title" id="signup"><span>or</span>Student Login</h2>
+                    <form id="log_in" method="POST" action="student_login.php">
+                        <div class="form-holder">
+                            <div class="input-group">
+                                <span class="input-group-addon">
+                                    <i class="material-icons">person</i>
+                                </span>
+                                <div class="form-line">
+                                    <input type="text" class="form-control" name="studentUsername" placeholder="Username" required autofocus>
+                                </div>
+                            </div>
+                            <div class="input-group">
+                                <span class="input-group-addon">
+                                    <i class="material-icons">lock</i>
+                                </span>
+                                <div class="form-line">
+                                    <input type="password" class="form-control" name="studentPassword" placeholder="Password" required>
+                                </div>
+                            </div>
+                        </div>
+                        <button type="submit" class="submit-btn">Log in</button>
+                    </form>
+                <h4 class="form-title"><center>or</center></h4>
                 <button class="submit-btn" id="sign_up">Sign up</button>
             </div>
             <div class="login slide-up">
@@ -196,21 +211,6 @@
         $(document).ready(function(){
             $(".required").after("<span style='color:red;'> *</span>");
         });
-    </script>
-
-    <script>
-      function onSignIn(googleUser) {
-        var profile = googleUser.getBasicProfile();
-        // console.log('Full Name: ' + profile.getName());
-        // console.log("Image URL: " + profile.getImageUrl());
-        // console.log("Email: " + profile.getEmail());
-        // var name = profile.getName();
-        var email = profile.getEmail();
-        var id_token = googleUser.getAuthResponse().id_token;
-        // console.log("ID Token: " + id_token);
-        postData = "email=" + email + "&id_token=" + id_token;
-        httpPostAsync('verify_log.php', postData, successSignin);        
-      };
     </script>
 </body>
 
