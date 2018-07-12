@@ -668,6 +668,26 @@
                                     </div>
                                 </div>
                             </div>
+                            <div class="row clearfix">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <div class="form-line inputDiv" id="password_div">
+                                            <label class="required" for="password">Password</label>
+                                            <input id="password" name="password" class="form-control" type="password" required data-trigger="focus" data-container="body" data-toggle="popover"
+                                            data-placement="bottom" title="Password Requirement" data-content="Password should contain a capital letter, small letter, digit and special character and should be atleast 8 characters long.">
+                                        </div>
+                                        <span id="password_strength"></span>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <div class="form-line inputDiv" id="re_enterPassword_div">
+                                            <label class="required" for="re_enter_password">Re-enter Password</label>
+                                            <input id="re_enter_password" name="re_enter_password" class="form-control" type="password" required >
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                             <input type="hidden" name="completeAddress" id="completeAddress" readonly required/>
                             <input type="hidden" name="lat" id="lat" readonly required>
                             <input type="hidden" name="lng" id="lng" readonly required>
@@ -730,6 +750,7 @@
     <!-- Custom Js -->
     <script src=" js/admin.js"></script>
     <script src=" js/pages/forms/basic-form-elements.js"></script>
+    <script src=" js/pages/ui/tooltips-popovers.js"></script>
 
     <!-- Demo Js -->
     <script src=" js/demo.js"></script>
@@ -790,6 +811,64 @@
             document.getElementById('lng').value = place.geometry.location.lng();
             document.getElementById('completeAddress').value = completeAddress;
         }
+
+        $(function () {
+        $("#password").bind("keyup", function () {
+            //TextBox left blank.
+            if ($(this).val().length == 0) {
+                $("#password_strength").html("");
+                return;
+            }
+ 
+            //Regular Expressions.
+            var regex = new Array();
+            regex.push("[A-Z]"); //Uppercase Alphabet.
+            regex.push("[a-z]"); //Lowercase Alphabet.
+            regex.push("[0-9]"); //Digit.
+            regex.push("[$@$!%*#?&]"); //Special Character.
+ 
+            var passed = 0;
+ 
+            //Validate for each Regular Expression.
+            for (var i = 0; i < regex.length; i++) {
+                if (new RegExp(regex[i]).test($(this).val())) {
+                    passed++;
+                }
+            }
+ 
+ 
+            //Validate for length of Password.
+            if (passed > 2 && $(this).val().length > 8) {
+                passed++;
+            }
+ 
+            //Display status.
+            var color = "";
+            var strength = "";
+            switch (passed) {
+                case 0:
+                case 1:
+                    strength = "Weak";
+                    color = "red";
+                    break;
+                case 2:
+                    strength = "Good";
+                    color = "darkorange";
+                    break;
+                case 3:
+                case 4:
+                    strength = "Strong";
+                    color = "green";
+                    break;
+                case 5:
+                    strength = "Very Strong";
+                    color = "darkgreen";
+                    break;
+            }
+            $("#password_strength").html(strength);
+            $("#password_strength").css("color", color);
+        });
+    });
     </script>
 </body>
 

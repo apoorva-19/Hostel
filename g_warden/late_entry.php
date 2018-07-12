@@ -1,11 +1,12 @@
 <?php
+    require_once('../convert.php');
     require_once('../connect.php');
 
     if($_SERVER["REQUEST_METHOD"] == "POST"  && isset($_POST["room_no"]) && isset($_POST["time"]) && isset($_POST["reason"]))
     {
         $date = date('Y-m-d');
         $room_no = test_input($_POST["room_no"]);
-        $time = test_input($_POST["time"]);
+        $time = convertTime(test_input($_POST["time"]));
         $reason = test_input($_POST["reason"]);
         $fetch_details = "SELECT MIS, Late_Count FROM Hostelite WHERE Room_No = ? AND Gender = ?";
         $gender = 'F';
