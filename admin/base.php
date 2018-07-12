@@ -126,6 +126,12 @@
                                 </a>
                             </li>
                             <li>
+                                <a href="student_list.php">
+                                    <i class="material-icons">people</i>
+                                    <span>Current Students List</span>
+                                </a>
+                            </li>
+                            <li>
                                 <a href="student_night_out.php">
                                     <i class="material-icons">people</i>
                                     <span>Night Out</span>
@@ -192,6 +198,18 @@
                         </ul>
                     </li>
                     <li>
+                        <a data-toggle="modal" data-target="#late">
+                            <i class="material-icons">report_problem</i>
+                            <span>Add Late Entry</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a data-toggle="modal" data-target="#noon">
+                            <i class="material-icons">access_time</i>
+                            <span>Add Afternoon Entry</span>
+                        </a>
+                    </li>
+                    <li>
                         <a data-toggle="modal" data-target="#notice">
                             <i class="material-icons">event_note</i>
                             <span>Add Notices</span>
@@ -220,7 +238,107 @@
         <!-- #END# Left Sidebar -->
     </section>
     
-    
+    <!-- Late Entry -->
+    <div class="modal fade" id="late" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="lateLabel">Late Entry</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="row clearfix">
+                        <div class="col-12">
+                            <div class="container form-group">
+                                <div class="form-line">
+                                    <label for="late_hostel_wing">Pick hostel</label>
+                                    <select id="late_hostel_wing">
+                                        <option value="1">Girls' Hostel</option>
+                                        <option value="0">Boys' Hostel</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row clearfix">
+                        <div class="col-12">
+                            <div class="container form-group">
+                                <div class="form-line">
+                                    <label for="late_room_no">Room No</label>
+                                    <input type="text" id="late_room_no" class="form-control" placeholder="Enter the Room_No" required>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row clearfix">
+                        <div class="col-12">
+                            <div class="container form-group">
+                                <div class="form-line">
+                                    <label for="late_time">Time</label>
+                                    <input type="text" id="late_time" class="timepicker form-control" placeholder="Enter the time" required>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row clearfix">
+                        <div class="col-12">
+                            <div class="container form-group">
+                                <div class="form-line">
+                                <label class="required" for="reason">Reason</label>
+                                <textarea id="reason" rows="1" class="form-control no-resize auto-growth" placeholder="" required></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" onclick="submitLate();" class="btn btn-primary waves-effect">SAVE CHANGES</button>
+                    <button type="button" class="btn btn-link waves-effect" data-dismiss="modal">CLOSE</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Noon Entry -->
+    <div class="modal fade" id="noon" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="noonLabel">Noon Entry</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="row clearfix">
+                        <div class="col-12">
+                            <div class="container form-group">
+                                <div class="form-line">
+                                    <label for="noon_hostel_wing">Pick hostel</label>
+                                    <select id="noon_hostel_wing">
+                                        <option value="1">Girls' Hostel</option>
+                                        <option value="0">Boys' Hostel</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row clearfix">
+                        <div class="col-12">
+                            <div class="container form-group">
+                                <div class="form-line">
+                                    <label for="noon_room_no">Room No</label>
+                                    <input type="text" id="noon_room_no" class="form-control" placeholder="Enter the Room_No" required>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" onclick="submitNoon();" class="btn btn-primary waves-effect">SAVE CHANGES</button>
+                    <button type="button" class="btn btn-link waves-effect" data-dismiss="modal">CLOSE</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Notice -->
     <div class="modal fade" id="notice" tabindex="-1" role="dialog">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -289,6 +407,7 @@
         </div>
     </div>
 
+    <!-- Message -->
     <div class="modal fade" id="message" tabindex="-1" role="dialog">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -327,6 +446,7 @@
         </div>
     </div>
 
+    <!-- Change Room -->
     <div class="modal fade" id="room_number" tabindex="-1" role="dialog">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -354,6 +474,7 @@
         </div>
     </div>
 
+    <!-- Reserve or Free Rooms -->
     <div class="modal fade" id="reserve_free" tabindex="-1" role="dialog">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -399,6 +520,7 @@
             </div>
         </div>
     </div>
+
     <script src="../js/async_connect.js"></script>
     <!-- Jquery Core Js -->
     <script src="../plugins/jquery/jquery.min.js"></script>
@@ -483,6 +605,7 @@
                 });
             }
         }
+
         $(document).ready(function(){
             $(".required").after("<span style='color:red;'> *</span>");
         });
@@ -541,6 +664,82 @@
             category = document.getElementById("category").value;
             postData = "hostel=" + hostel +"&action=" + action + "&category=" + category;
             httpPostAsync('reserve_free.php', postData, submitRoom);
+        }
+        
+        function successLate(resultJson) {
+            var JSONresult = JSON.parse(resultJson);
+            if(JSONresult.result == "Entry made successfully!")
+            {
+                swal({
+                    title: "Done!",
+                    text: "Entry made successfully!",
+                    type: "success",
+                    confirmButtonText: "Ok"
+                }).then((result) => {
+                    if(result.value){
+                        window.location.href="index.php";
+                    }
+                });
+            }
+            else
+            {
+                swal({
+                    title: "Error!",
+                    text: "An unexpected error occured. Please try again or contact the administrator",
+                    type: "error",  
+                    confirmButtonText: "Ok"
+                }).then((result) => {
+                    if(result.value){
+                        window.location.href="index.php";
+                    }
+                });
+            }
+        }
+
+        function successNoon(resultJson) {
+            var JSONresult = JSON.parse(resultJson);
+            if(JSONresult.result == "Entry made successfully!")
+            {
+                swal({
+                    title: "Done!",
+                    text: "Entry made successfully!",
+                    type: "success",
+                    confirmButtonText: "Ok"
+                }).then((result) => {
+                    if(result.value){
+                        window.location.href="index.php";
+                    }
+                });
+            }
+            else
+            {
+                swal({
+                    title: "Error!",
+                    text: "An unexpected error occured. Please try again or contact the administrator",
+                    type: "error",  
+                    confirmButtonText: "Ok"
+                }).then((result) => {
+                    if(result.value){
+                        window.location.href="index.php";
+                    }
+                });
+            }
+        }
+
+        function submitLate(){
+            hostel_wing = document.getElementById("late_hostel_wing").value;
+            room_no = document.getElementById("late_room_no").value;
+            time = document.getElementById("late_time").value;
+            reason = document.getElementById("reason").value;
+            postData = "hostel_wing=" + hostel_wing + "&room_no=" + room_no + "&time=" + time + "&reason=" + reason;
+            httpPostAsync('late_entry.php', postData, successLate);
+        }
+
+        function submitNoon(){
+            hostel_wing = document.getElementById("noon_hostel_wing").value;
+            room_no = document.getElementById("noon_room_no").value;
+            postData = "hostel_wing=" + hostel_wing + "&room_no=" + room_no;
+            httpPostAsync('noon_entry.php', postData, successNoon);
         }
     </script>
 </body>

@@ -1,6 +1,6 @@
 <?php
     session_start();
-    if(!(isset($_SESSION["user"]) || $_SESSION["user"] === "b_warden"))
+    if(!(isset($_SESSION["user"]) || $_SESSION["user"] === "warden"))
     {
         header("Location:../404.html");
         exit;
@@ -8,9 +8,9 @@
     require_once('base.php');
     require_once('../connect.php');
     $year = date("Y");
-    $b_student = "SELECT * FROM `New_Registrations` WHERE GENDER = 'M' AND YEAR(Reg_Date) = '".$year."';";
-    $b_res_student = mysqli_query($mysqli, $b_student);
-    $b_count = mysqli_num_rows($b_res_student);
+    $student = "SELECT * FROM `Hostelite`";
+    $res_student = mysqli_query($mysqli, $student);
+    $count = mysqli_num_rows($res_student);
 ?>
 
 <!DOCTYPE html>
@@ -50,43 +50,43 @@
                                 <tbody>
                                     <?php
                                     $cnt = 1;
-                                    while($b_row_student = $b_res_student->fetch_assoc())
+                                    while($row_student = $res_student->fetch_assoc())
                                     {
                                         echo "<tr>
                                                 <th scope=\"row\">".$cnt."</th>
-                                                <td>".$b_row_student['Name']."</td>";
-                                                if($b_row_student['Room_No'] == 0)
+                                                <td>".$row_student['Name']."</td>";
+                                                if($row_student['Room_No'] == 0)
                                                     echo "<td>xxxxxxxxxxx</td>";
                                                 else
-                                                    echo "<td>".$b_row_student['MIS']."</td>
-                                                <td>".$b_row_student['Email_Id']."</td>
-                                                <td>".$b_row_student['City']."</td>";
-                                                if($b_row_student['Admission_Type'] == 'M')
+                                                    echo "<td>".$row_student['MIS']."</td>
+                                                <td>".$row_student['Email_Id']."</td>
+                                                <td>".$row_student['City']."</td>";
+                                                if($row_student['Admission_Type'] == 'M')
                                                     echo "<td>Management Quota</td>";
-                                                else if($b_row_student['Admission_Type'] == 'C')
+                                                else if($row_student['Admission_Type'] == 'C')
                                                     echo "<td>CAP Rounds</td>";
-                                                else if($b_row_student['Admission_Type'] == 'P')
+                                                else if($row_student['Admission_Type'] == 'P')
                                                     echo "<td>PIO</td>";
-                                                else if($b_row_student['Admission_Type'] == 'CI')
+                                                else if($row_student['Admission_Type'] == 'CI')
                                                     echo "<td>CIWGC</td>";
-                                                else if($b_row_student['Admission_Type'] == 'JK')
+                                                else if($row_student['Admission_Type'] == 'JK')
                                                     echo "<td>Jammu and Kashmir</td>";
-                                                else if($b_row_student['Admission_Type'] == 'DSE')
+                                                else if($row_student['Admission_Type'] == 'DSE')
                                                     echo "<td>Direct Second Year</td>";
                                                 else
                                                     echo "<td>Others</td>";
-                                                if($b_row_student['Room_No'] == 0)
+                                                if($row_student['Room_No'] == 0)
                                                     echo "<td>xxxxxxxxxxx</td>";
                                                 else
-                                                    echo "<td>".$b_row_student['Receipt_No']."</td>";
-                                                if($b_row_student['Room_No'] == 0)
+                                                    echo "<td>".$row_student['Receipt_No']."</td>";
+                                                if($row_student['Room_No'] == 0)
                                                     echo "<td>xxxxxx</td>";
                                                 else
-                                                    echo "<td>".$b_row_student['Amount_Paid']."</td>";
-                                                if($b_row_student['Room_No'] == 0)
+                                                    echo "<td>".$row_student['Amount_Paid']."</td>";
+                                                if($row_student['Room_No'] == 0)
                                                     echo "<td>Not alloted</td>";
                                                 else
-                                                    echo "<td>".$b_row_student['Room_No']."</td>";
+                                                    echo "<td>".$row_student['Room_No']."</td>";
                                         echo  "</tr>";
                                         $cnt +=1;
                                     }
