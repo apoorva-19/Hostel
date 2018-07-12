@@ -25,7 +25,7 @@
             $policy_issue = convertDate(test_input($_POST["policy_issue"]));
             $policy_validity = convertDate(test_input($_POST["policy_validity"]));
             $mis = test_input($_SESSION["user"]);
-            $insert = "INSERT INTO `Vehicle_Record`(`Brand`, `Registration_No`, `Driving_License_No`, `License_Issue_Date`, `License_Validity`, `Insurance_Company`, `Insurance_Policy_No`, `Insurance_Policy_Date`, `Insurance_Validity`) VALUES (?,?,?,?,'".$license_issue."','".$license_validity."',?,?,'".$policy_issue."','".$policy_validity."');";
+            $insert = "INSERT INTO `Vehicle_Record`(`Brand`, `Registration_No`, `Driving_License_No`, `License_Issue_Date`, `License_Validity`, `Insurance_Company`, `Insurance_Policy_No`, `Insurance_Policy_Date`, `Insurance_Validity`, `MIS`) VALUES (?,?,?,?,'".$license_issue."','".$license_validity."',?,?,'".$policy_issue."','".$policy_validity."','".$mis."');";
             if(!($insert = $mysqli->prepare($insert)))
             {
                 error_log('Prepare failed for vehicle registration in vehicle_registration.php: ('.$mysqli->errno.') '.$mysqli->error);
@@ -87,7 +87,7 @@
                                 <h2>Vehicle Registration Form</h2>
                             </div>
                             <br>
-                            <form method="POST" action="">
+                            <form method="POST" action="/">
                                 <div class="row clearfix">
                                     <div class="col-sm-6 col-md-6">
                                         <div class="form-group">

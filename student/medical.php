@@ -1,7 +1,71 @@
 <?php
     require_once('base.php');
+    require_once('../connect.php');
+    require_once('../convert.php');
+    $errors = false;
+    if(($_SERVER["REQUEST_METHOD"] == "POST"))
+    {
+        if(!validateInput())
+        {
+            echo "<script>swal({
+                                title: 'Invalid data entered!',
+                                text: 'Invalid data has been entered in some fields. Please check all fields and try again',
+                                type: 'error'});</script>";
+            $errors = true;
+        }
+        else
+        {
+            $date = test_input($_POST["date"]);
+            $blood_grp = test_input($_POST["blood_grp"]);
+            $height = test_input($_POST["height"]);
+            $weight = convertDate(test_input($_POST["weight"]));
+            $allergies = convertDate(test_input($_POST["allergies"]));
+            $family_physician = test_input($_POST["family_physician"]);
+            $dr_contact = test_input($_POST["dr_contact"]);
+            $mis = test_input($_SESSION["user"]);
+            $insert = "INSERT INTO `Medical`(`Date_Checkup`, `Height`, `Weight`, `Blood_Group`, `Allergies`,`Dr_Contact`,`Family_Physician`,`MIS`) VALUES ('".$date."',?,?,?,?,?);";
+            if(!($insert = $mysqli->prepare($insert)))
+            {
+                error_log('Prepare failed for vehicle registration in vehicle_registration.php: ('.$mysqli->errno.') '.$mysqli->error);
+                echo "<script>swal({
+                    title: 'Error',
+                    text: 'Request could not be processed. We are trying to fix the error.',
+                    type: 'error'
+                })</script>";
+                exit;
+            }
+            if(!$insert->bind_param('iisssss',$height,$weight,$allergies,$blood_grp,$allergies,$dr_contact,$family_physician))
+            {
+                error_log('Bind param failed for medical form in medical.php: ('.$mysqli->errno.') '.$mysqli->error);
+                echo "<script>swal({
+                    title: 'Error',
+                    text: 'Request could not be processed. We are trying to fix the error.',
+                    type: 'error'
+                })</script>";
+                exit;
+            }
+            if(!$insert->execute())
+            {
+                error_log('Execution failed for medical form in medical.php: ('.$mysqli->errno.') '.$mysqli->error);
+                echo "<script>swal({
+                    title: 'Error',
+                    text: 'Request could not be processed. We are trying to fix the error.',
+                    type: 'error'
+                })</script>";
+                exit;
+            }
+            echo "<script>swal({
+                title: 'Done!',
+                text: 'Form filled.',
+                type: 'success'
+            })</script>";
+        }
+    }
+    function validateInput()
+    {
+        
+    }
 ?>
-
 <!DOCTYPE html>
 <html>
     <script>

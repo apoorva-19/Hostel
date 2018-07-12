@@ -43,7 +43,7 @@
                 $distanceResult = validateDistance(test_input($_POST["lat"]), test_input($_POST["lng"]));
             else
                 $distanceResult = 1;
-
+                
             if($distanceResult == 0)
             {
                 echo '<script>$(document).ready(function(){
