@@ -94,26 +94,26 @@
                 $state = test_input($_POST["administrative_area_level_1"]);
                 $zipcode = test_input($_POST["postal_code"]);
                 $country = test_input($_POST["country"]);
+                $password = password_hash($_POST["password"], PASSWORD_DEFAULT);
                 $date = date('Y-m-d');
 
                 $sql = "SELECT `MIS` FROM `New_Registrations` WHERE `MIS` = ?;";
                 if(!($verify_mis = $mysqli->prepare($sql)))
                 {
-                    error_log('Prepare failed for mis checking in sign_up.php: ('.$mysqli->errno.') '.$mysqli->error);
+                    //error_log('Prepare failed for mis checking in sign_up.php: ('.$mysqli->errno.') '.$mysqli->error);
                     echo "<script>$(document).ready(function(){
                         swal({
                         title: 'Error',
                         text: 'Request could not be processed. We are trying to fix the error.',
                         type: 'error'
                         });
-                        
                     });</script>";
                 }
                 else
                 {
                     if(!($verify_mis->bind_param('s', $mis)))
                     {
-                        error_log('Binding failed for mis checking in sign_up.php: ('.$mysqli->errno.') '.$mysqli->error);
+                        //error_log('Binding failed for mis checking in sign_up.php: ('.$mysqli->errno.') '.$mysqli->error);
                         echo "<script>$(document).ready(function(){
                             swal({
                             title: 'Error',
@@ -127,7 +127,7 @@
                     {
                         if(!$verify_mis->execute())
                         {
-                            error_log('Execution failed for verifying student in sign_up.php: ('.$mysqli->errno.') '.$mysqli->error);
+                            //error_log('Execution failed for verifying student in sign_up.php: ('.$mysqli->errno.') '.$mysqli->error);
                             echo "<script>$(document).ready(function(){
                                 swal({
                                 title: 'Error',
@@ -153,11 +153,11 @@
                             }
                             else
                             {
-                                $sql = "INSERT INTO `New_Registrations`(`Name`, `Gender`, `Admission_Type`, `DOB`, `MIS`, `Email_Id`, `Contact_Number`, `Branch`, `Year`, `Receipt_No`, `Amount_Paid`, `Mode_Transaction`, `Street`, `City`, `State`, `Pincode`, `Country`, `Reg_Date`) VAlUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
+                                $sql = "INSERT INTO `New_Registrations`(`Name`, `Gender`, `Admission_Type`, `DOB`, `MIS`, `Email_Id`, `Contact_Number`, `Branch`, `Year`, `Receipt_No`, `Amount_Paid`, `Mode_Transaction`, `Street`, `City`, `State`, `Pincode`, `Country`, `Reg_Date`, `Password`) VAlUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
 
                                 if(!($insert_stud = $mysqli->prepare($sql)))
                                 {
-                                    error_log('Prepare failed for insertion of student in sign_up.php: ('.$mysqli->errno.') '.$mysqli->error);
+                                    //error_log('Prepare failed for insertion of student in sign_up.php: ('.$mysqli->errno.') '.$mysqli->error);
                                     echo "<script>$(document).ready(function(){
                                         swal({
                                         title: 'Error',
@@ -169,9 +169,9 @@
                                 }
                                 else
                                 {
-                                    if(!($insert_stud->bind_param('ssssssisisiissssss', $name, $gender, $admissionType, $dob, $mis, $email, $contact, $branch, $year, $receipt, $amtPaid, $modeTrans, $street, $city, $state, $zipcode, $country, $date)))
+                                    if(!($insert_stud->bind_param('ssssssisisiisssssss', $name, $gender, $admissionType, $dob, $mis, $email, $contact, $branch, $year, $receipt, $amtPaid, $modeTrans, $street, $city, $state, $zipcode, $country, $date, $password)))
                                     {
-                                        error_log('Binding failed for insertion of student in sign_up.php: ('.$mysqli->errno.') '.$mysqli->error);
+                                        //error_log('Binding failed for insertion of student in sign_up.php: ('.$mysqli->errno.') '.$mysqli->error);
                                         echo "<script>$(document).ready(function(){
                                             swal({
                                             title: 'Error',
@@ -185,7 +185,7 @@
                                     {
                                         if(!$insert_stud->execute())
                                         {
-                                            error_log('Execution failed for insertion of student in sign_up.php: ('.$mysqli->errno.') '.$mysqli->error);
+                                            //error_log('Execution failed for insertion of student in sign_up.php: ('.$mysqli->errno.') '.$mysqli->error);
                                             echo "<script>$(document).ready(function(){swal({
                                                 title: 'Error',
                                                 text: 'Request could not be processed. We are trying to fix the error.',
@@ -207,7 +207,7 @@
                                                 });</script>";
                                             else
                                             {
-                                                error_log('PHP code executed but MySQL query failed. Please check the query or MySQL database for errors in sign_up.php: ('.$mysqli->errno.')'.$mysqli->error);
+                                                //error_log('PHP code executed but MySQL query failed. Please check the query or MySQL database for errors in sign_up.php: ('.$mysqli->errno.')'.$mysqli->error);
                                                 echo "<script>$(document).ready(function(){
                                                     swal({
                                                         title: 'Error',
@@ -327,6 +327,22 @@
                 setTimeout(function() { $('form').validate().showErrors({ 'stud_receipt' : 'Please enter a valid receipt number' }) }, 100);
             });</script>";
         }
+        if(!(isset($_POST["password"]) && !(empty(trim($_POST["password"]))) && preg_match('/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[#$@!%&*?])[A-Za-z\d#$@!%&*?]{8,72}$/', $_POST["password"])))
+        {
+            $valid = false;
+            echo "<script>document.addEventListener('DOMContentLoaded', function() { document.getElementById('password').className += ' form-line focused error'; });</script>";
+            echo "<script>$(document).ready(function() {
+                setTimeout(function() { $('form').validate().showErrors({ 'password' : 'Password must between 8 and 72 characters long and must contain a lowercase alphabet, an uppercase alphabet, a digit and a special character' }) }, 100);
+            });</script>";
+        }
+        if(!(isset($_POST["re_enter_password"]) && !(empty(trim($_POST["re_enter_password"]))) && (trim($_POST["re_enter_password"]) == trim($_POST["password"]))))
+        {
+            $valid = false;
+            echo "<script>document.addEventListener('DOMContentLoaded', function() { document.getElementById('re_enter_password').className += ' form-line focused error'; });</script>";
+            echo "<script>$(document).ready(function() {
+                setTimeout(function() { $('form').validate().showErrors({ 're_enter_password' : 'Passwords do not match' }) }, 100);
+            });</script>";
+        }
         if(!(isset($_POST["lat"]) && !(empty(trim($_POST["lat"])))))
         {
             $valid = false;            
@@ -363,7 +379,6 @@
 
         // $urlEncodedStreet = urlencode($street);
         $urlEncodedLocation = $lat.",".$lng;
-        error_log($urlEncodedLocation);
         $googleMapsUrl = "https://maps.googleapis.com/maps/api/distancematrix/json?origins=18.4575,73.8508&destinations=$urlEncodedLocation&key=AIzaSyAT0vJn-AOVSzztKM-iN8rRgGYV7al6wNI&language=en";
         $data = file_get_contents($googleMapsUrl);
         $data = json_decode($data);
@@ -375,24 +390,47 @@
                 {
                     $distance += $road->distance->text;
                     $distance = (float)$distance;
-                    error_log('Debug print: Distance = '.$distance);
                     $GLOBALS["distance"] = $distance;
-                    if($distance < 40.0)
+                    if($distance < 50.0)
                         return 0;   
                     return 1;
                 }
                 else
                 {
-                    error_log('Google Distance Matrix API Error was encountered. The element level status code returned the error '.$road->status.'. This error was encountered in the data element retrieved inside validateDistance() in sign_up.php. This error does not have a server side fix and possible actions need to be suggested to the user to rectify this.');
-                    return 3;
+                    $radialDistance = getDistanceFromLatLonInKm(18.4575, 73.8508, $lat, $lng);
+                    if($radialDistance < 50.0)
+                        return 0;
+                    else
+                        return 1;
+                    //error_log('Google Distance Matrix API Error was encountered. The element level status code returned the error '.$road->status.'. This error was encountered in the data element retrieved inside validateDistance() in sign_up.php. This error does not have a server side fix and possible actions need to be suggested to the user to rectify this.');
+                    // return 3;
                 }
             }
         }
         else
         {
-            error_log('Google Distance Matrix API Error was encountered. The top level status code returned the error '.$data->status.'. This error was encountered in the validateDistance() in sign_up.php. This error will have to be analyzed and fixed for sign up of users to proceed smoothly henceforth.');
-            return 2;
+            $radialDistance = getDistanceFromLatLonInKm(18.4575, 73.8508, $lat, $lng);
+            if($radialDistance < 50.0)
+                return 0;
+            else
+                return 1;
+            //error_log('Google Distance Matrix API Error was encountered. The top level status code returned the error '.$data->status.'. This error was encountered in the validateDistance() in sign_up.php. This error will have to be analyzed and fixed for sign up of users to proceed smoothly henceforth.');
+            // return 2;
         }
+    }
+
+    function getDistanceFromLatLonInKm($lat1, $lon1, $lat2, $lon2) {
+        $R = 6371; // Radius of the earth in km
+        $dLat = deg2rad($lat2 - $lat1);  // deg2rad below
+        $dLon = deg2rad($lon2 - $lon1); 
+        $a= 
+            sin(dLat/2) * sin(dLat/2) +
+            cos(deg2rad(lat1)) * cos(deg2rad(lat2)) * 
+            sin(dLon/2) * sin(dLon/2)
+            ; 
+        $c = 2 * atan2(sqrt(a), sqrt(1-a)); 
+        $d = $R * $c; // Distance in km
+        return $d;
     }
 ?>
 <!DOCTYPE html>
@@ -463,7 +501,7 @@
             <div class="navbar-header">
                 <a href="javascript:void(0);" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse" aria-expanded="false"></a>
                 <a href="javascript:void(0);" class="bars"></a>
-                <a class="navbar-brand" href="index.html">SCTR's PICT Hostel</a>
+                <a class="navbar-brand" href="index.php">SCTR's PICT Hostel</a>
             </div>
             <div class="collapse navbar-collapse" id="navbar-collapse">
                 <ul class="nav navbar-nav navbar-right">
@@ -481,7 +519,7 @@
                         <b><h2>Registration for Students</h2></b>
                     </div>
                     <div class="body">
-                        <form method="POST" action="" id="signUpForm" onsubmit="return debugFunction();">
+                        <form method="POST" action="" id="signUpForm">
                             <div class="row clearfix">
                                 <div class="col-md-6">
                                     <div class="form-group">
@@ -618,7 +656,7 @@
                                             <label class="required" for="stud_locality">Nearest landmark to permanent address</label>
                                             <input id="stud_locality_input" name="stud_locality" placeholder="Enter the street name or the nearest landmark to your permanent address." type="text" class="form-control" onfocus="initAutoComplete();" required/>
                                             <div class="help-info">
-                                                Hostel will be alloted to those students whose permanent address is at a distance of more than 40 kms.
+                                                Hostel will be alloted to those students whose permanent address is at a distance of more than 50 kms.
                                             </div>
                                         </div>
                                     </div>
@@ -691,7 +729,7 @@
                             <input type="hidden" name="completeAddress" id="completeAddress" readonly required/>
                             <input type="hidden" name="lat" id="lat" readonly required>
                             <input type="hidden" name="lng" id="lng" readonly required>
-                            <button type="submit" class="btn btn-primary waves-effect" style="float: right;">Submit</button>
+                            <button type="submit" class="btn btn-primary waves-effect" style="float: right;" id="submitBtn">Submit</button>
                             <br>
                         </form>
                     </div>
@@ -710,7 +748,7 @@
                 <div class="modal-body">
                     <h4>Greetings from PICT...!</h4>
                     <p>All students who are willing to seek accomodation in college hostel are requested to <strong>fill up this form</strong> and then <strong>head to the respective hostels</strong> to book the room. <strong>The room number will be alloted by the warden.</strong></p>
-                    <strong><p style="color:red;">Students will be provided accomodation only if their place of residence is atleast 40kms from college.</p></strong>
+                    <strong><p style="color:red;">Students will be provided accomodation only if their place of residence is atleast 40kms(radial distance) from college.</p></strong>
                     <h4>Before registering make sure you have the following:</h4>
                     <ul>
                         <li>Registration Number (MIS Id)</li>
@@ -773,6 +811,35 @@
         ?>
         $(document).ready(function() {
             $(".required").after("<span style='color:red;'> *</span>");
+            $("#signUpForm").submit(function(){
+                var strength = $("#password_strength").html();
+                var pwd = $("#password").val();
+                var repwd = $("#re_enter_password").val();
+                if(strength == "Weak")
+                {
+                    document.getElementById('password_div').className += ' focused error';
+                    $('#signUpForm').validate().showErrors({ 'password' : 'Password must between 8 and 72 characters long and must contain a lowercase alphabet, an uppercase alphabet, a digit and a special character' });
+                    return false;
+                }
+                if(pwd != repwd)
+                {
+                    document.getElementById('password_div').className += ' focused error';
+                    document.getElementById('re_enterPassword_div').className += ' focused error';
+                    $('#signUpForm').validate().showErrors({ 're_enter_password' : 'Passwords do not match' });
+                    return false;
+                }    
+                return true;
+            });
+            $("#password").keypress(function(){
+                if($("#password_div").hasClass("focused"))
+                    $("#password_div").removeClass("focused");
+                if($("#password_div").hasClass("error"))
+                    $("#password_div").removeClass("error");
+                if($("#re_enterPassword_div").hasClass("focused"))
+                    $("#re_enterPassword_div").removeClass("focused");
+                if($("#re_enterPassword_div").hasClass("error"))
+                    $("#re_enterPassword_div").removeClass("error");
+            });
         });
 
         var placeSearch, autocomplete, completeAddress = "";
@@ -813,62 +880,62 @@
         }
 
         $(function () {
-        $("#password").bind("keyup", function () {
-            //TextBox left blank.
-            if ($(this).val().length == 0) {
-                $("#password_strength").html("");
-                return;
-            }
- 
-            //Regular Expressions.
-            var regex = new Array();
-            regex.push("[A-Z]"); //Uppercase Alphabet.
-            regex.push("[a-z]"); //Lowercase Alphabet.
-            regex.push("[0-9]"); //Digit.
-            regex.push("[$@$!%*#?&]"); //Special Character.
- 
-            var passed = 0;
- 
-            //Validate for each Regular Expression.
-            for (var i = 0; i < regex.length; i++) {
-                if (new RegExp(regex[i]).test($(this).val())) {
+            $("#password").bind("keyup", function () {
+                //TextBox left blank.
+                if ($(this).val().length == 0) {
+                    $("#password_strength").html("");
+                    return;
+                }
+    
+                //Regular Expressions.
+                var regex = new Array();
+                regex.push("[A-Z]"); //Uppercase Alphabet.
+                regex.push("[a-z]"); //Lowercase Alphabet.
+                regex.push("[0-9]"); //Digit.
+                regex.push("[$@$!%*#?&]"); //Special Character.
+    
+                var passed = 0;
+    
+                //Validate for each Regular Expression.
+                for (var i = 0; i < regex.length; i++) {
+                    if (new RegExp(regex[i]).test($(this).val())) {
+                        passed++;
+                    }
+                }
+    
+    
+                //Validate for length of Password.
+                if (passed > 2 && $(this).val().length >= 8 && $(this).val().length <= 72) {
                     passed++;
                 }
-            }
- 
- 
-            //Validate for length of Password.
-            if (passed > 2 && $(this).val().length > 8) {
-                passed++;
-            }
- 
-            //Display status.
-            var color = "";
-            var strength = "";
-            switch (passed) {
-                case 0:
-                case 1:
-                    strength = "Weak";
-                    color = "red";
-                    break;
-                case 2:
-                    strength = "Good";
-                    color = "darkorange";
-                    break;
-                case 3:
-                case 4:
-                    strength = "Strong";
-                    color = "green";
-                    break;
-                case 5:
-                    strength = "Very Strong";
-                    color = "darkgreen";
-                    break;
-            }
-            $("#password_strength").html(strength);
-            $("#password_strength").css("color", color);
+    
+                //Display status.
+                var color = "";
+                var strength = "";
+                switch (passed) {
+                    case 0:
+                    case 1:
+                        strength = "Weak";
+                        color = "red";
+                        break;
+                    case 2:
+                        strength = "Good";
+                        color = "darkorange";
+                        break;
+                    case 3:
+                    case 4:
+                        strength = "Strong";
+                        color = "green";
+                        break;
+                    case 5:
+                        strength = "Very Strong";
+                        color = "darkgreen";
+                        break;
+                }
+                $("#password_strength").html(strength);
+                $("#password_strength").css("color", color);
+            });
         });
-    });
     </script>
 </body>
 

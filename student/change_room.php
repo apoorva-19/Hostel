@@ -19,7 +19,7 @@
             $verify_student = "SELECT * FROM `Hostelite` WHERE `Room_No` = ?;";
             if(!($verify_student = $mysqli->prepare($verify_student)))
             {
-                error_log('Prepare failed for verifying student in change_room.php: ('.$mysqli->errno.') '.$mysqli->error);
+                //error_log('Prepare failed for verifying student in change_room.php: ('.$mysqli->errno.') '.$mysqli->error);
                 echo "<script>swal({
                     title: 'Error',
                     text: 'Request could not be processed. We are trying to fix the error.',
@@ -29,7 +29,7 @@
             }
             if(!($verify_student->bind_param('s', $room_mate2)))
             {
-                error_log('Bind param failed for verifying student in change_room.php: ('.$mysqli->errno.') '.$mysqli->error);
+                //error_log('Bind param failed for verifying student in change_room.php: ('.$mysqli->errno.') '.$mysqli->error);
                 echo "<script>swal({
                     title: 'Error',
                     text: 'Request could not be processed. We are trying to fix the error.',
@@ -39,7 +39,7 @@
             }
             if(!$verify_student->execute())
             {
-                error_log('Execution failed for verifying student in change_room.php: ('.$mysqli->errno.') '.$mysqli->error);
+                //error_log('Execution failed for verifying student in change_room.php: ('.$mysqli->errno.') '.$mysqli->error);
                 echo "<script>swal({
                     title: 'Error',
                     text: 'Request could not be processed. We are trying to fix the error.',
@@ -64,7 +64,7 @@
                 $get_room_number = "SELECT `Room_No` FROM `Hostelite` WHERE `MIS` = ?;";
                 if(!($get_room_number = $mysqli->prepare($get_room_number)))
                 {
-                    error_log('Prepare failed for getting the room number of the requesting student in change_room.php: ('.$mysqli->errno.') '.$mysqli->error);
+                    //error_log('Prepare failed for getting the room number of the requesting student in change_room.php: ('.$mysqli->errno.') '.$mysqli->error);
                     echo "<script>swal({
                         title: 'Error',
                         text: 'Request could not be processed. We are trying to fix the error.',
@@ -74,7 +74,7 @@
                 }
                 if(!($get_room_number->bind_param('s', $mis)))
                 {
-                    error_log('Bind Param failed for getting the room number of the requesting student in change_room.php: ('.$mysqli->errno.') '.$mysqli->error);
+                    //error_log('Bind Param failed for getting the room number of the requesting student in change_room.php: ('.$mysqli->errno.') '.$mysqli->error);
                     echo "<script>swal({
                         title: 'Error',
                         text: 'Request could not be processed. We are trying to fix the error.',
@@ -84,7 +84,7 @@
                 }
                 if(!($get_room_number->execute()))
                 {
-                    error_log('Execution failed for getting the room number of the requesting student in change_room.php: ('.$mysqli->errno.') '.$mysqli->error);
+                    //error_log('Execution failed for getting the room number of the requesting student in change_room.php: ('.$mysqli->errno.') '.$mysqli->error);
                     echo "<script>swal({
                         title: 'Error',
                         text: 'Request could not be processed. We are trying to fix the error.',
@@ -126,7 +126,7 @@
                     $verify_room_mate = "SELECT * FROM `Hostelite` WHERE `Room_No` = ?;";
                     if(!($verify_room_mate = $mysqli->prepare($verify_room_mate)))
                     {
-                        error_log('Prepare failed for fetching room_mate3 in changing_room.php: ('.$mysqli->errno.') '.$mysqli->error);
+                        //error_log('Prepare failed for fetching room_mate3 in changing_room.php: ('.$mysqli->errno.') '.$mysqli->error);
                         echo "<script>swal({
                             title: 'Error',
                             text: 'Request could not be processed. We are trying to fix the error.',
@@ -136,7 +136,7 @@
                     }
                     if(!($verify_room_mate_3->bind_param('s', $room_mate3)))
                     {
-                        error_log('Bind param failed for fetching room_mate3 in changing_room.php: ('.$mysqli->errno.') '.$mysqli->error);
+                        //error_log('Bind param failed for fetching room_mate3 in changing_room.php: ('.$mysqli->errno.') '.$mysqli->error);
                         echo "<script>swal({
                             title: 'Error',
                             text: 'Request could not be processed. We are trying to fix the error.',
@@ -146,7 +146,7 @@
                     }
                     if(!($verify_room_mate_3->execute()))
                     {
-                        error_log('Execution failed for fetching room_mate3 in changing_room.php: ('.$mysqli->errno.') '.$mysqli->error);
+                        //error_log('Execution failed for fetching room_mate3 in changing_room.php: ('.$mysqli->errno.') '.$mysqli->error);
                         echo "<script>swal({
                             title: 'Error',
                             text: 'Request could not be processed. We are trying to fix the error.',
@@ -159,7 +159,7 @@
                     $msg_text = "Your room partner has requested a change of room. Would you like to provide your consent?";
                     if(!($msg_room_mate = $mysqli->prepare($msg_room_mate)))
                     {
-                        error_log('Prepare failed for sending message to room_mate3 in changing_room.php: ('.$mysqli->errno.') '.$mysqli->error);
+                        //error_log('Prepare failed for sending message to room_mate3 in changing_room.php: ('.$mysqli->errno.') '.$mysqli->error);
                         echo "<script>swal({
                             title: 'Error',
                             text: 'Request could not be processed. We are trying to fix the error.',
@@ -172,7 +172,7 @@
                     {
                         if(!($msg_room_mate_3->bind_param('sss', $category, $room_mate3, $msg_text)))
                         {
-                            error_log('Bind param failed for sending message to room_mate3 in changing_room.php: ('.$mysqli->errno.') '.$mysqli->error);
+                            //error_log('Bind param failed for sending message to room_mate3 in changing_room.php: ('.$mysqli->errno.') '.$mysqli->error);
                             echo "<script>swal({
                                 title: 'Error',
                                 text: 'Request could not be processed. We are trying to fix the error.',
@@ -182,7 +182,7 @@
                         }
                         if(!($msg_room_mate_3->execute()))
                         {
-                            error_log('Execute failed for sending message to room_mate3 in changing_room.php: ('.$mysqli->errno.') '.$mysqli->error);
+                            //error_log('Execute failed for sending message to room_mate3 in changing_room.php: ('.$mysqli->errno.') '.$mysqli->error);
                             echo "<script>swal({
                                 title: 'Error',
                                 text: 'Request could not be processed. We are trying to fix the error.',
@@ -194,7 +194,7 @@
                     }
                     if(!($verify_room_mate_4->bind_param('s', $room_mate4)))
                     {
-                        error_log('Bind param failed for fetching room_mate4 in changing_room.php: ('.$mysqli->errno.') '.$mysqli->error);
+                        //error_log('Bind param failed for fetching room_mate4 in changing_room.php: ('.$mysqli->errno.') '.$mysqli->error);
                         echo "<script>swal({
                             title: 'Error',
                             text: 'Request could not be processed. We are trying to fix the error.',
@@ -204,7 +204,7 @@
                     }
                     if(!($verify_room_mate_4->execute()))
                     {
-                        error_log('Execution failed for fetching room_mate4 in changing_room.php: ('.$mysqli->errno.') '.$mysqli->error);
+                        //error_log('Execution failed for fetching room_mate4 in changing_room.php: ('.$mysqli->errno.') '.$mysqli->error);
                         echo "<script>swal({
                             title: 'Error',
                             text: 'Request could not be processed. We are trying to fix the error.',
@@ -217,7 +217,7 @@
                     {
                         if(!($msg_room_mate_4->bind_param('sss', $category, $room_mate4, $msg_text)))
                         {
-                            error_log('Bind param failed for sending message to room_mate4 in changing_room.php: ('.$mysqli->errno.') '.$mysqli->error);
+                            //error_log('Bind param failed for sending message to room_mate4 in changing_room.php: ('.$mysqli->errno.') '.$mysqli->error);
                             echo "<script>swal({
                                 title: 'Error',
                                 text: 'Request could not be processed. We are trying to fix the error.',
@@ -227,7 +227,7 @@
                         }
                         if(!($msg_room_mate_4->execute()))
                         {
-                            error_log('Execute failed for sending message to room_mate4 in changing_room.php: ('.$mysqli->errno.') '.$mysqli->error);
+                            //error_log('Execute failed for sending message to room_mate4 in changing_room.php: ('.$mysqli->errno.') '.$mysqli->error);
                             echo "<script>swal({
                                 title: 'Error',
                                 text: 'Request could not be processed. We are trying to fix the error.',

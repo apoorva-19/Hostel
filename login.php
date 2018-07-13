@@ -1,41 +1,3 @@
-<?php
-    session_start();
-    $errorMessage = "";
-    if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['adminUsername']) && isset($_POST['adminPassword']))
-    {
-        if((!filter_input(INPUT_POST, 'adminUsername', FILTER_SANITIZE_STRING) === false) || (!filter_input(INPUT_POST, 'adminPassword', FILTER_SANITIZE_STRING) === false))
-        {
-            // Send error message saying invalid input found and exit
-            $errorMessage = "Invalid input entered";
-        }
-        if($_POST["adminUsername"] == "g_warden" && $_POST["adminPassword"] == "gpictotel@3006#")
-        {
-            // Valid username and password for girl's warden
-            $_SESSION["user"] = "g_warden";
-            header("Location:g_warden/index.php");
-            exit;
-        }
-        else if($_POST["adminUsername"] == "b_warden" && $_POST["adminPassword"] == "bpictotel@3006$")
-        {
-            // Valid username and password for boy's warden
-            $_SESSION["user"] = "b_warden";
-            header("Location:b_warden/index.php");
-            exit;
-        }
-        else if($_POST["adminUsername"] == "admin" && $_POST["adminPassword"] == "apictotel@3006%")
-        {
-            // Valid username and password for boy's warden
-            $_SESSION["user"] = "admin";
-            header("Location:admin/index.php");
-            exit;
-        }
-        else
-        {
-            // Invalid username and password
-            $errorMessage = "Invalid username or password";
-        }
-    }
-?>
 <!DOCTYPE html>
 <html>
 
@@ -103,7 +65,7 @@
         <div class="container-fluid">
             <div class="navbar-header">
                 <a href="javascript:void(0);" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse" aria-expanded="false"></a>
-                <a class="navbar-brand" href="index.html">SCTR's PICT Hostel</a>
+                <a class="navbar-brand" href="index.php">SCTR's PICT Hostel</a>
             </div>
             <div class="collapse navbar-collapse" id="navbar-collapse">
                 <ul class="nav navbar-nav navbar-right">
@@ -119,34 +81,31 @@
             <div class="signup">
                 <center><img src="images/transparent_logo.png"></center>
                 <h2 class="form-title" id="signup"><span>or</span>Student Login</h2>
-                    <form id="log_in" method="POST" action="student_login.php">
-                        <div class="form-holder">
-                            <div class="input-group">
-                                <span class="input-group-addon">
-                                    <i class="material-icons">person</i>
-                                </span>
-                                <div class="form-line">
-                                    <input type="text" class="form-control" name="studentUsername" placeholder="Username" required autofocus>
-                                </div>
-                            </div>
-                            <div class="input-group">
-                                <span class="input-group-addon">
-                                    <i class="material-icons">lock</i>
-                                </span>
-                                <div class="form-line">
-                                    <input type="password" class="form-control" name="studentPassword" placeholder="Password" required>
-                                </div>
+                    <div class="form-holder">
+                        <div class="input-group">
+                            <span class="input-group-addon">
+                                <i class="material-icons">person</i>
+                            </span>
+                            <div class="form-line">
+                                <input type="email" class="form-control" id="s_username" placeholder="Email" name="email" required autofocus>
                             </div>
                         </div>
-                        <button type="submit" class="submit-btn">Log in</button>
-                    </form>
+                        <div class="input-group">
+                            <span class="input-group-addon">
+                                <i class="material-icons">lock</i>
+                            </span>
+                            <div class="form-line">
+                                <input type="password" class="form-control" id="s_password" placeholder="Password" name="username" required>
+                            </div>
+                        </div>
+                    </div>
+                    <button type="submit" class="submit-btn" id="studentLoginBtn">Log in</button>
                 <h4 class="form-title"><center>or</center></h4>
                 <button class="submit-btn" id="sign_up">Sign up</button>
             </div>
             <div class="login slide-up">
                 <div class="center">
                     <h2 class="form-title" id="login"><span>or</span>Staff Login</h2>
-                    <form id="sign_in" method="POST" action="">
                         <div class="form-holder">
                             <div class="input-group">
                                 <span class="input-group-addon">
@@ -165,8 +124,7 @@
                                 </div>
                             </div>
                         </div>
-                    <button type="submit" class="submit-btn">Log in</button>
-                    </form>
+                    <button type="button" class="submit-btn" id="staffLoginBtn">Log in</button>
                 </div>
             </div>
         </div>
@@ -199,18 +157,45 @@
     <!-- Custom Js -->
     <script src=" js/admin.js"></script>
     <script src=" js/pages/forms/basic-form-elements.js"></script>
-    <script src="js/async_connect.js"</script>
+    <script src=" js/async_connect.js"></script>
 
     <!-- Demo Js -->
     <script src=" js/demo.js"></script>
-    <script src="js/login.js"></script>
+    <script src=" js/login.js"></script>
+
     <script>
          document.getElementById("sign_up").onclick = function () {
             window.location.href = "sign_up.php";
         };
         $(document).ready(function(){
             $(".required").after("<span style='color:red;'> *</span>");
+            
+            $("#staffLoginBtn").click(function(){
+                var username = $("#adminUsername").value;
+                var password = $("#adminPassword").value;
+                httpPostAsync("staff_login.php", "username="+username+"&password="+password, loginResult);
+            });
+
+            $("#studentLoginBtn").click(function(){
+                var username = $("#s_username").value;
+                var password = $("#s_password").value;
+                httpPostAsync("student_login.php", "username="+username+"&password="+password, loginResult);
+            });
         });
+        function loginResult(result)
+        {
+            var JSONresult = JSON.parse(result);
+            if(JSONresult.status == "success")
+                window.location.href = JSONresult.url;
+            else
+            {
+                swal({
+                    title: 'Login unsuccessful',
+                    text: JSONresult.message,
+                    type: 'error'
+                });
+            }
+        }
     </script>
 </body>
 

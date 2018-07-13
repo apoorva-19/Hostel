@@ -9,20 +9,20 @@
         $consent = "UPDATE `G_Night_Permission` SET `W_Consent` = ? WHERE `MIS` = ?";
         if(!($consent = $mysqli ->prepare($consent)))
         {
-            error_log('Prepare failed for consent in night_consent.php: ('.$mysqli->errno.') '.$mysqli->error);
+            //error_log('Prepare failed for consent in night_consent.php: ('.$mysqli->errno.') '.$mysqli->error);
             $jsonArray["result"] = "Request could not be processed. We are trying to fix the error.";
             exit;
 
         }
         if(!($consent->bind_param('ss',$allowed,$mis)))
         {
-            error_log('Bind param failed for consent in night_consent.php: ('.$mysqli->errno.') '.$mysqli->error);
+            //error_log('Bind param failed for consent in night_consent.php: ('.$mysqli->errno.') '.$mysqli->error);
             $jsonArray["result"] = "Request could not be processed. We are trying to fix the error.";
             exit;
         }
         if(!($consent->execute()))
         {
-            error_log('Execution failed for consent in night_consent.php: ('.$mysqli->errno.') '.$mysqli->error);
+            //error_log('Execution failed for consent in night_consent.php: ('.$mysqli->errno.') '.$mysqli->error);
             $jsonArray["result"] = "Request could not be processed. We are trying to fix the error.";
             exit;
         }

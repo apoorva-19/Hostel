@@ -26,7 +26,7 @@
             $insert = "INSERT INTO `Medical`(`Date_Checkup`, `Height`, `Weight`, `Blood_Group`, `Allergies`,`Dr_Contact`,`Family_Physician`,`MIS`) VALUES ('".$date."',?,?,?,?,?);";
             if(!($insert = $mysqli->prepare($insert)))
             {
-                error_log('Prepare failed for vehicle registration in vehicle_registration.php: ('.$mysqli->errno.') '.$mysqli->error);
+                //error_log('Prepare failed for vehicle registration in vehicle_registration.php: ('.$mysqli->errno.') '.$mysqli->error);
                 echo "<script>swal({
                     title: 'Error',
                     text: 'Request could not be processed. We are trying to fix the error.',
@@ -36,7 +36,7 @@
             }
             if(!$insert->bind_param('iisssss',$height,$weight,$allergies,$blood_grp,$allergies,$dr_contact,$family_physician))
             {
-                error_log('Bind param failed for medical form in medical.php: ('.$mysqli->errno.') '.$mysqli->error);
+                //error_log('Bind param failed for medical form in medical.php: ('.$mysqli->errno.') '.$mysqli->error);
                 echo "<script>swal({
                     title: 'Error',
                     text: 'Request could not be processed. We are trying to fix the error.',
@@ -46,7 +46,7 @@
             }
             if(!$insert->execute())
             {
-                error_log('Execution failed for medical form in medical.php: ('.$mysqli->errno.') '.$mysqli->error);
+                //error_log('Execution failed for medical form in medical.php: ('.$mysqli->errno.') '.$mysqli->error);
                 echo "<script>swal({
                     title: 'Error',
                     text: 'Request could not be processed. We are trying to fix the error.',

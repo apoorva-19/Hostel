@@ -7,6 +7,13 @@
         return $date;        
     }
 
+    function convertTime($timeInput)
+    {
+        $time = DateTime::createFromFormat('H:i', $timeInput);
+        $formattedTime = $time->format('H:i:s');
+        return $formattedTime;
+    }
+
     function convertDateTime($dateTime)
     {
         $dateTimeArray = explode(" ", $dateTime);

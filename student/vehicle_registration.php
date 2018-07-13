@@ -28,7 +28,7 @@
             $insert = "INSERT INTO `Vehicle_Record`(`Brand`, `Registration_No`, `Driving_License_No`, `License_Issue_Date`, `License_Validity`, `Insurance_Company`, `Insurance_Policy_No`, `Insurance_Policy_Date`, `Insurance_Validity`, `MIS`) VALUES (?,?,?,?,'".$license_issue."','".$license_validity."',?,?,'".$policy_issue."','".$policy_validity."','".$mis."');";
             if(!($insert = $mysqli->prepare($insert)))
             {
-                error_log('Prepare failed for vehicle registration in vehicle_registration.php: ('.$mysqli->errno.') '.$mysqli->error);
+                //error_log('Prepare failed for vehicle registration in vehicle_registration.php: ('.$mysqli->errno.') '.$mysqli->error);
                 echo "<script>swal({
                     title: 'Error',
                     text: 'Request could not be processed. We are trying to fix the error.',
@@ -38,7 +38,7 @@
             }
             if(!$insert->bind_param('sssss',$brand,$reg_id,$driving_license,$insurance_comp,$insurance_comp))
             {
-                error_log('Bind param failed for vehicle registration in vehicle_registration.php: ('.$mysqli->errno.') '.$mysqli->error);
+                //error_log('Bind param failed for vehicle registration in vehicle_registration.php: ('.$mysqli->errno.') '.$mysqli->error);
                 echo "<script>swal({
                     title: 'Error',
                     text: 'Request could not be processed. We are trying to fix the error.',
@@ -48,7 +48,7 @@
             }
             if(!$insert->execute())
             {
-                error_log('Execution failed for vehicle registration in vehicle_registration.php: ('.$mysqli->errno.') '.$mysqli->error);
+                //error_log('Execution failed for vehicle registration in vehicle_registration.php: ('.$mysqli->errno.') '.$mysqli->error);
                 echo "<script>swal({
                     title: 'Error',
                     text: 'Request could not be processed. We are trying to fix the error.',

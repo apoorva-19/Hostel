@@ -19,7 +19,7 @@
             $get_room_no = "SELECT * FROM `Hostelite` WHERE `MIS` = ?";
             if(!($get_room_no = $mysqli->prepare($get_room_no)))
             {
-                error_log('Prepare failed for accepting complaints in complaints.php: ('.$mysqli->errno.') '.$mysqli->error);
+                //error_log('Prepare failed for accepting complaints in complaints.php: ('.$mysqli->errno.') '.$mysqli->error);
                 echo "<script>swal({
                     title: 'Error',
                     text: 'Request could not be processed. We are trying to fix the error.',
@@ -29,7 +29,7 @@
             }
             if(!($get_room_no->bind_param("s",$mis)))
             {
-                error_log('Bind param failed for accepting complaints in complaints.php: ('.$mysqli->errno.') '.$mysqli->error);
+                //error_log('Bind param failed for accepting complaints in complaints.php: ('.$mysqli->errno.') '.$mysqli->error);
                 echo "<script>swal({
                     title: 'Error',
                     text: 'Request could not be processed. We are trying to fix the error.',
@@ -39,7 +39,7 @@
             }
             if(!($get_room_no->execute()))
             {
-                error_log('Execution failed for accepting complaints in complaints.php: ('.$mysqli->errno.') '.$mysqli->error);
+                //error_log('Execution failed for accepting complaints in complaints.php: ('.$mysqli->errno.') '.$mysqli->error);
                 echo "<script>swal({
                     title: 'Error',
                     text: 'Request could not be processed. We are trying to fix the error.',
@@ -53,7 +53,7 @@
             $accept = "INSERT INTO `G_Complaints` (`Room_No`, `Category`, `Complaint_Text`) VALUES (?,?,?);";
             if(!($accept = $mysqli->prepare($accept)))
             {
-                error_log('Prepare failed for accepting complaints in complaints.php: ('.$mysqli->errno.') '.$mysqli->error);
+                //error_log('Prepare failed for accepting complaints in complaints.php: ('.$mysqli->errno.') '.$mysqli->error);
                 echo "<script>swal({
                     title: 'Error',
                     text: 'Request could not be processed. We are trying to fix the error.',
@@ -63,7 +63,7 @@
             }
             if(!($accept->bind_param("sss", $room_no, $category_complaint, $complaint_text)))
             {
-                error_log('Bind param failed for accepting complaints in complaints.php: ('.$mysqli->errno.') '.$mysqli->error);
+                //error_log('Bind param failed for accepting complaints in complaints.php: ('.$mysqli->errno.') '.$mysqli->error);
                 echo "<script>swal({
                     title: 'Error',
                     text: 'Request could not be processed. We are trying to fix the error.',
@@ -73,7 +73,7 @@
             }
             if(!($accept->execute()))
             {
-                error_log('Execution failed for accepting complaints in complaints.php: ('.$mysqli->errno.') '.$mysqli->error);
+                //error_log('Execution failed for accepting complaints in complaints.php: ('.$mysqli->errno.') '.$mysqli->error);
                 echo "<script>swal({
                     title: 'Error',
                     text: 'Request could not be processed. We are trying to fix the error.',

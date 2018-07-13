@@ -18,7 +18,7 @@
             $sql = "INSERT INTO `Suggestions`(`Category`, `Date`, `Suggestion_Text`) VALUES (?,'".date('Y-m-d')."',?);";
             if(!($sql = $mysqli->prepare($sql)))
             {
-                error_log('Prepare failed for accepting suggestions in suggestions.php: ('.$mysqli->errno.') '.$mysqli->error);
+                //error_log('Prepare failed for accepting suggestions in suggestions.php: ('.$mysqli->errno.') '.$mysqli->error);
                 echo "<script>swal({
                     title: 'Error',
                     text: 'Request could not be processed. We are trying to fix the error.',
@@ -28,7 +28,7 @@
             }
             if(!($sql->bind_param("ss", $category_suggestion, $suggestion_text)))
             {
-                error_log('Bind param failed for accepting suggestions in suggestions.php: ('.$mysqli->errno.') '.$mysqli->error);
+                //error_log('Bind param failed for accepting suggestions in suggestions.php: ('.$mysqli->errno.') '.$mysqli->error);
                 echo "<script>swal({
                     title: 'Error',
                     text: 'Request could not be processed. We are trying to fix the error.',
@@ -38,7 +38,7 @@
             }
             if(!($sql->execute()))
             {
-                error_log('Execute failed for accepting suggestions in suggestions.php: ('.$mysqli->errno.') '.$mysqli->error);
+                //error_log('Execute failed for accepting suggestions in suggestions.php: ('.$mysqli->errno.') '.$mysqli->error);
                 echo "<script>swal({
                     title: 'Error',
                     text: 'Request could not be processed. We are trying to fix the error.',

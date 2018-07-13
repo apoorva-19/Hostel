@@ -18,19 +18,19 @@
         $sql = "UPDATE ".$table_name." SET `Reserved` = ? WHERE `Type` = ?;";
         if(!($sql = $mysqli->prepare($sql)))
         {
-            error_log('Prepare failed for update statement in reserve_free.php');
+            //error_log('Prepare failed for update statement in reserve_free.php');
             $jsonArray["result"] = "Request could not be processed. We are trying to fix the error.";
             exit;
         }
         if(!($sql->bind_param('ss', $reserved, $category)))
         {
-            error_log('Bind param failed for update statement in reserve_free.php');
+            //error_log('Bind param failed for update statement in reserve_free.php');
             $jsonArray["result"] = "Request could not be processed. We are trying to fix the error.";
             exit;
         }
         if(!($sql->execute()))
         {
-            error_log('Execution failed for update statement in reserve_free.php');
+            //error_log('Execution failed for update statement in reserve_free.php');
             $jsonArray["result"] = "Request could not be processed. We are trying to fix the error.";
             exit;
         }

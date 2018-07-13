@@ -23,7 +23,7 @@
             $sql = "SELECT * FROM `G_Night_Permission`;";
             if(!($verify_mis = $mysqli->prepare($sql)))
             {
-                error_log('Binding failed for mis checking in night.php: ('.$mysqli->errno.') '.$mysqli->error);
+                //error_log('Binding failed for mis checking in night.php: ('.$mysqli->errno.') '.$mysqli->error);
                 echo "<script>$(document).ready(function(){
                     swal({
                     title: 'Error',
@@ -38,7 +38,7 @@
             {
                 if(!($verify_mis->bind_param('s',$mis)))
                 {
-                    error_log('Binding failed for mis checking in sign_up.php: ('.$mysqli->errno.') '.$mysqli->error);
+                    //error_log('Binding failed for mis checking in sign_up.php: ('.$mysqli->errno.') '.$mysqli->error);
                     echo "<script>$(document).ready(function(){
                         swal({
                         title: 'Error',
@@ -52,7 +52,7 @@
                 {
                     if(!$verify_mis->execute())
                     {
-                        error_log('Execution failed for verifying student in sign_up.php: ('.$mysqli->errno.') '.$mysqli->error);
+                        //error_log('Execution failed for verifying student in sign_up.php: ('.$mysqli->errno.') '.$mysqli->error);
                         echo "<script>$(document).ready(function(){
                             swal({
                             title: 'Error',

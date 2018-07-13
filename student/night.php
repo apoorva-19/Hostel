@@ -26,7 +26,7 @@
             $sql = "SELECT `Name`,`Room_No`,`M_Contact` FROM `Hostelite` WHERE `MIS` = ?;";
             if(!($verify_mis = $mysqli->prepare($sql)))
             {
-                error_log('Binding failed for mis checking in night.php: ('.$mysqli->errno.') '.$mysqli->error);
+                //error_log('Binding failed for mis checking in night.php: ('.$mysqli->errno.') '.$mysqli->error);
                 echo "<script>$(document).ready(function(){
                     swal({
                     title: 'Error',
@@ -41,7 +41,7 @@
             {
                 if(!($verify_mis->bind_param('s',$mis)))
                 {
-                    error_log('Binding failed for mis checking in sign_up.php: ('.$mysqli->errno.') '.$mysqli->error);
+                    //error_log('Binding failed for mis checking in sign_up.php: ('.$mysqli->errno.') '.$mysqli->error);
                     echo "<script>$(document).ready(function(){
                         swal({
                         title: 'Error',
@@ -55,7 +55,7 @@
                 {
                     if(!$verify_mis->execute())
                     {
-                        error_log('Execution failed for verifying student in sign_up.php: ('.$mysqli->errno.') '.$mysqli->error);
+                        //error_log('Execution failed for verifying student in sign_up.php: ('.$mysqli->errno.') '.$mysqli->error);
                         echo "<script>$(document).ready(function(){
                             swal({
                             title: 'Error',
@@ -88,7 +88,7 @@
                             $insert = "INSERT INTO `G_Night_Permission`(`Datetime_Out`, `Datetime_In`,`Address`,`P_Contact`,`Room_No`) VALUES ('".$in_time."','".$out_time."',?,?,?);";
                             if(!($insert = $mysqli->prepare($insert)))
                             {
-                                error_log('Prepare failed for vehicle registration in vehicle_registration.php: ('.$mysqli->errno.') '.$mysqli->error);
+                                //error_log('Prepare failed for vehicle registration in vehicle_registration.php: ('.$mysqli->errno.') '.$mysqli->error);
                                 echo "<scriptS>swal({
                                     title: 'Error',
                                     text: 'Request could not be processed. We are trying to fix the error.',
@@ -98,7 +98,7 @@
                             }
                             if(!$insert->bind_param('sss',$guardian_address,$p_contact,$room_no))
                             {
-                                error_log('Bind param failed for night form in night.php: ('.$mysqli->errno.') '.$mysqli->error);
+                                //error_log('Bind param failed for night form in night.php: ('.$mysqli->errno.') '.$mysqli->error);
                                 echo "<script>swal({
                                     title: 'Error',
                                     text: 'Request could not be processed. We are trying to fix the error.',
@@ -108,7 +108,7 @@
                             }
                             if(!$insert->execute())
                             {
-                                error_log('Execution failed for night form in night.php: ('.$mysqli->errno.') '.$mysqli->error);
+                                //error_log('Execution failed for night form in night.php: ('.$mysqli->errno.') '.$mysqli->error);
                                 echo "<script>swal({
                                     title: 'Error',
                                     text: 'Request could not be processed. We are trying to fix the error.',

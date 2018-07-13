@@ -10,7 +10,7 @@ try
 	$mysqli = new mysqli("localhost", "root", "", "hostel_mgmt");
 }
 catch(Exception $e) {
-	error_log($e->getMessage());
+	//error_log($e->getMessage());
 	header("Location:500.html");
 	exit;
 }

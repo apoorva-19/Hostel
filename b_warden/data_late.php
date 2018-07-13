@@ -17,19 +17,19 @@
          
         if(!($b_hostel = $mysqli->prepare($b_hostel)))
         {
-            error_log('Prepare failed in student_night_out.php: ('.$mysqli->errno.') '.$mysqli->error);
+            //error_log('Prepare failed in student_night_out.php: ('.$mysqli->errno.') '.$mysqli->error);
             $jsonArray["result"] = "Request could not be processed. We are trying to fix the error.";
             exit;
         }
         if(!($b_hostel->bind_param('ss',$start_date, $end_date)))
         {
-            error_log('Execution failed in student_night_out.php: ('.$mysqli->errno.') '.$mysqli->error);
+            //error_log('Execution failed in student_night_out.php: ('.$mysqli->errno.') '.$mysqli->error);
             $jsonArray["result"] = "Request could not be processed. We are trying to fix the error.";
             exit;
         }
         if(!($b_hostel->execute()))
         {
-            error_log('Execution failed in student_night_out.php: ('.$mysqli->errno.') '.$mysqli->error);
+            //error_log('Execution failed in student_night_out.php: ('.$mysqli->errno.') '.$mysqli->error);
             $jsonArray["result"] = "Request could not be processed. We are trying to fix the error.";
             exit;
         }

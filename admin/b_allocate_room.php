@@ -8,19 +8,19 @@ if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["roomNo"]) && isset($_PO
         $verify = "SELECT `Verify_Warden` FROM `New_Registrations` WHERE `MIS` = ?";
         if(!($verify = $mysqli->prepare($verify)))
         {
-            error_log('Prepare failed for warden verification room in allocate_room.php: ('.$mysqli->errno.') '.$mysqli->error);
+            //error_log('Prepare failed for warden verification room in allocate_room.php: ('.$mysqli->errno.') '.$mysqli->error);
             $jsonArray["result"] = "Request could not be processed. We are trying to fix the error.";
             exit;
         }
         if(!($verify->bind_param('s',$mis)))
         {
-            error_log('Bind param failed for warden verification room in allocate_room.php: ('.$mysqli->errno.') '.$mysqli->error);
+            //error_log('Bind param failed for warden verification room in allocate_room.php: ('.$mysqli->errno.') '.$mysqli->error);
             $jsonArray["result"] = "Request could not be processed. We are trying to fix the error.";
             exit;
         }
         if(!($verify->execute()))
         {
-            error_log('Execution failed for warden verification room in allocate_room.php: ('.$mysqli->errno.') '.$mysqli->error);
+            //error_log('Execution failed for warden verification room in allocate_room.php: ('.$mysqli->errno.') '.$mysqli->error);
             $jsonArray["result"] = "Request could not be processed. We are trying to fix the error.";
             exit;
         }
@@ -32,19 +32,19 @@ if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["roomNo"]) && isset($_PO
                 $sql = "UPDATE New_Registrations SET Room_No = ? WHERE MIS = ?";
                 if(!($sql = $mysqli->prepare($sql)))
                 {
-                    error_log('Prepare failed for allocating room in allocate_room.php: ('.$mysqli->errno.') '.$mysqli->error);
+                    //error_log('Prepare failed for allocating room in allocate_room.php: ('.$mysqli->errno.') '.$mysqli->error);
                     $jsonArray["result"] = "Request could not be processed. We are trying to fix the error.";
                     exit;
                 }
                 if(!($sql->bind_param('ss',$room_no, $mis)))
                 {
-                    error_log('Bind param failed for allocating room in allocate_room.php: ('.$mysqli->errno.') '.$mysqli->error);
+                    //error_log('Bind param failed for allocating room in allocate_room.php: ('.$mysqli->errno.') '.$mysqli->error);
                     $jsonArray["result"] = "Request could not be processed. We are trying to fix the error.";
                     exit;
                 }
                 if(!($sql->execute()))
                 {
-                    error_log('Execution failed for allocating room in allocate_room.php: ('.$mysqli->errno.') '.$mysqli->error);
+                    //error_log('Execution failed for allocating room in allocate_room.php: ('.$mysqli->errno.') '.$mysqli->error);
                     $jsonArray["result"] = "Request could not be processed. We are trying to fix the error.";
                     exit;
                 }
@@ -53,19 +53,19 @@ if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["roomNo"]) && isset($_PO
                     $sql = "UPDATE B_Room SET Reserved = 'Y' WHERE Room_No = ?";
                     if(!($sql = $mysqli->prepare($sql)))
                     {
-                        error_log('Prepare failed for updating room in allocate_room.php: ('.$mysqli->errno.') '.$mysqli->error);
+                        //error_log('Prepare failed for updating room in allocate_room.php: ('.$mysqli->errno.') '.$mysqli->error);
                         $jsonArray["result"] = "Request could not be processed. We are trying to fix the error.";
                         exit;
                     }
                     if(!($sql->bind_param('s',$room_no)))
                     {
-                        error_log('Bind param failed for updating room in allocate_room.php: ('.$mysqli->errno.') '.$mysqli->error);
+                        //error_log('Bind param failed for updating room in allocate_room.php: ('.$mysqli->errno.') '.$mysqli->error);
                         $jsonArray["result"] = "Request could not be processed. We are trying to fix the error.";
                         exit;
                     }
                     if(!($sql->execute()))
                     {
-                        error_log('Execution failed for upating room in allocate_room.php: ('.$mysqli->errno.') '.$mysqli->error);
+                        //error_log('Execution failed for upating room in allocate_room.php: ('.$mysqli->errno.') '.$mysqli->error);
                         $jsonArray["result"] = "Request could not be processed. We are trying to fix the error.";
                         exit;
                     }

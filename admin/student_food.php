@@ -14,38 +14,38 @@
     $b_hostel = "SELECT Lunch_Dinner.MIS, Name, Lunch_Dinner.Room_No, Date, Lunch, Dinner FROM Lunch_Dinner INNER JOIN Hostelite ON Lunch_Dinner.MIS = Hostelite.MIS AND Gender = 'M' AND Date >= ? AND Date <= ?;";
     if(!($g_hostel = $mysqli->prepare($g_hostel)))
     {
-        error_log('Prepare failed in student_food.php: ('.$mysqli->errno.') '.$mysqli->error);
+        //error_log('Prepare failed in student_food.php: ('.$mysqli->errno.') '.$mysqli->error);
         $jsonArray["result"] = "Request could not be processed. We are trying to fix the error.";
         exit;
     }
     if(!($g_hostel->bind_param('ss',$start_date, $end_date)))
     {
-        error_log('Execution failed in student_food.php: ('.$mysqli->errno.') '.$mysqli->error);
+        //error_log('Execution failed in student_food.php: ('.$mysqli->errno.') '.$mysqli->error);
         $jsonArray["result"] = "Request could not be processed. We are trying to fix the error.";
         exit;
     }
     if(!($g_hostel->execute()))
     {
-        error_log('Execution failed in student_food.php: ('.$mysqli->errno.') '.$mysqli->error);
+        //error_log('Execution failed in student_food.php: ('.$mysqli->errno.') '.$mysqli->error);
         $jsonArray["result"] = "Request could not be processed. We are trying to fix the error.";
         exit;
     }
     $g_res_hostel = $g_hostel->get_result();
     if(!($b_hostel = $mysqli->prepare($b_hostel)))
     {
-        error_log('Prepare failed in student_food.php: ('.$mysqli->errno.') '.$mysqli->error);
+        //error_log('Prepare failed in student_food.php: ('.$mysqli->errno.') '.$mysqli->error);
         $jsonArray["result"] = "Request could not be processed. We are trying to fix the error.";
         exit;
     }
     if(!($b_hostel->bind_param('ss',$start_date, $end_date)))
     {
-        error_log('Execution failed in student_food.php: ('.$mysqli->errno.') '.$mysqli->error);
+        //error_log('Execution failed in student_food.php: ('.$mysqli->errno.') '.$mysqli->error);
         $jsonArray["result"] = "Request could not be processed. We are trying to fix the error.";
         exit;
     }
     if(!($b_hostel->execute()))
     {
-        error_log('Execution failed in student_food.php: ('.$mysqli->errno.') '.$mysqli->error);
+        //error_log('Execution failed in student_food.php: ('.$mysqli->errno.') '.$mysqli->error);
         $jsonArray["result"] = "Request could not be processed. We are trying to fix the error.";
         exit;
     }

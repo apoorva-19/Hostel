@@ -33,38 +33,38 @@ if(($_SERVER["REQUEST_METHOD"] == "POST"))
         
         $sql = 'UPDATE `Hostelite` SET `Father_Name`=?,`Mother_Name`=?,`Permanent_Add`=?,`F_Contact`=?,`M_Contact`=?,`F_Email`=?,`M_Email`=?, `F_Occupation`=?, `M_Occupation`=?, `F_Designation`=?, `M_Designation`=? WHERE `MIS` = ?;';
         if(!($basic_details = $mysqli->prepare($sql))){
-            error_log('Prepare failed for basic details in save_details.php: ('.$mysqli->errno.') '.$mysqli->error);
+            //error_log('Prepare failed for basic details in save_details.php: ('.$mysqli->errno.') '.$mysqli->error);
             echo 'An error occured while processing your request. Please contact the administrator or try again later.';
             die(header("HTTP/1.1 500 Internal Server Error"));
         }
         if(!($basic_details->bind_param("sssiisssss", $f_name, $m_name, $prem_add, $f_mob_no, $m_mob_no, $f_email, $m_email, $f_occupation, $m_occupation, $f_designation, $m_designation,$mis)))
         {
-            error_log('Binding failed for basic details in save_details.php: ('.$mysqli->errno.') '.$mysqli->error);
+            //error_log('Binding failed for basic details in save_details.php: ('.$mysqli->errno.') '.$mysqli->error);
             echo 'An error occured while processing your request. Please contact the administrator or try again later.';
             die(header("HTTP/1.1 500 Internal Server Error"));
         }
         if(!($basic_details->execute()))
         {
-            error_log('Execution failed for basic details in save_details.php: ('.$mysqli->errno.') '.$mysqli->error);
+            //error_log('Execution failed for basic details in save_details.php: ('.$mysqli->errno.') '.$mysqli->error);
             echo 'An error occured while processing your request. Please contact the administrator or try again later.';
             die(header("HTTP/1.1 500 Internal Server Error"));
         }
 
         $sql = 'INSERT INTO `Guardian`(`MIS`, `Name`, `Relation`, `Permanent_Add`, `G_Contact`, `Alt_G_Contact`) VALUES (?,?,?,?,?,?);';
         if(!($guardian_details = $mysqli->prepare($sql))){
-            error_log('Prepare failed for guardian details in save_details.php: ('.$mysqli->errno.') '.$mysqli->error);
+            //error_log('Prepare failed for guardian details in save_details.php: ('.$mysqli->errno.') '.$mysqli->error);
             echo 'An error occured while processing your request. Please contact the administrator or try again later.';
             die(header("HTTP/1.1 500 Internal Server Error"));
         }
         if(!($guardian_details->bind_param("ssssii",$mis,$local_guardian, $relation, $guardian_add, $g_contact, $alt_g_contact)))
         {
-            error_log('Binding failed for guardian details in save_details.php: ('.$mysqli->errno.') '.$mysqli->error);
+            //error_log('Binding failed for guardian details in save_details.php: ('.$mysqli->errno.') '.$mysqli->error);
             echo 'An error occured while processing your request. Please contact the administrator or try again later.';
             die(header("HTTP/1.1 500 Internal Server Error"));
         }
         if(!($guardian_details->execute()))
         {
-            error_log('Execution failed for basic details in save_details.php: ('.$mysqli->errno.') '.$mysqli->error);
+            //error_log('Execution failed for basic details in save_details.php: ('.$mysqli->errno.') '.$mysqli->error);
             echo 'An error occured while processing your request. Please contact the administrator or try again later.';
             die(header("HTTP/1.1 500 Internal Server Error"));
         }

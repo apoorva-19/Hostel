@@ -72,7 +72,7 @@
             $sql = "INSERT INTO `Lunch_Dinner`(`Lunch`, `Dinner`, `Date`) VALUES (?,?,'".date('Y-m-d')."');";
             if(!($sql = $mysqli->prepare($sql)))
             {
-                error_log('Prepare failed in decline_meal.php: ('.$mysqli->errno.') '.$mysqli->error);
+                //error_log('Prepare failed in decline_meal.php: ('.$mysqli->errno.') '.$mysqli->error);
                 echo "<script>swal({
                     title: 'Error',
                     text: 'Request could not be processed. We are trying to fix the error.',
@@ -82,7 +82,7 @@
             }
             if(!($sql->bind_param('ii', $lunch, $dinner)))
             {
-                error_log('Bind Param failed in decline_meal.php: ('.$mysqli->errno.') '.$mysqli->error);
+                //error_log('Bind Param failed in decline_meal.php: ('.$mysqli->errno.') '.$mysqli->error);
                 echo "<script>swal({
                     title: 'Error',
                     text: 'Request could not be processed. We are trying to fix the error.',
@@ -92,7 +92,7 @@
             }
             if(!($sql->execute()))
             {
-                error_log('Execution failed in decline_meal.php: ('.$mysqli->errno.') '.$mysqli->error);
+                //error_log('Execution failed in decline_meal.php: ('.$mysqli->errno.') '.$mysqli->error);
                 echo "<script>swal({
                     title: 'Error',
                     text: 'Request could not be processed. We are trying to fix the error.',
