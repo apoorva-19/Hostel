@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=Edge">
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-    <title>Sign In</title>
+    <title>Log In</title>
     <!-- Favicon-->
     <link rel="icon" href=" favicon.ico" type="image/x-icon">
 
@@ -30,6 +30,9 @@
 
     <!-- Wait Me Css -->
     <link href=" plugins/waitme/waitMe.css" rel="stylesheet" />
+
+    <!-- Sweetalert2 -->
+    <link href=" plugins/sweetalert/sweetalert.css" rel="stylesheet" />
 
     <!-- Bootstrap Select Css -->
     <link href=" plugins/bootstrap-select/css/bootstrap-select.css" rel="stylesheet" />
@@ -87,7 +90,7 @@
                                 <i class="material-icons">person</i>
                             </span>
                             <div class="form-line">
-                                <input type="email" class="form-control" id="s_username" placeholder="Email" name="email" required autofocus>
+                                <input type="text" class="form-control" id="s_username" placeholder="MIS" name="mis" required autofocus pattern="^[ICE]{1}2K[0-9]{8}">
                             </div>
                         </div>
                         <div class="input-group">
@@ -112,7 +115,7 @@
                                     <i class="material-icons">person</i>
                                 </span>
                                 <div class="form-line">
-                                    <input type="text" class="form-control" name="adminUsername" placeholder="Username" required autofocus>
+                                    <input type="text" class="adminUsername form-control" id="adminUsername" placeholder="Username" required autofocus>
                                 </div>
                             </div>
                             <div class="input-group">
@@ -120,7 +123,7 @@
                                     <i class="material-icons">lock</i>
                                 </span>
                                 <div class="form-line">
-                                    <input type="password" class="form-control" name="adminPassword" placeholder="Password" required>
+                                    <input type="password" class="adminPassword form-control" id="adminPassword" placeholder="Password" required>
                                 </div>
                             </div>
                         </div>
@@ -151,6 +154,9 @@
     <!-- Moment Plugin Js -->
     <script src=" plugins/momentjs/moment.js"></script>
 
+    <!-- Sweetalert2 -->
+    <script src=" plugins/sweetalert/sweetalert.min.js"></script>
+
     <!-- Bootstrap Material Datetime Picker Plugin Js -->
     <script src=" plugins/bootstrap-material-datetimepicker/js/bootstrap-material-datetimepicker.js"></script>
 
@@ -171,22 +177,27 @@
             $(".required").after("<span style='color:red;'> *</span>");
             
             $("#staffLoginBtn").click(function(){
-                var username = $("#adminUsername").value;
-                var password = $("#adminPassword").value;
-                httpPostAsync("staff_login.php", "username="+username+"&password="+password, loginResult);
+                
+                var username = document.getElementById("adminUsername").value;
+                var password = document.getElementById("adminPassword").value;
+                httpPostAsync("staff_login.php", "username=" + username + "&password=" + password, loginResult);
             });
 
             $("#studentLoginBtn").click(function(){
-                var username = $("#s_username").value;
-                var password = $("#s_password").value;
-                httpPostAsync("student_login.php", "username="+username+"&password="+password, loginResult);
+                var mis = document.getElementById("mis").value;
+                var password = document.getElementById("s_password").value;
+                httpPostAsync("student_login.php", "mis="+mis+"&password="+password, loginResult);
             });
         });
-        function loginResult(result)
+        function loginResult(result) 
         {
             var JSONresult = JSON.parse(result);
             if(JSONresult.status == "success")
+            {
+                console.log(JSONresult.url);
                 window.location.href = JSONresult.url;
+            }
+                
             else
             {
                 swal({

@@ -223,7 +223,7 @@
                         <div class="col-12">
                             <div class="container form-group">
                                 <div class="form-line">
-                                    <label for="late_room_no">Room No</label>
+                                    <label class="required" for="late_room_no">Room No</label>
                                     <input type="text" id="late_room_no" class="form-control" placeholder="Enter the Room_No" required>
                                 </div>
                             </div>
@@ -233,14 +233,13 @@
                         <div class="col-12">
                             <div class="container form-group">
                                 <div class="form-line">
-                                    <label for="late_time">Time</label>
+                                    <label class="required" for="late_time">Time</label>
                                     <input type="text" id="late_time" class="timepicker form-control" placeholder="Enter the time" required>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="row clearfix">
+                    <div class="row clearfix">
                     <div class="col-12">
                         <div class="container form-group">
                             <div class="form-line">
@@ -249,6 +248,7 @@
                             </div>
                         </div>
                     </div>
+                </div>
                 </div>
                 <div class="modal-footer">
                     <button type="submit" onclick="submitLate();" class="btn btn-primary waves-effect">SAVE CHANGES</button>

@@ -81,7 +81,7 @@
                 $gender = test_input($_POST["stud_gender"]);
                 $admissionType = test_input($_POST["admission_type"]);
                 $dob = convertDate(test_input($_POST["stud_dob"]));
-                $mis = test_input($_POST["stud_mis"]);
+                $mis = strtoupper(test_input($_POST["stud_mis"]));
                 $email = test_input($_POST["stud_email"]);
                 $contact = test_input($_POST["stud_contact"]);
                 $branch = test_input($_POST["stud_branch"]);
@@ -246,12 +246,12 @@
                 setTimeout(function() { $('form').validate().showErrors({ 'stud_dob' : 'Please enter a valid date of birth' }) }, 100);
             });</script>";
         }
-        if(!(isset($_POST["stud_mis"]) && !(empty(trim($_POST["stud_mis"]))) && preg_match("/[A-Z0-9]{11,12}/", $_POST["stud_mis"])))
+        if(!(isset($_POST["stud_mis"]) && !(empty(trim($_POST["stud_mis"]))) && preg_match("/^[ICE]{1}2K[0-9]{8}/", strtoupper($_POST["stud_mis"]))))
         {
 			$valid = false;
             echo "<script>document.addEventListener('DOMContentLoaded', function() { document.getElementById('stud_mis').className += ' focused error'; });</script>";
             echo "<script>$(document).ready(function() {
-                setTimeout(function() { $('form').validate().showErrors({ 'stud_mis' : 'Please enter a valid MIS ID consisting of 11 or 12 alphanumeric characters' }) }, 100);
+                setTimeout(function() { $('form').validate().showErrors({ 'stud_mis' : 'Please enter a valid MIS ID.' }) }, 100);
             });</script>";
         }
         if(!(isset($_POST["stud_email"]) && !(empty(trim($_POST["stud_email"]))) && filter_input(INPUT_POST, "stud_email", FILTER_VALIDATE_EMAIL)))
@@ -571,7 +571,7 @@
                                     <div class="form-group">
                                         <div class="form-line inputDiv" id="stud_mis">
                                             <label class="required" for="stud_mis">MIS Number</label>
-                                            <input type="text" pattern="[A-Z0-9]{11,12}" placeholder="MIS Login" class="form-control" name="stud_mis" id="stud_mis_input" oninvalid = "this.setCustomValidity('MIS can contain only alphanumeric characters and have a length of 11 or 12 characters');" onchange="this.setCustomValidity('');" required>
+                                            <input type="text" pattern="^[ICE]{1}2K[0-9]{8}" placeholder="MIS Login" class="form-control" name="stud_mis" id="stud_mis_input" oninvalid = "this.setCustomValidity('Please enter a valid MIS number');" onchange="this.setCustomValidity('');" required>
                                         </div>
                                     </div>
                                 </div>
@@ -589,7 +589,7 @@
                                     <div class="form-group">
                                         <div class="form-line inputDiv" id="stud_contact">
                                             <label class="required" for="stud_contact">Contact Number</label>
-                                            <input type="text" pattern="[6789]{1}[0-9]{9}" placeholder="10 digit Indian mobile number" class="form-control" name="stud_contact" id="stud_contact_input" oninvalid="this.setCustomValidity('Please enter a valid 10 digit Indian mobile number');" onchange="this.setCustomValidity('');" oninput="this.setCustomValidity('');" required>
+                                            <input type="text" pattern="^[6789]{1}[0-9]{9}" placeholder="10 digit Indian mobile number" class="form-control" name="stud_contact" id="stud_contact_input" oninvalid="this.setCustomValidity('Please enter a valid 10 digit Indian mobile number');" onchange="this.setCustomValidity('');" oninput="this.setCustomValidity('');" required>
                                         </div>
                                     </div>
                                 </div>
