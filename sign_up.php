@@ -359,7 +359,7 @@
         /*
             NOTE: In this function, the following return values carry the following meaning:
             0 - The API request was processed successfully and it was determined that the user lives at a distance of less than 40 kms.
-            1 - The API request was processed successfully and it was determined that the user lives at a distance of greater than or equal        to 40 kms.
+            1 - The API request was processed successfully and it was determined that the user lives at a distance of greater than or equal        to 50 kms.
             2 - The API request returned an error in the TOP LEVEL STATUS CODE. this could have the following meanings:
                 - INVALID_REQUEST indicates that the provided request was invalid
                 - MAX_ELEMENTS_EXCEEDED indicates that the product of origins and destinations exceeds the per-query limit.
