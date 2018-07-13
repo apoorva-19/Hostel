@@ -1,4 +1,15 @@
 <?php
+    session_start();
+    if(empty($_SESSION["user"]))
+    {
+        header("Location:../404.html");
+        exit;
+    }
+    if($_SESSION["user"] != "admin")
+    {
+        header("Location:../404.html");
+        exit;
+    }
     require_once('../connect.php');
 
     if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["hostel"]) && isset($_POST["action"]) && isset($_POST["category"]))

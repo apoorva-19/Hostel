@@ -1,4 +1,15 @@
 <?php
+    session_start();
+    if(empty($_SESSION["user"]))
+    {
+        header("Location:../404.html");
+        exit;
+    }
+    if($_SESSION["user"] != "b_warden")
+    {
+        header("Location:../404.html");
+        exit;
+    }
     require_once('../convert.php');
     require_once('../connect.php');
 

@@ -1,6 +1,17 @@
 <?php
+    session_start();
+    if(empty($_SESSION["user"]))
+    {
+        header("Location:../404.html");
+        exit;
+    }
+    if($_SESSION["user"] != "admin")
+    {
+        header("Location:../404.html");
+        exit;
+    }
     require_once("../connect.php");
-if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["roomNo"]) && isset($_POST["misID"]))
+    if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["roomNo"]) && isset($_POST["misID"]))
     {
         $jsonArray = array();
         $mis = test_input($_POST["misID"]);

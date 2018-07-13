@@ -193,11 +193,7 @@
         {
             var JSONresult = JSON.parse(result);
             if(JSONresult.status == "success")
-            {
-                console.log(JSONresult.url);
-                window.location.href = JSONresult.url;
-            }
-                
+                window.location.href = JSONresult.url;  
             else
             {
                 swal({

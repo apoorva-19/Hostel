@@ -1,11 +1,11 @@
 <?php
     session_start();
-    if(!isset($_SESSION["user"]))
+    if(empty($_SESSION["user"]))
     {
         header("Location:../404.html");
         exit;
     }
-    if(!($_SESSION["user"] === "b_warden"))
+    if($_SESSION["user"] != "b_warden")
     {
         header("Location:../404.html");
         exit;

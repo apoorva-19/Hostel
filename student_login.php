@@ -4,12 +4,12 @@
     if($_SERVER["REQUEST_METHOD"] == "POST")
     {
         $jsonResponse = array();
-        if(empty($_POST["mis"]) && preg_match('/^[ICE]{1}2K[0-9]{8}/', strtoupper($_POST[mis])))
+        if(empty(trim($_POST["mis"])) && preg_match('/^[ICE]{1}2K[0-9]{8}/', strtoupper(trim($_POST[mis]))))
         {
             $jsonResponse["status"] = "failure";
             $jsonResponse["message"] = "Please enter a valid mis id";
         }
-        if(empty($_POST["password"]))
+        if(empty(trim($_POST["password"])))
         {
             $jsonResponse["status"] = "failure";
             $jsonResponse["message"] = "Password cannot be empty";
@@ -18,7 +18,7 @@
         {
             $mis = strtoupper(test_input($_POST["mis"]));
             $password = $_POST["password"];
-            $sql = "SELECT `Password` FROM `New_Registrations` WHERE `MIS` = ?";
+            $sql = "SELECT `Password`, `Gender` FROM `Hostelite` WHERE `MIS` = ?";
             if(!$verify_user = $mysqli->prepare($sql))
             {
                 $jsonResponse["status"] = "failure";
@@ -43,8 +43,43 @@
                         $result = $verify_user->get_result();
                         if($result->num_rows == 0)
                         {
-                            $jsonResponse["status"] = "failure";
-                            $jsonResponse["message"] = "mis Id does not exist";
+                            $sql = "SELECT COUNT(*) AS `Registered` FROM `New_Registrations` WHERE MIS = ?";
+                            if(!$unverified_user = $mysqli->prepare($sql))
+                            {
+                                $jsonResponse["status"] = "failure";
+                                $jsonResponse["message"] = "We could not process your request because of an error in the server. We are working tirelessly to fix the issue. Please try again later.";
+                            }
+                            else
+                            {
+                                if(!$unverified_user->bind_param('s', $mis))
+                                {
+                                    $jsonResponse["status"] = "failure";
+                                    $jsonResponse["message"] = "We could not process your request because of an error in the server. We are working tirelessly to fix the issue. Please try again later.";
+                                }
+                                else
+                                {
+                                    if(!$unverified_user->execute())
+                                    {
+                                        $jsonResponse["status"] = "failure";
+                                        $jsonResponse["message"] = "We could not process your request because of an error in the server. We are working tirelessly to fix the issue. Please try again later.";
+                                    }
+                                    else
+                                    {
+                                        $result = $unverified_user->get_result();
+                                        $row = $result->fetch_assoc();
+                                        if($row["Registered"] == 1)
+                                        {
+                                            $jsonResponse["status"] = "failure";
+                                            $jsonResponse["message"] = "Your account has not been verified. Please contact the warden and verify your account.";
+                                        }
+                                        else
+                                        {
+                                            $jsonResponse["status"] = "failure";
+                                            $jsonResponse["message"] = "MIS Id not found. Please sign up before logging in.";
+                                        }
+                                    }
+                                }
+                            }
                         }
                         else
                         {
@@ -52,6 +87,8 @@
                             if(password_verify($password, $row["Password"]))
                             {
                                 $_SESSION["user"] = $mis;
+                                $_SESSION["gender"] = $row["Gender"];
+                                setcookie("user", $mis, time() + 86400);
                                 $jsonResponse["status"] = "success";
                                 $jsonResponse["message"] = "Login successful";
                                 $jsonResponse["url"] = "student/index.php";

@@ -1,5 +1,26 @@
 <?php
-	require_once('base.php');
+    session_start();
+    if(empty(trim($_SESSION["user"])))
+    {
+        header("Location:../404.html");
+        exit;
+    }
+    if(empty(trim($_SESSION["gender"])))
+    {
+        header("Location:../404.html");
+        exit;
+    }
+    if($_SESSION["user"] != $_COOKIE["user"])
+    {
+        header("Location:../404.html");
+        exit;
+    }
+    if($_SESSION["gender"] != "F" || $_SESSION["gender"] != "M" || $_SESSION["gender"] != "O")
+    {
+        header("Location:../404.html");
+        exit;
+    }
+    require_once('base.php');
 ?>
 
 <!DOCTYPE html>

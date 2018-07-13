@@ -1,5 +1,15 @@
 <?php
-
+    session_start();
+    if(empty($_SESSION["user"]))
+    {
+        header("Location:../404.html");
+        exit;
+    }
+    if($_SESSION["user"] != "b_warden")
+    {
+        header("Location:../404.html");
+        exit;
+    }
     require_once("../connect.php");
 
     $sql = "SELECT Room_No, Reserved FROM B_Room;";

@@ -1,4 +1,15 @@
 <?php
+    session_start();
+    if(empty($_SESSION["user"]))
+    {
+        header("Location:../404.html");
+        exit;
+    }
+    if($_SESSION["user"] != "g_warden")
+    {
+        header("Location:../404.html");
+        exit;
+    }
     require_once('base.php');
     require_once('../connect.php');
     require_once('../convert.php');
@@ -93,30 +104,28 @@
                                         <th>Warden Consent</th>
                                     </tr>
                                     </thead>
-                                    <tbody>
+                                    <tbody>";
                                     while($row = $res->fetch_assoc())
                                     {
-                                        <tr>
+                                        echo "<tr>
                                             <th scope=\"row\">".$cnt."</th>
                                             <td>".$row['Name']."</td>
                                             <td>".$row['Datetime_Out']."</td>
                                             <td>".$row['Datetime_In']."</td>
                                             <td>".$row['Address']."</td>
                                             <td>".$row['P_Contact']."</td>
-                                            <td>".$row['P_Consent']."</td>
+                                            <td>".$row['P_Consent']."</td>";
                                             if($row['W_Consent']=='N')
-                                                <td><button type='button' onclick = 'consent();' class='btn btn-primary waves-effect mt-5'>Give Consent</button></td>
+                                                echo "<td><button type='button' onclick = 'consent();' class='btn btn-primary waves-effect mt-5'>Give Consent</button></td>";
                                             else
-                                                <td>Y<td>    
-                                        </tr>  
-                                    }  
-                                    </tbody>
-                                </table>"
+                                                echo "<td>Y<td>
+                                        </tr>";
+                                    }
+                                    echo "</tbody>
+                                </table>";
                             }
-
                         }
                     }
-                
                 }
             }
         }
