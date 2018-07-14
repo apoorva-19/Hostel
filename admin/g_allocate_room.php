@@ -21,18 +21,21 @@
         {
             //error_log('Prepare failed for warden verification room in allocate_room.php: ('.$mysqli->errno.') '.$mysqli->error);
             $jsonArray["result"] = "Request could not be processed. We are trying to fix the error.";
+            echo json_encode($jsonArray);
             exit;
         }
         if(!($verify->bind_param('s',$mis)))
         {
             //error_log('Bind param failed for warden verification room in allocate_room.php: ('.$mysqli->errno.') '.$mysqli->error);
             $jsonArray["result"] = "Request could not be processed. We are trying to fix the error.";
+            echo json_encode($jsonArray);
             exit;
         }
         if(!($verify->execute()))
         {
             //error_log('Execution failed for warden verification room in allocate_room.php: ('.$mysqli->errno.') '.$mysqli->error);
             $jsonArray["result"] = "Request could not be processed. We are trying to fix the error.";
+            echo json_encode($jsonArray);
             exit;
         }
         if($result = $verify->get_result())
@@ -45,18 +48,21 @@
                 {
                     //error_log('Prepare failed for allocating room in allocate_room.php: ('.$mysqli->errno.') '.$mysqli->error);
                     $jsonArray["result"] = "Request could not be processed. We are trying to fix the error.";
+                    echo json_encode($jsonArray);
                     exit;
                 }
                 if(!($sql->bind_param('ss',$room_no, $mis)))
                 {
                     //error_log('Bind param failed for allocating room in allocate_room.php: ('.$mysqli->errno.') '.$mysqli->error);
                     $jsonArray["result"] = "Request could not be processed. We are trying to fix the error.";
+                    echo json_encode($jsonArray);
                     exit;
                 }
                 if(!($sql->execute()))
                 {
                     //error_log('Execution failed for allocating room in allocate_room.php: ('.$mysqli->errno.') '.$mysqli->error);
                     $jsonArray["result"] = "Request could not be processed. We are trying to fix the error.";
+                    echo json_encode($jsonArray);
                     exit;
                 }
                 if(!$result = $sql->get_result() && $mysqli->errno == 0)
@@ -66,23 +72,66 @@
                     {
                         //error_log('Prepare failed for updating room in allocate_room.php: ('.$mysqli->errno.') '.$mysqli->error);
                         $jsonArray["result"] = "Request could not be processed. We are trying to fix the error.";
+                        echo json_encode($jsonArray);
                         exit;
                     }
                     if(!($sql->bind_param('s',$room_no)))
                     {
                         //error_log('Bind param failed for updating room in allocate_room.php: ('.$mysqli->errno.') '.$mysqli->error);
                         $jsonArray["result"] = "Request could not be processed. We are trying to fix the error.";
+                        echo json_encode($jsonArray);
                         exit;
                     }
                     if(!($sql->execute()))
                     {
                         //error_log('Execution failed for upating room in allocate_room.php: ('.$mysqli->errno.') '.$mysqli->error);
                         $jsonArray["result"] = "Request could not be processed. We are trying to fix the error.";
+                        echo json_encode($jsonArray);
                         exit;
                     }
                     if(!$result = $sql->get_result() && $mysqli->errno == 0)
                     {
-                        $jsonArray["result"] = "Room has been alloted successfully!";
+                        $sql = "INSERT INTO `Hostelite`(`MIS`, `Email_Id`, `Password`, `Name`, `Gender`, `S_Contact`, `DOB`, `Reg_Date`, `Branch`, `Year`, `Room_No`, `Admission_Type`, `Receipt_No`, `Amount_Paid`, `Mode_Transaction`, `Street`, `City`, `State`, `Pincode`, `Country`) SELECT `MIS`, `Email_Id`, `Password`, `Name`, `Gender`, `Contact_Number`, `DOB`, `Reg_Date`, `Branch`, `Year`, `Room_No`, `Admission_Type`, `Receipt_No`, `Amount_Paid`, `Mode_Transaction`, `Street`, `City`, `State`, `Pincode`, `Country` FROM `New_Registrations` WHERE `New_Registrations`.`MIS` = ?";
+                        if(!$transfer_user = $mysqli->prepare($sql))
+                            $jsonArray["result"] = "An error has occured. Please contact the system administrator with MIS id of the student";
+                        else
+                        {
+                            if(!$transfer_user->bind_param('s', $mis))
+                                $jsonArray["result"] = "An error has occured. Please contact the system administrator with MIS id of the student";
+                            else
+                            {
+                                if(!$transfer_user->execute())
+                                    $jsonArray["result"] = "An error has occured. Please contact the system administrator with MIS id of the student";
+                                else
+                                {
+                                    if(!$result = $transfer_user->get_result() && $mysqli->errno == 0)
+                                    {
+                                        $sql = "DELETE FROM `New_Registrations` WHERE `MIS` = ?;";
+                                        if(!$delete_stud = $mysqli->prepare($sql))
+                                            $jsonArray["result"] = "An error has occured. Please contact the system administrator with MIS id of the student";
+                                        else
+                                        {
+                                            if(!$delete_stud->bind_param('s', $mis))
+                                                $jsonArray["result"] = "An error has occured. Please contact the system administrator with MIS id of the student";
+                                            else
+                                            {
+                                                if(!$delete_stud->execute())
+                                                    $jsonArray["result"] = "An error has occured. Please contact the system administrator with MIS id of the student";
+                                                else
+                                                {
+                                                    if(!$result = $delete_stud->get_result() && $mysqli->errno == 0)
+                                                        $jsonArray["result"] = "Room has been alloted successfully!";
+                                                    else
+                                                        $jsonArray["result"] = "An error has occured. Please contact the system administrator with MIS id of the student";
+                                                }
+                                            }
+                                        }
+                                    }
+                                    else
+                                        $jsonArray["result"] = "An error has occured. Please contact the system administrator with MIS id of the student";
+                                }
+                            }
+                        }
                     }
                     else
                     {

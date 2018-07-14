@@ -13,9 +13,49 @@
     require_once('base.php');
     require_once('../connect.php');
     $year = date("Y");
-    $b_student = "SELECT * FROM `New_Registrations` WHERE GENDER = 'M' AND YEAR(Reg_Date) = '".$year."';";
-    $b_res_student = mysqli_query($mysqli, $b_student);
-    $b_count = mysqli_num_rows($b_res_student);
+    $sql = "SELECT * FROM `Hostelite` WHERE `GENDER` = 'M' AND YEAR(`Reg_Date`) = ?";
+    if(!$student_list = $mysqli->prepare($sql))
+    {
+        echo "<script>
+            swal({
+                title: 'Error',
+                text: 'Request could not be processed. We are trying to fix the error.',
+                type: 'error'
+            }).then(() => {
+                window.location.href = 'index.php';
+            });
+        });</script>";
+    }
+    else
+    {
+        if(!$student_list->bind_param('s', $year))
+        {
+            echo "<script>
+                swal({
+                    title: 'Error',
+                    text: 'Request could not be processed. We are trying to fix the error.',
+                    type: 'error'
+                }).then(() => {
+                    window.location.href = 'index.php';
+                });
+            });</script>";
+        }
+        else
+        {
+            if(!$student_list->execute())
+            {
+                echo "<script>
+                    swal({
+                        title: 'Error',
+                        text: 'Request could not be processed. We are trying to fix the error.',
+                        type: 'error'
+                    }).then(() => {
+                        window.location.href = 'index.php';
+                    });
+                });</script>";
+            }
+        }
+    }
 ?>
 
 <!DOCTYPE html>
@@ -57,47 +97,43 @@
                                 </thead>
                                 <tbody>
                                     <?php
-                                    $cnt = 1;
-                                    while($b_row_student = $b_res_student->fetch_assoc())
-                                    {
-                                        echo "<tr>
-                                                <th scope=\"row\">".$cnt."</th>
-                                                <td>".$b_row_student['Name']."</td>";
-                                        if($b_row_student['Room_No'] == 0)
-                                            echo "<td>xxxxxxxxxxx</td>";
+                                        $cnt = 1;
+                                        $result = $student_list->get_result();
+                                        if($result->num_rows == 0)
+                                            echo "<tr>
+                                                    <td colspan='9'><center>No hostelites enrolled</center></td>
+                                                  </tr>";
                                         else
-                                            echo "<td>".$b_row_student['MIS']."</td>";
-                                        echo "<td>".$b_row_student['Email_Id']."</td>
-                                              <td>".$b_row_student['City']."</td>";
-                                        if($b_row_student['Admission_Type'] == 'M')
-                                            echo "<td>Management Quota</td>";
-                                        else if($b_row_student['Admission_Type'] == 'C')
-                                            echo "<td>CAP Rounds</td>";
-                                        else if($b_row_student['Admission_Type'] == 'P')
-                                            echo "<td>PIO</td>";
-                                        else if($b_row_student['Admission_Type'] == 'CI')
-                                            echo "<td>CIWGC</td>";
-                                        else if($b_row_student['Admission_Type'] == 'JK')
-                                            echo "<td>Jammu and Kashmir</td>";
-                                        else if($b_row_student['Admission_Type'] == 'DSE')
-                                            echo "<td>Direct Second Year</td>";
-                                        else
-                                            echo "<td>Others</td>";
-                                        if($b_row_student['Room_No'] == 0)
-                                            echo "<td>xxxxxxxxxxx</td>";
-                                        else
-                                            echo "<td>".$b_row_student['Receipt_No']."</td>";
-                                        if($b_row_student['Room_No'] == 0)
-                                            echo "<td>xxxxxx</td>";
-                                        else
-                                            echo "<td>".$b_row_student['Amount_Paid']."</td>";
-                                        if($b_row_student['Room_No'] == 0)
-                                            echo "<td>Not alloted</td>";
-                                        else
-                                            echo "<td>".$b_row_student['Room_No']."</td>";
-                                        echo  "</tr>";
-                                        $cnt +=1;          
-                                    }
+                                        {
+                                            while($row = $result->fetch_assoc())
+                                            {
+                                                echo "<tr>
+                                                        <th scope=\"row\">".$cnt."</th>
+                                                        <td>".$row['Name']."</td>
+                                                        <td>".$row['MIS']."</td>
+                                                        <td>".$row['Email_Id']."</td>
+                                                        <td>".$row['City']."</td>";
+                                                if($row['Admission_Type'] == 'M')
+                                                    echo "<td>Management Quota</td>";
+                                                else if($row['Admission_Type'] == 'C')
+                                                    echo "<td>CAP Rounds</td>";
+                                                else if($row['Admission_Type'] == 'P')
+                                                    echo "<td>PIO</td>";
+                                                else if($row['Admission_Type'] == 'CI')
+                                                    echo "<td>CIWGC</td>";
+                                                else if($row['Admission_Type'] == 'JK')
+                                                    echo "<td>Jammu and Kashmir</td>";
+                                                else if($row['Admission_Type'] == 'DSE')
+                                                    echo "<td>Direct Second Year</td>";
+                                                else
+                                                    echo "<td>Others</td>";
+                                                echo "<td>".$row['Receipt_No']."</td>";
+                                                echo "<td>".$row['Amount_Paid']."</td>";
+                                                echo "<td>".$row['Room_No']."</td>";
+                                                echo "</tr>";
+                                                $cnt += 1;
+                                            }
+                                        }
                                     ?>
                                 </tbody>
                             </table>
@@ -108,3 +144,4 @@
         </div>
     </section>
 </body>
+</html>

@@ -13,11 +13,50 @@
     require_once('base.php');
     require_once('../connect.php');
     $year = date("Y");
-    $g_student = "SELECT * FROM `New_Registrations` WHERE GENDER = 'F' AND YEAR(Reg_Date) = '".$year."';";
-    $g_res_student = mysqli_query($mysqli, $g_student);
-    $g_count = mysqli_num_rows($g_res_student);
+    $sql = "SELECT * FROM `Hostelite` WHERE `GENDER` = 'F' AND YEAR(`Reg_Date`) = ?";
+    if(!$student_list = $mysqli->prepare($sql))
+    {
+        echo "<script>
+            swal({
+                title: 'Error',
+                text: 'Request could not be processed. We are trying to fix the error.',
+                type: 'error'
+            }).then(() => {
+                window.location.href = 'index.php';
+            });
+        });</script>";
+    }
+    else
+    {
+        if(!$student_list->bind_param('s', $year))
+        {
+            echo "<script>
+                swal({
+                    title: 'Error',
+                    text: 'Request could not be processed. We are trying to fix the error.',
+                    type: 'error'
+                }).then(() => {
+                    window.location.href = 'index.php';
+                });
+            });</script>";
+        }
+        else
+        {
+            if(!$student_list->execute())
+            {
+                echo "<script>
+                    swal({
+                        title: 'Error',
+                        text: 'Request could not be processed. We are trying to fix the error.',
+                        type: 'error'
+                    }).then(() => {
+                        window.location.href = 'index.php';
+                    });
+                });</script>";
+            }
+        }
+    }
 ?>
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -27,7 +66,6 @@
         });
     </script>
 </head>
-
 <body>
     <section class="content">
         <div class="container-fluid">
@@ -35,7 +73,7 @@
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <div class="card">
                         <div class="header">
-                            <h2>Student Information List</h2>
+                            <h2>Student Information</h2>
                         </div>
                         <div class="body table-responsive">
                             <table class="table table-condensed">
@@ -54,47 +92,43 @@
                                 </thead>
                                 <tbody>
                                     <?php
-                                    $cnt = 1;
-                                    while($g_row_student = $g_res_student->fetch_assoc())
-                                    {
-                                        echo "<tr>
-                                                <th scope=\"row\">".$cnt."</th>
-                                                <td>".$g_row_student['Name']."</td>";
-                                                if($g_row_student['Room_No'] == 0)
-                                                    echo "<td>xxxxxxxxxxx</td>";
-                                                else
-                                                    echo "<td>".$g_row_student['MIS']."</td>";
-                                                echo "<td>".$g_row_student['Email_Id']."</td>
-                                                <td>".$g_row_student['City']."</td>";
-                                                if($g_row_student['Admission_Type'] == 'M')
+                                        $cnt = 1;
+                                        $result = $student_list->get_result();
+                                        if($result->num_rows == 0)
+                                            echo "<tr>
+                                                    <td colspan='9'><center>No hostelites enrolled</center></td>
+                                                  </tr>";
+                                        else
+                                        {
+                                            while($row = $result->fetch_assoc())
+                                            {
+                                                echo "<tr>
+                                                        <th scope=\"row\">".$cnt."</th>
+                                                        <td>".$row['Name']."</td>
+                                                        <td>".$row['MIS']."</td>
+                                                        <td>".$row['Email_Id']."</td>
+                                                        <td>".$row['City']."</td>";
+                                                if($row['Admission_Type'] == 'M')
                                                     echo "<td>Management Quota</td>";
-                                                else if($g_row_student['Admission_Type'] == 'C')
+                                                else if($row['Admission_Type'] == 'C')
                                                     echo "<td>CAP Rounds</td>";
-                                                else if($g_row_student['Admission_Type'] == 'P')
+                                                else if($row['Admission_Type'] == 'P')
                                                     echo "<td>PIO</td>";
-                                                else if($g_row_student['Admission_Type'] == 'CI')
+                                                else if($row['Admission_Type'] == 'CI')
                                                     echo "<td>CIWGC</td>";
-                                                else if($g_row_student['Admission_Type'] == 'JK')
+                                                else if($row['Admission_Type'] == 'JK')
                                                     echo "<td>Jammu and Kashmir</td>";
-                                                else if($g_row_student['Admission_Type'] == 'DSE')
+                                                else if($row['Admission_Type'] == 'DSE')
                                                     echo "<td>Direct Second Year</td>";
                                                 else
                                                     echo "<td>Others</td>";
-                                                if($g_row_student['Room_No'] == 0)
-                                                    echo "<td>xxxxxxxxx</td>";
-                                                else
-                                                    echo "<td>".$g_row_student['Receipt_No']."</td>";
-                                                if($g_row_student['Room_No'] == 0)
-                                                    echo "<td>xxxxxx</td>";
-                                                else
-                                                echo "<td>".$g_row_student['Amount_Paid']."</td>";
-                                                if($g_row_student['Room_No'] == 0)
-                                                    echo "<td>Not alloted</td>";
-                                                else
-                                                    echo "<td>".$g_row_student['Room_No']."</td>";
-                                        echo  "</tr>";
-                                        $cnt += 1;
-                                    }
+                                                echo "<td>".$row['Receipt_No']."</td>";
+                                                echo "<td>".$row['Amount_Paid']."</td>";
+                                                echo "<td>".$row['Room_No']."</td>";
+                                                echo "</tr>";
+                                                $cnt += 1;
+                                            }
+                                        }
                                     ?>
                                 </tbody>
                             </table>
@@ -105,3 +139,4 @@
         </div>
     </section>
 </body>
+</html>

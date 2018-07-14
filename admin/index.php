@@ -145,100 +145,198 @@
 
                             <h2>BOYS' HOSTEL</h2>
                             <section>
-                            <div class="row clearfix">
-                                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                                    <div class="info-box hover-expand-effect">
-                                        <div class="icon  bg-light-green ">
-                                            <i class="material-icons">face</i>
+                                <div class="row clearfix">
+                                    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                                        <div class="info-box hover-expand-effect">
+                                            <div class="icon  bg-light-green ">
+                                                <i class="material-icons">face</i>
+                                            </div>
+                                            <div class="content">
+                                                <div class="text">VACANT SEATS</div>
+                                                <div class="number count-to" data-from="0" data-to="<?php echo $b_row_vacant["COUNT(`Room_No`)"]; ?>" data-speed="50" data-fresh-interval="20"><?php echo $b_row_vacant["COUNT(`Room_No`)"]; ?></div>
+                                            </div>
                                         </div>
-                                        <div class="content">
-                                            <div class="text">VACANT SEATS</div>
-                                            <div class="number count-to" data-from="0" data-to="<?php echo $b_row_vacant["COUNT(`Room_No`)"]; ?>" data-speed="50" data-fresh-interval="20"><?php echo $b_row_vacant["COUNT(`Room_No`)"]; ?></div>
+                                    </div>
+                                    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                                        <div class="info-box hover-expand-effect">
+                                            <div class="icon  bg-brown ">
+                                                <i class="material-icons">room</i>
+                                            </div>
+                                            <div class="content">
+                                                <div class="text">RESERVED SEATS</div>
+                                                <div class="number count-to" data-from="0" data-to="<?php echo $b_row_reserved["COUNT(`Room_No`)"]; ?>" data-speed="50" data-fresh-interval="20"><?php echo $b_row_reserved["COUNT(`Room_No`)"];?></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                                        <div class="info-box hover-expand-effect">
+                                            <div class="icon  bg-grey ">
+                                                <i class="material-icons">bookmark</i>
+                                            </div>
+                                            <div class="content">
+                                                <div class="text">TOTAL SEATS</div>
+                                                <div class="number count-to" data-from="0" data-to="135" data-speed="500" data-fresh-interval="20">135</div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                                    <div class="info-box hover-expand-effect">
-                                        <div class="icon  bg-brown ">
-                                            <i class="material-icons">room</i>
+                                <div class="row clearfix">
+                                    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                                        <div class="info-box hover-expand-effect">
+                                            <div class="icon  bg-green">
+                                                <i class="material-icons">person_pin</i>
+                                            </div>
+                                            <div class="content">
+                                                <div class="text">PRESENT</div>
+                                                <div class="number count-to" data-from="0" data-to="" data-speed="50" data-fresh-interval="20"></div>
+                                            </div>
                                         </div>
-                                        <div class="content">
-                                            <div class="text">RESERVED SEATS</div>
-                                            <div class="number count-to" data-from="0" data-to="<?php echo $b_row_reserved["COUNT(`Room_No`)"]; ?>" data-speed="50" data-fresh-interval="20"><?php echo $b_row_reserved["COUNT(`Room_No`)"];?></div>
+                                    </div>
+                                    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                                        <div class="info-box hover-expand-effect">
+                                            <div class="icon  bg-blue-grey">
+                                                <i class="material-icons">directions_run</i>
+                                            </div>
+                                            <div class="content">
+                                                <div class="text">NIGHT OUT</div>
+                                                <div class="number count-to" data-from="0" data-to="" data-speed="50" data-fresh-interval="20"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                                        <div class="info-box hover-expand-effect">
+                                            <div class="icon  bg-purple ">
+                                                <i class="material-icons">person</i>
+                                            </div>
+                                            <div class="content">
+                                                <div class="text">TOTAL STRENGTH</div>
+                                                <div class="number count-to" data-from="0" data-to="" data-speed="500" data-fresh-interval="20"></div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                                    <div class="info-box hover-expand-effect">
-                                        <div class="icon  bg-grey ">
-                                            <i class="material-icons">bookmark</i>
+                                <div class="row clearfix">
+                                    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                                        <div class="info-box hover-expand-effect">
+                                            <div class="icon  bg-red ">
+                                                <i class="material-icons">report_problem</i>
+                                            </div>
+                                            <div class="content">
+                                                <div class="text">LATE COUNT</div>
+                                                <div class="number count-to" data-from="0" data-to="" data-speed="50" data-fresh-interval="20"></div>
+                                            </div>
                                         </div>
-                                        <div class="content">
-                                            <div class="text">TOTAL SEATS</div>
-                                            <div class="number count-to" data-from="0" data-to="135" data-speed="500" data-fresh-interval="20">135</div>
+                                    </div>
+                                    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                                        <div class="info-box hover-expand-effect">
+                                            <div class="icon  bg-amber ">
+                                                <i class="material-icons">access_time</i>
+                                            </div>
+                                            <div class="content">
+                                                <div class="text">NOON COUNT</div>
+                                                <div class="number count-to" data-from="0" data-to="" data-speed="50" data-fresh-interval="20"></div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="row clearfix">
-                                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                                    <div class="info-box hover-expand-effect">
-                                        <div class="icon  bg-green">
-                                            <i class="material-icons">person_pin</i>
+                            </section>
+
+                            <h2>ALL</h2>
+                            <section>
+                                <div class="row clearfix">
+                                    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                                        <div class="info-box hover-expand-effect">
+                                            <div class="icon  bg-light-green ">
+                                                <i class="material-icons">face</i>
+                                            </div>
+                                            <div class="content">
+                                                <div class="text">VACANT SEATS</div>
+                                                <div class="number count-to" data-from="0" data-to="<?php echo $vacant; ?>" data-speed="50" data-fresh-interval="20"><?php echo $vacant ?></div>
+                                            </div>
                                         </div>
-                                        <div class="content">
-                                            <div class="text">PRESENT</div>
-                                            <div class="number count-to" data-from="0" data-to="" data-speed="50" data-fresh-interval="20"></div>
+                                    </div>
+                                    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                                        <div class="info-box hover-expand-effect">
+                                            <div class="icon  bg-brown ">
+                                                <i class="material-icons">room</i>
+                                            </div>
+                                            <div class="content">
+                                                <div class="text">RESERVED SEATS</div>
+                                                <div class="number count-to" data-from="0" data-to="<?php $reserved; ?>" data-speed="50" data-fresh-interval="20"><?php echo $reserved?></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                                        <div class="info-box hover-expand-effect">
+                                            <div class="icon  bg-grey ">
+                                                <i class="material-icons">bookmark</i>
+                                            </div>
+                                            <div class="content">
+                                                <div class="text">TOTAL SEATS</div>
+                                                <div class="number count-to" data-from="0" data-to="347" data-speed="500" data-fresh-interval="20">347</div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                                    <div class="info-box hover-expand-effect">
-                                        <div class="icon  bg-blue-grey">
-                                            <i class="material-icons">directions_run</i>
+                                <div class="row clearfix">
+                                    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                                        <div class="info-box hover-expand-effect">
+                                            <div class="icon  bg-green">
+                                                <i class="material-icons">person_pin</i>
+                                            </div>
+                                            <div class="content">
+                                                <div class="text">PRESENT</div>
+                                                <div class="number count-to" data-from="0" data-to="" data-speed="50" data-fresh-interval="20"></div>
+                                            </div>
                                         </div>
-                                        <div class="content">
-                                            <div class="text">NIGHT OUT</div>
-                                            <div class="number count-to" data-from="0" data-to="" data-speed="50" data-fresh-interval="20"></div>
+                                    </div>
+                                    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                                        <div class="info-box hover-expand-effect">
+                                            <div class="icon  bg-blue-grey">
+                                                <i class="material-icons">directions_run</i>
+                                            </div>
+                                            <div class="content">
+                                                <div class="text">NIGHT OUT</div>
+                                                <div class="number count-to" data-from="0" data-to="" data-speed="50" data-fresh-interval="20"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                                        <div class="info-box hover-expand-effect">
+                                            <div class="icon  bg-purple ">
+                                                <i class="material-icons">person</i>
+                                            </div>
+                                            <div class="content">
+                                                <div class="text">TOTAL STRENGTH</div>
+                                                <div class="number count-to" data-from="0" data-to="" data-speed="500" data-fresh-interval="20"></div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                                    <div class="info-box hover-expand-effect">
-                                        <div class="icon  bg-purple ">
-                                            <i class="material-icons">person</i>
+                                <div class="row clearfix">
+                                    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                                        <div class="info-box hover-expand-effect">
+                                            <div class="icon  bg-red ">
+                                                <i class="material-icons">report_problem</i>
+                                            </div>
+                                            <div class="content">
+                                                <div class="text">LATE COUNT</div>
+                                                <div class="number count-to" data-from="0" data-to="" data-speed="50" data-fresh-interval="20"></div>
+                                            </div>
                                         </div>
-                                        <div class="content">
-                                            <div class="text">TOTAL STRENGTH</div>
-                                            <div class="number count-to" data-from="0" data-to="" data-speed="500" data-fresh-interval="20"></div>
+                                    </div>
+                                    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                                        <div class="info-box hover-expand-effect">
+                                            <div class="icon  bg-amber ">
+                                                <i class="material-icons">access_time</i>
+                                            </div>
+                                            <div class="content">
+                                                <div class="text">NOON COUNT</div>
+                                                <div class="number count-to" data-from="0" data-to="" data-speed="50" data-fresh-interval="20"></div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="row clearfix">
-                                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                                    <div class="info-box hover-expand-effect">
-                                        <div class="icon  bg-red ">
-                                            <i class="material-icons">report_problem</i>
-                                        </div>
-                                        <div class="content">
-                                            <div class="text">LATE COUNT</div>
-                                            <div class="number count-to" data-from="0" data-to="" data-speed="50" data-fresh-interval="20"></div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                                    <div class="info-box hover-expand-effect">
-                                        <div class="icon  bg-amber ">
-                                            <i class="material-icons">access_time</i>
-                                        </div>
-                                        <div class="content">
-                                            <div class="text">NOON COUNT</div>
-                                            <div class="number count-to" data-from="0" data-to="" data-speed="50" data-fresh-interval="20"></div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
                             </section>
                         </div>
                     </div>
@@ -275,29 +373,38 @@
                                     while($row = $result->fetch_assoc())
                                     {
                                         echo "<tr>
-                                                <th scope=\"row\">".$cnt."</th>
-                                                <td>".$row['Name']."</td>
-                                                <td>".$row['MIS']."</td>
-                                                <td>".$row['Email_Id']."</td>
-                                                <td>".$row['City']."</td>";
-                                                if($row['Admission_Type'] == 'M')
-                                                echo "<td>Management Quota</td>";
-                                                else if($row['Admission_Type'] == 'C')
-                                                echo "<td>CAP Rounds</td>";
-                                                else
-                                                echo "<td>Others</td>";
+                                            <th scope=\"row\">".$cnt."</th>
+                                            <td>".$row['Name']."</td>";
+                                            if($row["Room_No"] == 0)
+                                                echo "<td>xxxxxxxxxx</td>";
+                                            else
+                                                echo "<td>".$row['MIS']."</td>";
+                                            echo "<td>".$row['Email_Id']."</td>
+                                            <td>".$row['City']."</td>";
+                                            if($row['Admission_Type'] == 'M')
+                                            echo "<td>Management Quota</td>";
+                                            else if($row['Admission_Type'] == 'C')
+                                            echo "<td>CAP Rounds</td>";
+                                            else
+                                            echo "<td>Others</td>";
+                                            if($row["Room_No"] == 0)
+                                                echo "<td>xxxxxxxxxx</td>";
+                                            else
                                                 echo "<td>".$row['Receipt_No']."</td>";
+                                            if($row["Room_No"] == 0)
+                                                echo "<td>xxxxxx</td>";
+                                            else
                                                 echo "<td>".$row['Amount_Paid']."</td>";
-                                                if($row['Room_No'] == 0)
-                                                {
-                                                if($row['Gender'] == 'F')
-                                                    $link = "g_layout.php";
-                                                else
-                                                    $link = "b_layout.php";
-                                                echo "<td><form method='POST' action='".$link."'><button type='submit' id='allocate'".$cnt." name='allocate' value='".$row['MIS']."' class='form-contol btn btn-primary waves-effect mt-5'>Allocate Room</button></form></td>";
-                                                }
-                                                else  
-                                                echo "<td>".$row['Room_No']."</td>";
+                                            if($row['Room_No'] == 0)
+                                            {
+                                            if($row['Gender'] == 'F')
+                                                $link = "g_layout.php";
+                                            else
+                                                $link = "b_layout.php";
+                                            echo "<td><form method='POST' action='".$link."'><button type='submit' id='allocate'".$cnt." name='allocate' value='".$row['MIS']."' class='form-contol btn btn-primary waves-effect mt-5'>Allocate Room</button></form></td>";
+                                            }
+                                            else  
+                                            echo "<td>".$row['Room_No']."</td>";
                                         echo  "</tr>";
                                         $cnt += 1;
                                     }

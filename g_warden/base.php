@@ -128,7 +128,7 @@
                             <li id="all_hostelites">
                                 <a href="student_list.php">
                                     <i class="material-icons">people</i>
-                                    <span>New Students Enrolled</span>
+                                    <span>All Hostelites</span>
                                 </a>
                             </li>
                             <li id="student_night_out">
