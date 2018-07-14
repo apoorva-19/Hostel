@@ -107,7 +107,7 @@
             <div class="menu">
                 <ul class="list">
                     <li class="header">MAIN NAVIGATION</li>
-                    <li>
+                    <li id="menu_home">
                         <a href="index.php">
                             <i class="material-icons">home</i>
                             <span>Home</span>
@@ -119,37 +119,37 @@
                             <span>Student Lists</span>
                         </a>
                         <ul class="ml-menu">
-                            <li>
+                            <li id="new_students">
                                 <a href="student_enrol.php">
                                     <i class="material-icons">people</i>
                                     <span>New Students Enrolled</span>
                                 </a>
                             </li>
-                            <li>
+                            <li id="current_students">
                                 <a href="student_list.php">
                                     <i class="material-icons">people</i>
                                     <span>Current Students List</span>
                                 </a>
                             </li>
-                            <li>
+                            <li id="student_night_out">
                                 <a href="student_night_out.php">
                                     <i class="material-icons">people</i>
                                     <span>Night Out</span>
                                 </a>
                             </li>
-                            <li>
+                            <li id="student_late">
                                 <a href="student_late.php">
                                     <i class="material-icons">people</i>
                                     <span>Late Record</span>
                                 </a>
                             </li>
-                            <li>
+                            <li id="student_noon">
                                 <a href="student_noon.php">
                                     <i class="material-icons">people</i>
                                     <span>Noon Record</span>
                                 </a>
                             </li>
-                            <li>
+                            <li id="student_food">
                                 <a href="student_food.php">
                                     <i class="material-icons">people</i>
                                     <span>Meal Record</span>

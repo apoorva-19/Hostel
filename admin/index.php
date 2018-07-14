@@ -31,7 +31,11 @@
 
 <!DOCTYPE html>
 <html>
-
+<script>
+        $(document).ready(function() {
+            $("#menu_home").addClass("active");
+        }); 
+    </script>
 <body>
     <section class="content">   
         <div class="container-fluid">

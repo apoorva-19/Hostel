@@ -38,7 +38,11 @@
 ?>
 
 <html>
-
+<script>
+        $(document).ready(function() {
+            $("#student_food").addClass("active");
+        });
+    </script>
 <body>
     <section class="content">
         <div class="container-fluid">

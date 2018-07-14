@@ -119,43 +119,37 @@
                             <span>Room Layout</span>
                         </a>
                     </li>
-                    <li id="menu_change_room">
-                        <a data-toggle="modal" data-target="#room_number">
-                            <i class="material-icons">event_seat</i>
-                            <span>Change Room Number</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="javascript:void(0);" class="menu-toggle">
+                    <li id="menu_studentlist_super">
+                        <a href="javascript:void(0);" id="menu_student_lists" class="menu-toggle">
                             <i class="material-icons">people</i>
                             <span>Student Lists</span>
                         </a>
                         <ul class="ml-menu">
-                            <li>
+                            <li id="all_hostelites">
                                 <a href="student_list.php">
                                     <i class="material-icons">people</i>
                                     <span>New Students Enrolled</span>
                                 </a>
                             </li>
-                            <li>
+                            <li id="student_night_out">
                                 <a href="student_night_out.php">
                                     <i class="material-icons">people</i>
                                     <span>Night Out</span>
                                 </a>
                             </li>
-                            <li>
+                            <li id="student_late">
                                 <a href="student_late.php">
                                     <i class="material-icons">people</i>
                                     <span>Late Record</span>
                                 </a>
                             </li>
-                            <li>
+                            <li id="student_noon">
                                 <a href="student_noon.php">
                                     <i class="material-icons">people</i>
                                     <span>Noon Record</span>
                                 </a>
                             </li>
-                            <li>
+                            <li id="student_food">
                                 <a href="student_food.php">
                                     <i class="material-icons">people</i>
                                     <span>Meal Record</span>
@@ -173,6 +167,12 @@
                         <a data-toggle="modal" data-target="#noon">
                             <i class="material-icons">access_time</i>
                             <span>Add Afternoon Entry</span>
+                        </a>
+                    </li>
+                    <li id="menu_change_room">
+                        <a data-toggle="modal" data-target="#room_number">
+                            <i class="material-icons">event_seat</i>
+                            <span>Change Room Number</span>
                         </a>
                     </li>
                     <li>

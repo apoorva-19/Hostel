@@ -21,10 +21,10 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <script>
-        window.onload = function() {
-            document.getElementById("menu_student").classList.add("active");
-        }
+<script>
+        $(document).ready(function() {
+            $("#all_hostelites").addClass("active");
+        });
     </script>
 </head>
 

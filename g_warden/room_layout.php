@@ -22,9 +22,9 @@
         }
     </style>
     <script>
-        window.onload = function() {
-            document.getElementById("menu_layout").classList.add("active");
-        }
+        $(document).ready(function() {
+            $("#menu_layout").addClass("active");
+        });
     </script>
 </head>
 

@@ -25,9 +25,9 @@
 <html>
 <head>
     <script>
-        window.onload = function() {
-            document.getElementById("menu_home").classList.add("active");
-        }
+        $(document).ready(function() {
+            $("#menu_home").addClass("active");
+        }); 
     </script>
 <head>
 
