@@ -22,9 +22,9 @@
 <html>
 <head>
     <script>
-        window.onload = function() {
-            document.getElementById("menu_student").classList.add("active");
-        }
+        $(document).ready(function() {
+            $("#current_students").addClass("active");
+        }); 
     </script>
 </head>
 

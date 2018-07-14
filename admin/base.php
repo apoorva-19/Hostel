@@ -183,13 +183,13 @@
                             <span>Hostel Layout</span>
                         </a>
                         <ul class="ml-menu">
-                            <li>
+                            <li id="girls_hostel_layout">
                                 <a href="g_room_layout.php">
                                     <i class="material-icons">business</i>
                                     <span>Girls' Hostel Room Layout</span>
                                 </a>
                             </li>
-                            <li>
+                            <li id="boys_hostel_layout">
                                 <a href="b_room_layout.php">
                                     <i class="material-icons">business</i>
                                     <span>Boys' Hostel Room Layout</span>
