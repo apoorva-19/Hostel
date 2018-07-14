@@ -31,7 +31,7 @@
 
 <!DOCTYPE html>
 <html>
-<script>
+    <script>
         $(document).ready(function() {
             $("#menu_home").addClass("active");
         }); 

@@ -57,7 +57,11 @@
 ?>
 
 <html>
-
+    <script>
+        $(document).ready(function() {
+            $("#student_late").addClass("active");
+        }); 
+    </script>
 <body>
     <section class="content">
         <div class="container-fluid">

@@ -22,7 +22,11 @@
     }
   </style>
 </head>
-
+    <script>
+        $(document).ready(function() {
+            $("#boys_hostel_layout").addClass("active");
+        }); 
+    </script>
 <body>
     <script>
         window.onload = function() {

@@ -22,7 +22,11 @@
 ?>
 
 <html>
-
+    <script>
+        $(document).ready(function() {
+            $("#new_students").addClass("active");
+        }); 
+    </script>
 <body>
 <section class="content">
         <div class="container-fluid">
