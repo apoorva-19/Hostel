@@ -38,7 +38,14 @@
 ?>
 
 <html>
-
+<head>
+    <script>
+        $(document).ready(function() {
+            // $("#menu_student_lists").addClass("toggled");
+            $("#student_noon").addClass("active");
+        }); 
+    </script>
+</head>
 <body>
     <section class="content">
         <div class="container-fluid">

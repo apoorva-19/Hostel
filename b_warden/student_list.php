@@ -22,9 +22,12 @@
 <html>
 <head>
     <script>
-        window.onload = function() {
-            document.getElementById("menu_student").classList.add("active");
-        }
+        $(document).ready(function() {
+            // $("#menu_student_lists").addClass("toggled");
+            // document.getElementById("menu_student_lists").classList.add("toggled");
+            // document.getElementById("menu_studentlist_super").click();
+            $("#all_hostelites").addClass("active");
+        }); 
     </script>
 </head>
 

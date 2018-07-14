@@ -90,7 +90,7 @@
                                 <i class="material-icons">person</i>
                             </span>
                             <div class="form-line">
-                                <input type="text" class="form-control" id="mis" placeholder="MIS" name="mis" required autofocus>
+                                <input type="text" class="form-control" id="mis" placeholder="MIS ID" name="mis" required autofocus>
                             </div>
                         </div>
                         <div class="input-group">

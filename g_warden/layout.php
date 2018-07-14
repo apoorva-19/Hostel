@@ -33,7 +33,7 @@
         window.onload = function() {
             httpGetAsync("room_status.php", roomStatusCallback);
         }
-
+    
         function roomStatusCallback(roomStatusJson) {
             jsonObj = JSON.parse(roomStatusJson);
             

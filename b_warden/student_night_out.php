@@ -14,30 +14,35 @@
     require_once('../connect.php');
     require_once('../convert.php');
     $start_date = $end_date = date('Y-m-d');
-    $b_hostel = "SELECT Hostelite.MIS, Hostelite.Name, Hostelite.Room_No, DATE_FORMAT(Datetime_Out, '%Y-%m-%d'), DATE_FORMAT(Datetime_In, '%Y-%m-%d'), Night_Out_COunt FROM B_Night_Permission INNER JOIN Hostelite ON B_Night_Permission.MIS = Hostelite.MIS WHERE DATE_FORMAT(Datetime_Out, '%Y-%m-%d') <= ? AND DATE_FORMAT(Datetime_In,'%Y-%m-%d') >= ?;";
+    $b_hostel = "SELECT Hostelite.MIS, Hostelite.Name, Hostelite.Room_No, DATE_FORMAT(Datetime_Out, '%Y %m %d'), DATE_FORMAT(Datetime_In, '%Y %m %d'), Night_Out_Count FROM B_Night_Permission INNER JOIN Hostelite ON B_Night_Permission.MIS = Hostelite.MIS WHERE DATE_FORMAT(Datetime_Out, '%Y-%m-%d') <= ? AND DATE_FORMAT(Datetime_In,'%Y-%m-%d') >= ?;";
     if(!($b_hostel = $mysqli->prepare($b_hostel)))
     {
         //error_log('Prepare failed in student_night_out.php: ('.$mysqli->errno.') '.$mysqli->error);
         $jsonArray["result"] = "Request could not be processed. We are trying to fix the error.";
-        exit;
     }
-    if(!($b_hostel->bind_param('ss',$start_date, $end_date)))
+    else if(!($b_hostel->bind_param('ss',$start_date, $end_date)))
     {
         //error_log('Execution failed in student_night_out.php: ('.$mysqli->errno.') '.$mysqli->error);
         $jsonArray["result"] = "Request could not be processed. We are trying to fix the error.";
-        exit;
     }
-    if(!($b_hostel->execute()))
+    else if(!($b_hostel->execute()))
     {
         //error_log('Execution failed in student_night_out.php: ('.$mysqli->errno.') '.$mysqli->error);
         $jsonArray["result"] = "Request could not be processed. We are trying to fix the error.";
-        exit;
     }
-    $b_res_hostel = $b_hostel->get_result();    
+    else
+        $b_res_hostel = $b_hostel->get_result();    
 ?>
 
 <html>
-
+<head>
+    <script>
+        $(document).ready(function() {
+            // $("#menu_student_lists").addClass("toggled");
+            $("#student_night_out").addClass("active");
+        }); 
+    </script>
+</head>
 <body>
     <section class="content">
         <div class="container-fluid">
@@ -153,6 +158,7 @@
     <script>
         function successRange(resultJson)
         {
+            console.log(resultJson);
             var JSONresult = JSON.parse(resultJson);
             if(JSONresult.exception.result == "Request could not be processed. We are trying to fix the error.")
             {
