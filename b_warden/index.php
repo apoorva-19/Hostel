@@ -166,7 +166,7 @@
                                             if($row["Room_No"] == 0)
                                                 echo "<td>xxxxxxxxxx</td>";
                                             else
-                                            echo "<td>".$row['MIS']."</td>";
+                                                echo "<td>".$row['MIS']."</td>";
                                             echo "<td>".$row['Email_Id']."</td>
                                             <td>".$row['City']."</td>";
                                             if($row['Admission_Type'] == 'M')

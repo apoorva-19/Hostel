@@ -199,11 +199,12 @@
                                             if(!$result = $insert_stud->get_result() && $mysqli->errno == 0)
                                                 echo "<script>$(document).ready(function(){
                                                         swal({
-                                                        title: 'Success',
-                                                        text: 'Sign up completed successfully!',
-                                                        type: 'success'
-                                                    });
-                                                    
+                                                            title: 'Success',
+                                                            text: 'Sign up completed successfully!',
+                                                            type: 'success'
+                                                        }).then(() => {
+                                                            window.location.href = 'login.php';
+                                                        });       
                                                 });</script>";
                                             else
                                             {
@@ -667,7 +668,7 @@
                                     <div class="form-group">
                                         <div class="form-line inputDiv" id="route_div">
                                             <label class="" for="route">Street/Landmark/Locality</label>
-                                            <input id="route" name="route" class="form-control" readonly style="background-color:#efefef;" type="text" required />
+                                            <input id="route" name="route" class="form-control" readonly style="background-color:#efefef;" type="text"/>
                                         </div>
                                     </div>
                                 </div>
@@ -675,7 +676,7 @@
                                     <div class="form-group">
                                         <div class="form-line inputDiv" id="locality_div">
                                             <label class="" for="locality">City</label>
-                                            <input id="locality" name="locality" class="form-control" readonly style="background-color:#efefef;" type="text" required />
+                                            <input id="locality" name="locality" class="form-control" readonly style="background-color:#efefef;" type="text"/>
                                         </div>
                                     </div>
                                 </div>
@@ -685,7 +686,7 @@
                                     <div class="form-group">
                                         <div class="form-line inputDiv" id="administrative_area_level_1_div">
                                             <label class="" for="administrative_area_level_1">State</label>
-                                            <input id="administrative_area_level_1" name="administrative_area_level_1" class="form-control" readonly style="background-color:#efefef;" type="text" required/>
+                                            <input id="administrative_area_level_1" name="administrative_area_level_1" class="form-control" readonly style="background-color:#efefef;" type="text"/>
                                         </div>
                                     </div>
                                 </div>
@@ -693,7 +694,7 @@
                                     <div class="form-group">
                                         <div class="form-line inputDiv" id="postal_code_div">
                                             <label class="" for="postal_code">Pin Code</label>
-                                            <input id="postal_code" name="postal_code" class="form-control" readonly style="background-color:#efefef;" type="text" required/>
+                                            <input id="postal_code" name="postal_code" class="form-control" readonly style="background-color:#efefef;" type="text"/>
                                         </div>
                                     </div>
                                 </div>
@@ -701,7 +702,7 @@
                                     <div class="form-group">
                                         <div class="form-line inputDiv" id="country_div">
                                             <label class="" for="country">Country</label>
-                                            <input id="country" name="country" class="form-control" readonly style="background-color:#efefef;" type="text" required/>
+                                            <input id="country" name="country" class="form-control" readonly style="background-color:#efefef;" type="text"/>
                                         </div>
                                     </div>
                                 </div>

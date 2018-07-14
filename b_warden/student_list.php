@@ -60,40 +60,40 @@
                                         echo "<tr>
                                                 <th scope=\"row\">".$cnt."</th>
                                                 <td>".$b_row_student['Name']."</td>";
-                                                if($b_row_student['Room_No'] == 0)
-                                                    echo "<td>xxxxxxxxxxx</td>";
-                                                else
-                                                    echo "<td>".$b_row_student['MIS']."</td>
-                                                <td>".$b_row_student['Email_Id']."</td>
-                                                <td>".$b_row_student['City']."</td>";
-                                                if($b_row_student['Admission_Type'] == 'M')
-                                                    echo "<td>Management Quota</td>";
-                                                else if($b_row_student['Admission_Type'] == 'C')
-                                                    echo "<td>CAP Rounds</td>";
-                                                else if($b_row_student['Admission_Type'] == 'P')
-                                                    echo "<td>PIO</td>";
-                                                else if($b_row_student['Admission_Type'] == 'CI')
-                                                    echo "<td>CIWGC</td>";
-                                                else if($b_row_student['Admission_Type'] == 'JK')
-                                                    echo "<td>Jammu and Kashmir</td>";
-                                                else if($b_row_student['Admission_Type'] == 'DSE')
-                                                    echo "<td>Direct Second Year</td>";
-                                                else
-                                                    echo "<td>Others</td>";
-                                                if($b_row_student['Room_No'] == 0)
-                                                    echo "<td>xxxxxxxxxxx</td>";
-                                                else
-                                                    echo "<td>".$b_row_student['Receipt_No']."</td>";
-                                                if($b_row_student['Room_No'] == 0)
-                                                    echo "<td>xxxxxx</td>";
-                                                else
-                                                    echo "<td>".$b_row_student['Amount_Paid']."</td>";
-                                                if($b_row_student['Room_No'] == 0)
-                                                    echo "<td>Not alloted</td>";
-                                                else
-                                                    echo "<td>".$b_row_student['Room_No']."</td>";
+                                        if($b_row_student['Room_No'] == 0)
+                                            echo "<td>xxxxxxxxxxx</td>";
+                                        else
+                                            echo "<td>".$b_row_student['MIS']."</td>";
+                                        echo "<td>".$b_row_student['Email_Id']."</td>
+                                              <td>".$b_row_student['City']."</td>";
+                                        if($b_row_student['Admission_Type'] == 'M')
+                                            echo "<td>Management Quota</td>";
+                                        else if($b_row_student['Admission_Type'] == 'C')
+                                            echo "<td>CAP Rounds</td>";
+                                        else if($b_row_student['Admission_Type'] == 'P')
+                                            echo "<td>PIO</td>";
+                                        else if($b_row_student['Admission_Type'] == 'CI')
+                                            echo "<td>CIWGC</td>";
+                                        else if($b_row_student['Admission_Type'] == 'JK')
+                                            echo "<td>Jammu and Kashmir</td>";
+                                        else if($b_row_student['Admission_Type'] == 'DSE')
+                                            echo "<td>Direct Second Year</td>";
+                                        else
+                                            echo "<td>Others</td>";
+                                        if($b_row_student['Room_No'] == 0)
+                                            echo "<td>xxxxxxxxxxx</td>";
+                                        else
+                                            echo "<td>".$b_row_student['Receipt_No']."</td>";
+                                        if($b_row_student['Room_No'] == 0)
+                                            echo "<td>xxxxxx</td>";
+                                        else
+                                            echo "<td>".$b_row_student['Amount_Paid']."</td>";
+                                        if($b_row_student['Room_No'] == 0)
+                                            echo "<td>Not alloted</td>";
+                                        else
+                                            echo "<td>".$b_row_student['Room_No']."</td>";
                                         echo  "</tr>";
-                                        $cnt +=1;
+                                        $cnt +=1;          
                                     }
                                     ?>
                                 </tbody>

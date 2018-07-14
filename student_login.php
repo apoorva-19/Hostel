@@ -4,15 +4,15 @@
     if($_SERVER["REQUEST_METHOD"] == "POST")
     {
         $jsonResponse = array();
-        if(empty(trim($_POST["mis"])) && preg_match('/^[ICE]{1}2K[0-9]{8}/', strtoupper(trim($_POST[mis]))))
-        {
-            $jsonResponse["status"] = "failure";
-            $jsonResponse["message"] = "Please enter a valid mis id";
-        }
         if(empty(trim($_POST["password"])))
         {
             $jsonResponse["status"] = "failure";
             $jsonResponse["message"] = "Password cannot be empty";
+        }
+        else if(!preg_match('/^[ICE]{1}2K[0-9]{8}/', strtoupper(trim($_POST["mis"]))))
+        {
+            $jsonResponse["status"] = "failure";
+            $jsonResponse["message"] = "Please enter a valid MIS Id";
         }
         else
         {
@@ -75,7 +75,7 @@
                                         else
                                         {
                                             $jsonResponse["status"] = "failure";
-                                            $jsonResponse["message"] = "MIS Id not found. Please sign up before logging in.";
+                                            $jsonResponse["message"] = "MIS id not found. Please sign up before logging in.";
                                         }
                                     }
                                 }
