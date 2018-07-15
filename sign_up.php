@@ -97,7 +97,7 @@
                 $password = password_hash($_POST["password"], PASSWORD_DEFAULT);
                 $date = date('Y-m-d');
 
-                $sql = "SELECT `MIS` FROM `New_Registrations` WHERE `MIS` = ?;";
+                $sql = "SELECT New_Registrations.MIS, Hostelite.MIS FROM New_Registrations LEFT OUTER JOIN Hostelite ON New_Registrations.MIS = Hostelite.MIS WHERE Hostelite.MIS = ? OR New_Registrations.MIS = ? UNION SELECT New_Registrations.MIS, Hostelite.MIS FROM New_Registrations RIGHT OUTER JOIN Hostelite ON New_Registrations.MIS = Hostelite.MIS WHERE Hostelite.MIS = ? OR New_Registrations.MIS = ?";
                 if(!($verify_mis = $mysqli->prepare($sql)))
                 {
                     //error_log('Prepare failed for mis checking in sign_up.php: ('.$mysqli->errno.') '.$mysqli->error);
@@ -111,7 +111,7 @@
                 }
                 else
                 {
-                    if(!($verify_mis->bind_param('s', $mis)))
+                    if(!($verify_mis->bind_param('ssss',$mis ,$mis,$mis,$mis)))
                     {
                         //error_log('Binding failed for mis checking in sign_up.php: ('.$mysqli->errno.') '.$mysqli->error);
                         echo "<script>$(document).ready(function(){
