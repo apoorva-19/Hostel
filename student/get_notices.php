@@ -15,11 +15,6 @@
         header("Location:../404.html");
         exit;
     }
-    if($_SESSION["gender"] != "F" || $_SESSION["gender"] != "M" || $_SESSION["gender"] != "O")
-    {
-        header("Location:../404.html");
-        exit;
-    }
 	require_once("../connect.php");
 
 	$sql = "SELECT Category, Date_From, Date_To, Notice_Text FROM Notices";

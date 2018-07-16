@@ -27,10 +27,6 @@
             loadNotices();
         }
 
-        function loadNotices() {
-            httpGetAsync("get_notices.php", getNoticesCallback);
-        }
-
         function getNoticesCallback(noticesJson) {
             jsonObj = JSON.parse(noticesJson);
 
@@ -66,6 +62,10 @@
                 divCol.appendChild(divCard);
                 divNotice.appendChild(divCol);
             }
+        }
+
+        function loadNotices() {
+            httpGetAsync("get_notices.php", getNoticesCallback);
         }
     </script>
 <body>

@@ -366,7 +366,7 @@
                             </thead>
                             <tbody>
                                 <?php
-                                $students="SELECT * FROM `New_Registrations` WHERE `Reg_Date` = '".date("Y-m-d")."';";
+                                $students="SELECT * FROM `New_Registrations`";
                                 if($result = mysqli_query($mysqli, $students))
                                 {
                                     $cnt=1;

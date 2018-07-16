@@ -154,7 +154,7 @@
                               </thead>
                               <tbody>
                                   <?php
-                                    $students="SELECT * FROM `New_Registrations` WHERE `Reg_Date` = '".date("Y-m-d")."' AND `Gender` = 'M';";
+                                    $students="SELECT * FROM `New_Registrations` WHERE `Gender` = 'M';";
                                     if($result = mysqli_query($mysqli, $students))
                                     {
                                         $cnt=1;

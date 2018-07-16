@@ -88,7 +88,6 @@
                             {
                                 $_SESSION["user"] = $mis;
                                 $_SESSION["gender"] = $row["Gender"];
-                                error_log($row["Gender"]);
                                 setcookie("user", $mis, time() + 86400);
                                 $jsonResponse["status"] = "success";
                                 $jsonResponse["message"] = "Login successful";

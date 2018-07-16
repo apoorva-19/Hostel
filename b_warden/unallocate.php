@@ -15,48 +15,43 @@
     {
         $jsonArray = array();
         $mis = test_input($_POST["misID"]);
-        $fetch_mis = "SELECT * FROM `New_Registrations` WHERE `MIS` = ? AND `Gender` = 'M'";
+        $fetch_mis = "SELECT * FROM `Hostelite` WHERE `MIS` = ? AND `Gender` = 'M';";
         if(!($fetch_mis = $mysqli->prepare($fetch_mis)))
         {
             //error_log('Prepare failed for unallocating room number in unallocate.php: ('.$mysqli->errno.') '.$mysqli->error);
             $jsonArray["result"] = "Request could not be processed. We are trying to fix the error.";
-            exit;
         }
-        if(!($fetch_mis->bind_param('s', $mis)))
+        else if(!($fetch_mis->bind_param('s', $mis)))
         {
             //error_log('Bind param failed for unallocating room number in unallocate.php: ('.$mysqli->errno.') '.$mysqli->error);
             $jsonArray["result"] = "Request could not be processed. We are trying to fix the error.";
-            exit;
         }
-        if(!($fetch_mis->execute()))
+        else if(!($fetch_mis->execute()))
         {
             //error_log('Execution failed for unallocating room number in unallocate.php: ('.$mysqli->errno.') '.$mysqli->error);
             $jsonArray["result"] = "Request could not be processed. We are trying to fix the error.";
-            exit;
         }
-        if($result = $fetch_mis->get_result())
+        else if($result = $fetch_mis->get_result())
         {
             $row = $result->fetch_assoc();
             if($mis == $row["MIS"])
             {   
-                $reset_room_no = "UPDATE `New_Registrations` SET `Room_No` = '0', `Verify_Warden` = 'N' WHERE `MIS` = ?";
+                $room = $row["Room_No"];
+                $reset_room_no = "INSERT INTO `New_Registrations`(`MIS`, `Email_Id`, `Password`, `Name`, `Gender`, `Contact_Number`, `DOB`, `Reg_Date`, `Branch`, `Year`, `Admission_Type`, `Receipt_No`, `Amount_Paid`, `Mode_Transaction`, `Street`, `City`, `State`, `Pincode`, `Country`) SELECT `MIS`, `Email_Id`, `Password`, `Name`, `Gender`, `S_Contact`, `DOB`, `Reg_Date`, `Branch`, `Year`, `Admission_Type`, `Receipt_No`, `Amount_Paid`, `Mode_Transaction`, `Street`, `City`, `State`, `Pincode`, `Country` FROM `Hostelite` WHERE `Hostelite`.`MIS` = ?";
                 if(!($reset_room_no = $mysqli->prepare($reset_room_no)))
                 {
                     //error_log('Prepare failed for resetting room number in unallocate.php: ('.$mysqli->errno.') '.$mysqli->error);
                     $jsonArray["result"] = "Request could not be processed. We are trying to fix the error.";
-                    exit;
                 }
-                if(!($reset_room_no->bind_param('s', $mis)))
+                else if(!($reset_room_no->bind_param('s', $mis)))
                 {
                     //error_log('Bind param failed for resetting room number in unallocate.php: ('.$mysqli->errno.') '.$mysqli->error);
                     $jsonArray["result"] = "Request could not be processed. We are trying to fix the error.";
-                    exit;
                 }
-                if(!($reset_room_no->execute()))
+                else if(!($reset_room_no->execute()))
                 {
                     //error_log('Execution failed for resetting room number in unallocate.php: ('.$mysqli->errno.') '.$mysqli->error);
                     $jsonArray["result"] = "Request could not be processed. We are trying to fix the error.";
-                    exit;
                 }
                 else
                 {
@@ -65,19 +60,32 @@
                     {
                         //error_log('Prepare failed for resetting room number in unallocate.php: ('.$mysqli->errno.') '.$mysqli->error);
                         $jsonArray["result"] = "Request could not be processed. We are trying to fix the error.";
-                        exit;
                     }
-                    if(!($unallocate->bind_param('s', $row["Room_No"])))
+                    else if(!($unallocate->bind_param('s', $room)))
                     {
                         //error_log('Bind param failed for resetting room number in unallocate.php: ('.$mysqli->errno.') '.$mysqli->error);
                         $jsonArray["result"] = "Request could not be processed. We are trying to fix the error.";
-                        exit;
                     }
-                    if(!($unallocate->execute()))
+                    else if(!($unallocate->execute()))
                     {
                         //error_log('Execution failed for resetting room number in unallocate.php: ('.$mysqli->errno.') '.$mysqli->error);
                         $jsonArray["result"] = "Request could not be processed. We are trying to fix the error.";
-                        exit;
+                    }
+                    $remove_hostel = "DELETE FROM `Hostelite` WHERE MIS = ?;";
+                    if(!($remove_hostel = $mysqli->prepare($remove_hostel)))
+                    {
+                        //error_log('Prepare failed for resetting room number in unallocate.php: ('.$mysqli->errno.') '.$mysqli->error);
+                        $jsonArray["result"] = "Request could not be processed. We are trying to fix the error.";
+                    }
+                    else if(!($remove_hostel->bind_param('s', $mis)))
+                    {
+                        //error_log('Bind param failed for resetting room number in unallocate.php: ('.$mysqli->errno.') '.$mysqli->error);
+                        $jsonArray["result"] = "Request could not be processed. We are trying to fix the error.";
+                    }
+                    else if(!($remove_hostel->execute()))
+                    {
+                        //error_log('Execution failed for resetting room number in unallocate.php: ('.$mysqli->errno.') '.$mysqli->error);
+                        $jsonArray["result"] = "Request could not be processed. We are trying to fix the error.";
                     }
                     $jsonArray["result"] = "Room unallocated successfully!";
                 }
