@@ -312,7 +312,7 @@
                 setTimeout(function() { $('form').validate().showErrors({ 'mode_trans' : 'Please select a valid transaction type' }) }, 100);
             });</script>";
         }
-        if(!(isset($_POST["amt_paid"]) && !(empty(trim($_POST["amt_paid"]))) && is_numeric($_POST["amt_paid"])))
+        if(!(isset($_POST["amt_paid"]) && !(empty(trim($_POST["amt_paid"]))) && preg_match('/^\d+\.?\d*$/')))
         {
             $valid = false;
             echo "<script>document.addEventListener('DOMContentLoaded', function() { document.getElementById('amt_paid').className +=' focused error'; });</script>";
@@ -320,7 +320,7 @@
                 setTimeout(function() { $('form').validate().showErrors({ 'amt_paid' : 'Please enter a valid amount' }) }, 100);
             });</script>";
         }
-        if(!(isset($_POST["stud_receipt"]) && !(empty(trim($_POST["stud_receipt"]))) && is_numeric($_POST["stud_receipt"])))
+        if(!(isset($_POST["stud_receipt"]) && !(empty(trim($_POST["stud_receipt"]))) && preg_match('/[0-9a-zA-Z]/')))
         {
             $valid = false;
             echo "<script>document.addEventListener('DOMContentLoaded', function() { document.getElementById('stud_receipt').className += ' focused error'; });</script>";
@@ -626,7 +626,7 @@
                                     <div class="form-group">
                                         <div class="form-line inputDiv" id="stud_receipt">
                                             <label class="required" for="stud_receipt">Hostel fee receipt number/UTR number</label>
-                                            <input type="text" class=" form-control" placeholder="Receipt Number for Hostel Reservation" name="stud_receipt" id="stud_receipt_input" oninvalid="this.setCustomValidity('Please enter a valid hostel receipt number');" onchange="this.setCustomValidity('');" oninput="this.setCustomValidity('');" pattern="^[0-9]\d*$" required>
+                                            <input type="text" class=" form-control" placeholder="Receipt Number for Hostel Reservation" name="stud_receipt" id="stud_receipt_input" oninvalid="this.setCustomValidity('Please enter a valid hostel receipt number');" onchange="this.setCustomValidity('');" oninput="this.setCustomValidity('');" pattern="[0-9A-Za-z]" required>
                                         </div>
                                     </div>
                                 </div>
@@ -634,7 +634,7 @@
                                     <div class="form-group">
                                         <div class="form-line inputDiv" id="amt_paid">
                                             <label class="required" for="amt_paid">Amount Paid for Hostel Reservation</label>
-                                            <input type="number" placeholder="100000" class="form-control" name="amt_paid" id="amt_paid_input" pattern="^(?!0*[.,]0*$|[.,]0*$|0*$)\d+[,.]?\d{0,2}$" oninvalid="this.setCustomValidity('Please enter the correct amount paid for the hostel');" onchange="this.setCustomValidity('');" required>
+                                            <input type="number" min="1" step="any" placeholder="100000" class="form-control" name="amt_paid" id="amt_paid_input" oninput="validity.valid || (value='');" required>
                                         </div>
                                     </div>
                                 </div>

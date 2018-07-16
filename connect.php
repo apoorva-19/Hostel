@@ -7,7 +7,7 @@
 mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
 try
 {
-	$mysqli = new mysqli("localhost", "root", "", "hostel_mgmt");
+    $mysqli = new mysqli("localhost", "root", "", "hostel_mgmt");
 }
 catch(Exception $e) {
 	//error_log($e->getMessage());
