@@ -8047,3 +8047,7 @@ html.ie11 .bs-searchbox .form-control {
 .error-message li {
   color: #FF0000;
 }
+
+.round-img{
+  border-radius: 50%;
+}

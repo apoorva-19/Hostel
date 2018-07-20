@@ -312,7 +312,7 @@
                 setTimeout(function() { $('form').validate().showErrors({ 'mode_trans' : 'Please select a valid transaction type' }) }, 100);
             });</script>";
         }
-        if(!(isset($_POST["amt_paid"]) && !(empty(trim($_POST["amt_paid"]))) && preg_match('/^\d+\.?\d*$/')))
+        if(!(isset($_POST["amt_paid"]) && !(empty(trim($_POST["amt_paid"]))) && preg_match('/^[1-9]\d*(\.\d+)?$/', $_POST["amt_paid"])))
         {
             $valid = false;
             echo "<script>document.addEventListener('DOMContentLoaded', function() { document.getElementById('amt_paid').className +=' focused error'; });</script>";
@@ -320,7 +320,7 @@
                 setTimeout(function() { $('form').validate().showErrors({ 'amt_paid' : 'Please enter a valid amount' }) }, 100);
             });</script>";
         }
-        if(!(isset($_POST["stud_receipt"]) && !(empty(trim($_POST["stud_receipt"]))) && preg_match('/[0-9a-zA-Z]/')))
+        if(!(isset($_POST["stud_receipt"]) && !(empty(trim($_POST["stud_receipt"]))) && preg_match('/[0-9a-zA-Z]+/', $_POST["stud_receipt"])))
         {
             $valid = false;
             echo "<script>document.addEventListener('DOMContentLoaded', function() { document.getElementById('stud_receipt').className += ' focused error'; });</script>";
@@ -389,8 +389,9 @@
             foreach($data->rows[0]->elements as $road) {
                 if($road->status == "OK")
                 {
-                    $distance += $road->distance->text;
-                    $distance = (float)$distance;
+                    $distance += $road->distance->value;
+
+                    $distance = $distance/1000;
                     $GLOBALS["distance"] = $distance;
                     if($distance < 50.0)
                         return 0;   
@@ -626,7 +627,7 @@
                                     <div class="form-group">
                                         <div class="form-line inputDiv" id="stud_receipt">
                                             <label class="required" for="stud_receipt">Hostel fee receipt number/UTR number</label>
-                                            <input type="text" class=" form-control" placeholder="Receipt Number for Hostel Reservation" name="stud_receipt" id="stud_receipt_input" oninvalid="this.setCustomValidity('Please enter a valid hostel receipt number');" onchange="this.setCustomValidity('');" oninput="this.setCustomValidity('');" pattern="[0-9A-Za-z]" required>
+                                            <input type="text" class=" form-control" placeholder="Receipt Number for Hostel Reservation" name="stud_receipt" id="stud_receipt_input" oninvalid="this.setCustomValidity('Please enter a valid hostel receipt number');" onchange="this.setCustomValidity('');" oninput="this.setCustomValidity('');" pattern="[0-9A-Za-z]+" required>
                                         </div>
                                     </div>
                                 </div>
