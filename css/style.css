@@ -8051,3 +8051,10 @@ html.ie11 .bs-searchbox .form-control {
 .round-img{
   border-radius: 50%;
 }
+
+.sign_up{
+  background-image: url("../images/backgrounds.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
