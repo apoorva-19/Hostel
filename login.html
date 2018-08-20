@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <title>Sign In | PICT Hostel</title>
+
+    <!-- Favicon-->
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,700&subset=latin,cyrillic-ext" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" type="text/css">
+
+    <!-- Bootstrap Core Css -->
+    <link href="plugins/bootstrap/css/bootstrap.css" rel="stylesheet">
+
+    <!-- Waves Effect Css -->
+    <link href="plugins/node-waves/waves.css" rel="stylesheet" />
+
+    <!-- Animation Css -->
+    <link href="plugins/animate-css/animate.css" rel="stylesheet" />
+
+    <!-- SweetAlert Css -->
+    <link href="plugins/sweetalert/sweetalert.css" rel="stylesheet" />
+
+     <!-- Custom Css -->
+    <link href="css/style.css" rel="stylesheet">
+</head>
+
+<body class="login-page">
+    <div class="login-box" id="student-login">
+        <div class="logo">
+            <img src="images/transparent_logo.png">
+            <small>PICT Hostel - Student Login</small>
+        </div>
+        <div class="card">
+            <div class="body">
+                <form id="studentSignIn" method="POST" action="student_login.php">
+                    <div class="msg">Sign in to start your session</div>
+                    <div class="input-group">
+                        <span class="input-group-addon">
+                            <i class="material-icons">person</i>
+                        </span>
+                        <div class="form-line">
+                            <input type="text" id="misID" name="mis" class="form-control" placeholder="MIS ID" required autofocus aria-required="true">
+                        </div>    
+                    </div>
+                    <div class="input-group">
+                        <span class="input-group-addon">
+                            <i class="material-icons">lock</i>
+                        </span>
+                        <div class="form-line">
+                            <input type="password" class="form-control" id="studentPassword" name="password" placeholder="Password" required autofocus aria-required="true">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-8 p-t-5">
+                        </div>
+                        <div class="col-xs-4">
+                            <button class="btn btn-block bg-pink waves effect" type="submit" id="studentSubmit">SIGN IN</button>
+                        </div>
+                    </div>
+                    <div class="row m-t-15">
+                        <div class="col-xs-6">
+                            <a href="sign_up.php">Register Here!</a>
+                        </div>
+                        <div class="col-xs-6 align-right">
+                            <a href="forgot_password.php">Forgot Password?</a>
+                        </div>
+                    </div>
+                    <div class="row m-t-5 m-b-10 align-center">
+                        <a href="javascript:void(0)" id="staffLink">Click here for staff login</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="login-box" id="staff-login">
+        <div class="logo">
+            <img src="images/transparent_logo.png">
+            <small>PICT Hostel - Staff Login</small>
+        </div>
+        <div class="card">
+            <div class="body">
+                <form id="staffSignIn" method="POST" action="staff_login.php">
+                    <div class="msg">Sign in to start your session</div>
+                    <div class="input-group">
+                        <span class="input-group-addon">
+                            <i class="material-icons">person</i>
+                        </span>
+                        <div class="form-line">
+                            <input type="text" id="username" name="username" class="form-control" placeholder="Username" required autofocus aria-required="true">
+                        </div>    
+                    </div>
+                    <div class="input-group">
+                        <span class="input-group-addon">
+                            <i class="material-icons">lock</i>
+                        </span>
+                        <div class="form-line">
+                            <input type="password" id="staffPassword" class="form-control" name="password" placeholder="Password" required autofocus aria-required="true">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-8 p-t-5">
+                        </div>
+                        <div class="col-xs-4">
+                            <button class="btn btn-block bg-pink waves effect" type="submit">SIGN IN</button>
+                        </div>
+                    </div>
+                    <div class="row m-t-5 m-b-10 align-center">
+                        <a href="javascript:void(0)" id="studentLink">Click here for student login</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+	<!-- Jquery Core Js -->
+    <script src="plugins/jquery/jquery.min.js"></script>
+
+    <!-- Bootstrap Core Js -->
+    <script src="plugins/bootstrap/js/bootstrap.js"></script>
+
+    <!-- Waves Effect Plugin Js -->
+    <script src="plugins/node-waves/waves.js"></script>
+
+    <!-- Jquery Validate Plugin Js -->
+    <script src="plugins/jquery-validation/jquery.validate.js"></script>
+
+    <!-- Jquery Additional-Methods Plugin Js -->
+    <!-- This plugin has been included to give jquery validate plugin the ability to identify regular expressions -->
+    <script src="plugins/jquery-validation/additional-methods.js"></script>
+
+    <!-- SweetAlert Plugin Js -->
+    <script src="plugins/sweetalert/sweetalert.min.js"></script>
+
+    <!-- Custom Js -->
+    <script src="js/admin.js"></script>
+    <script src="js/login.js"></script>
+</body>
+</html>

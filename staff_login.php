@@ -6,12 +6,12 @@
         $jsonResponse = array();
         if(empty($_POST["username"]))
         {
-            $jsonResponse["status"] = "failure";
+            $jsonResponse["status"] = "Failure";
             $jsonResponse["message"] = "Username field cannot be empty";
         }
         else if(empty($_POST["password"]))
         {
-            $jsonResponse["status"] = "failure";
+            $jsonResponse["status"] = "Failure";
             $jsonResponse["message"] = "Password field cannot be empty";
         }
         else
@@ -42,7 +42,7 @@
             }
             else
             {
-                $jsonResponse["status"] = "failure";
+                $jsonResponse["status"] = "Failure";
                 $jsonResponse["message"] = "Invalid username or password";
             }
         }
@@ -50,7 +50,7 @@
     }
     else
     {
-        header("Location: 404.html");
+        header("Location: 403.html");
         exit;
     }
 ?>

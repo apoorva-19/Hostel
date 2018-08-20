@@ -6,12 +6,12 @@
         $jsonResponse = array();
         if(empty(trim($_POST["password"])))
         {
-            $jsonResponse["status"] = "failure";
+            $jsonResponse["status"] = "Failure";
             $jsonResponse["message"] = "Password cannot be empty";
         }
-        else if(!preg_match('/^[ICE]{1}2K[0-9]{8}/', strtoupper(trim($_POST["mis"]))))
+        else if(!preg_match('/^[ICE]{1}2K[0-9]{8}$/', strtoupper(trim($_POST["mis"]))))
         {
-            $jsonResponse["status"] = "failure";
+            $jsonResponse["status"] = "Failure";
             $jsonResponse["message"] = "Please enter a valid MIS Id";
         }
         else
@@ -21,21 +21,21 @@
             $sql = "SELECT `Password`, `Gender` FROM `Hostelite` WHERE `MIS` = ?";
             if(!$verify_user = $mysqli->prepare($sql))
             {
-                $jsonResponse["status"] = "failure";
+                $jsonResponse["status"] = "Failure";
                 $jsonResponse["message"] = "We could not process your request because of an error in the server. We are working tirelessly to fix the issue. Please try again later.";
             }
             else
             {
                 if(!$verify_user->bind_param('s', $mis))
                 {
-                    $jsonResponse["status"] = "failure";
+                    $jsonResponse["status"] = "Failure";
                     $jsonResponse["message"] = "We could not process your request because of an error in the server. We are working tirelessly to fix the issue. Please try again later.";
                 }
                 else
                 {
                     if(!$verify_user->execute())
                     {
-                        $jsonResponse["status"] = "failure";
+                        $jsonResponse["status"] = "Failure";
                         $jsonResponse["message"] = "We could not process your request because of an error in the server. We are working tirelessly to fix the issue. Please try again later.";
                     }
                     else
@@ -46,21 +46,21 @@
                             $sql = "SELECT COUNT(*) AS `Registered` FROM `New_Registrations` WHERE MIS = ?";
                             if(!$unverified_user = $mysqli->prepare($sql))
                             {
-                                $jsonResponse["status"] = "failure";
+                                $jsonResponse["status"] = "Failure";
                                 $jsonResponse["message"] = "We could not process your request because of an error in the server. We are working tirelessly to fix the issue. Please try again later.";
                             }
                             else
                             {
                                 if(!$unverified_user->bind_param('s', $mis))
                                 {
-                                    $jsonResponse["status"] = "failure";
+                                    $jsonResponse["status"] = "Failure";
                                     $jsonResponse["message"] = "We could not process your request because of an error in the server. We are working tirelessly to fix the issue. Please try again later.";
                                 }
                                 else
                                 {
                                     if(!$unverified_user->execute())
                                     {
-                                        $jsonResponse["status"] = "failure";
+                                        $jsonResponse["status"] = "Failure";
                                         $jsonResponse["message"] = "We could not process your request because of an error in the server. We are working tirelessly to fix the issue. Please try again later.";
                                     }
                                     else
@@ -69,12 +69,12 @@
                                         $row = $result->fetch_assoc();
                                         if($row["Registered"] == 1)
                                         {
-                                            $jsonResponse["status"] = "failure";
+                                            $jsonResponse["status"] = "Failure";
                                             $jsonResponse["message"] = "Your account has not been verified. Please contact the warden and verify your account.";
                                         }
                                         else
                                         {
-                                            $jsonResponse["status"] = "failure";
+                                            $jsonResponse["status"] = "Failure";
                                             $jsonResponse["message"] = "MIS id not found. Please sign up before logging in.";
                                         }
                                     }
@@ -95,7 +95,7 @@
                             }
                             else
                             {
-                                $jsonResponse["status"] = "failure";
+                                $jsonResponse["status"] = "Failure";
                                 $jsonResponse["message"] = "Incorrect mis ID or password";
                             }
                         }
@@ -104,5 +104,10 @@
             }
         }
         echo json_encode($jsonResponse);
+    }
+    else
+    {
+        header("Location: 403.html");
+        exit;
     }
 ?>

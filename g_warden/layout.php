@@ -2,17 +2,17 @@
     session_start();
     if(empty($_SESSION["user"]))
     {
-        header("Location:../404.html");
+        header("Location:../403.html");
         exit;
     }
     if($_SESSION["user"] != "g_warden")
     {
-        header("Location:../404.html");
+        header("Location:../403.html");
         exit;
     }
     if(empty($_POST["allocate"]))
     {
-        header("Location: ../404.html");
+        header("Location: ../403.html");
         exit;
     }
     require_once('../connect.php');

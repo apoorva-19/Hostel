@@ -7720,11 +7720,14 @@ fieldset[disabled] .form-control {
 
 /* Login Page ================================== */
 .login-page {
-  /* background-color: #00BCD4; */
+  background-color: #00838f;
   padding-left: 0;
   max-width: 360px;
   margin: 5% auto;
   overflow-x: hidden; }
+  .login-page #staff-login {
+    display: none;
+  }
   .login-page .login-box .msg {
     color: #555;
     margin-bottom: 30px;
@@ -7735,19 +7738,73 @@ fieldset[disabled] .form-control {
     color: #00BCD4; }
   .login-page .login-box .logo {
     margin-bottom: 20px; }
-    .login-page .login-box .logo a {
-      font-size: 36px;
-      display: block;
-      width: 100%;
-      text-align: center;
-      color: #fff; }
-    .login-page .login-box .logo small {
+  .login-page .login-box .logo img {
+    display: block;
+    margin: auto 33%;
+  }
+  .login-page .login-box .logo small {
       display: block;
       width: 100%;
       text-align: center;
       color: #fff;
-      margin-top: -5px; }
-
+      font-size: 18px;
+      margin-top: -5px; 
+    }
+  .login-page .login-box .input-group .form-line:after {
+      border-bottom: 2px solid #4fb3bf;
+  }
+  .login-page .login-box .input-group input::placeholder {
+    font-family: 'roboto', sans-serif;
+    -webkit-transition: all 0.3s ease-in-out;
+    -o-transition: all 0.3s ease-in-out;
+    -moz-transition: all 0.3s ease-in-out;
+    transition: all 0.3s ease-in-out;
+  }
+  .login-page .login-box .input-group input::-webkit-placeholder {
+    font-family: 'roboto', sans-serif;
+    -webkit-transition: all 0.3s ease-in-out;
+    transition: all 0.3s ease-in-out;
+  }
+  .login-page .login-box .input-group input::-moz-placeholder {
+    font-family: 'roboto', sans-serif;
+    -moz-transition: all 0.3s ease-in-out;
+    transition: all 0.3s ease-in-out;
+  }
+  .login-page .login-box .input-group input::-ms-placeholder {
+    font-family: 'roboto', sans-serif;
+    -ms-transition: all 0.3s ease-in-out;
+    transition: all 0.3s ease-in-out;
+  }
+  .login-page .login-box .input-group input:focus::placeholder, input:valid::placeholder {
+    color: #4fb3bf;
+    font-size: 12px;
+    -webkit-transform: translateY(-13px);
+    -o-transform: translateY(-13px);
+    -moz-transform: translateY(-13px);
+    transform: translateY(-13px);
+    visibility: visible !important;
+  }
+  .login-page .login-box .input-group input:focus::-webkit-placeholder, input:valid::-webkit-placeholder {
+      color: #4fb3bf;
+      font-size: 12px;
+      -webkit-transform: translateY(-13px);
+      transform: translateY(-13px);
+      visibility: visible !important;
+  }
+  .login-page .login-box .input-group input:focus::-moz-placeholder, input:valid::-moz-placeholder {
+    color: #4fb3bf;
+    font-size: 12px;
+    -moz-transform: translateY(-13px);
+    transform: translateY(-13px);
+    visibility: visible !important;
+  }
+  .login-page .login-box .input-group input:focus::-ms-placeholder, input:valid::-ms-input-placeholder {
+    color: #4fb3bf;
+    font-size: 12px;
+    -ms-transform: translateY(-13px);
+    transform: translateY(-13px);
+    visibility: visible !important;
+  }
 /* Sign Up Page ================================ */
 .signup-page {
   background-color: #00BCD4;
