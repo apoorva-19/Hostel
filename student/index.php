@@ -15,7 +15,45 @@
         header("Location:../404.html");
         exit;
     }
+    require_once('../connect.php');
     require_once('base.php');
+    $mis = test_input($_SESSION["user"]);
+    $sql = "SELECT Night_Out_Count, Late_Count, Noon_Count FROM Hostelite WHERE MIS = ?";
+    if(!($verify_student = $mysqli->prepare($sql)))
+    {
+        //error_log('Prepare failed for verifying student in change_room.php: ('.$mysqli->errno.') '.$mysqli->error);
+        echo "<script>swal({
+            title: 'Error',
+            text: 'Request could not be processed. We are trying to fix the error.',
+            type: 'error'
+        })</script>";
+        exit;
+    }
+    if(!($verify_student->bind_param('s', $mis)))
+    {
+        //error_log('Bind param failed for verifying student in change_room.php: ('.$mysqli->errno.') '.$mysqli->error);
+        echo "<script>swal({
+            title: 'Error',
+            text: 'Request could not be processed. We are trying to fix the error.',
+            type: 'error'
+        })</script>";
+        exit;
+    }
+    if(!$verify_student->execute())
+    {
+        //error_log('Execution failed for verifying student in change_room.php: ('.$mysqli->errno.') '.$mysqli->error);
+        echo "<script>swal({
+            title: 'Error',
+            text: 'Request could not be processed. We are trying to fix the error.',
+            type: 'error'
+        })</script>";
+        exit;
+    }
+    $count = $verify_student->get_result();
+    $count = $count->fetch_assoc();
+    $night = $count['Night_Out_Count'];
+    $late = $count['Late_Count'];
+    $noon = $count['Noon_Count'];
 ?>
 
 <!DOCTYPE html>
@@ -80,7 +118,7 @@
                         </div>
                         <div class="content">
                             <div class="text">LATE REMARKS</div>
-                            <div class="number count-to" data-from="0" data-to="4" data-speed="500" data-fresh-interval="20">4</div>
+                            <div class="number count-to" data-from="0" data-to="<?php echo $late; ?>" data-speed="500" data-fresh-interval="20"><?php echo $late; ?></div>
                         </div>
                     </div>
                 </div>
@@ -91,7 +129,7 @@
                         </div>
                         <div class="content">
                             <div class="text">AFTERNOON REMARKS</div>
-                            <div class="number count-to" data-from="0" data-to="4" data-speed="500" data-fresh-interval="20">4</div>
+                            <div class="number count-to" data-from="0" data-to="<?php echo $noon; ?>" data-speed="500" data-fresh-interval="20"><?php echo $noon; ?></div>
                         </div>
                     </div>
                 </div>
@@ -102,7 +140,7 @@
                         </div>
                         <div class="content">
                             <div class="text">LEAVE REMARKS</div>
-                            <div class="number count-to" data-from="0" data-to="4" data-speed="500" data-fresh-interval="20">4</div>
+                            <div class="number count-to" data-from="0" data-to="<?php echo $night; ?>" data-speed="500" data-fresh-interval="20"><?php echo $night; ?></div>
                         </div>
                     </div>
                 </div>
